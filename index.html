@@ -495,26 +495,26 @@ const TRUST_CHIPS = [
 // ─────────────────────────────────────────────────────────────────────────
 const VIDEO_CARDS = [
   {
-    dest:        'thailand',
-    thumbnail:   'https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg.jpg',
+    dest:        'italy',
+    thumbnail:   'https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg',
     videoUrl:    'https://www.tiktok.com/@galswhotravel/video/7634192451753938178',
-    title:       'italy girls trip',
+    title:       'Italy Girls Trip',
     days:        '8 days',
-    tag:         '🍕 Rome · positano',
+    tag:         '🍕 Rome · Positano',
     username:    '@galswhotravel',
-    userInitial: 'gwt',
+    userInitial: 'G',
     likes:       '100',
     comments:    '10',
   },
   {
-    dest:        'sri lanka',
+    dest:        'srilanka',
     thumbnail:   'https://galswhotravel.trutravels.com/images/gals-who-travel-sri-lanka-nine-arches-bridge.jpg',
     videoUrl:    'https://www.tiktok.com/@galswhotravel/video/7614876491519692054',
-    title:       'Sri Lanka girls trip 🌴',
+    title:       'Sri Lanka Girls Trip 🌴',
     days:        '10 days',
-    tag:         '🌊 negomobo · unawatuna',
+    tag:         '🌊 Negombo · Unawatuna',
     username:    '@galswhotravel',
-    userInitial: 'gwt',
+    userInitial: 'G',
     likes:       '100',
     comments:    '32',
   },
@@ -522,49 +522,25 @@ const VIDEO_CARDS = [
     dest:        'morocco',
     thumbnail:   'https://galswhotravel.trutravels.com/images/gals-who-travel-morocco-at-last-mountains-waterfall.jpeg',
     videoUrl:    'https://www.tiktok.com/@galswhotravel/video/7474163589314661654',
-    title:       'Morocco uncovered girls trip',
+    title:       'Morocco Uncovered',
     days:        '9 days',
-    tag:         '🏜 marrakesh · atlas mountains',
+    tag:         '🏜 Marrakech · Atlas Mountains',
     username:    '@galswhotravel',
-    userInitial: 'gwt',
+    userInitial: 'G',
     likes:       '100',
     comments:    '32',
   },
   {
     dest:        'vietnam',
-    thumbnail:   'https://galswhotravel.trutravels.com/images/lanterns-1.jpg.jpg',
+    thumbnail:   'https://galswhotravel.trutravels.com/images/lanterns-1.jpg',
     videoUrl:    'https://www.tiktok.com/@galswhotravel/video/7570300364906433814',
-    title:       'vietnam girls trip',
+    title:       'Vietnam Girls Trip',
     days:        '13 days',
-    tag:         ' ho chi minh · hanoi',
+    tag:         '🛵 Ho Chi Minh · Hanoi',
     username:    '@galswhotravel',
-    userInitial: 'gwt',
+    userInitial: 'G',
     likes:       '100',
     comments:    '32',
-  },
-  {
-    dest:        'costarica',
-    thumbnail:   'https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg',
-    videoUrl:    'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',
-    title:       'Costa Rica Adventure',
-    days:        '10 days',
-    tag:         '🌿 Jungle · Hot Springs',
-    username:    '@noemie.out',
-    userInitial: 'N',
-    likes:       '12.7k',
-    comments:    '188',
-  },
-  {
-    dest:        'japan',
-    thumbnail:   'https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg',
-    videoUrl:    'https://assets.mixkit.co/videos/preview/mixkit-cherry-tree-covered-with-many-flowers-26765-large.mp4',
-    title:       'Legend of Japan',
-    days:        '12 days',
-    tag:         '🌸 Tokyo · Kyoto',
-    username:    '@aisha.explores',
-    userInitial: 'A',
-    likes:       '41.8k',
-    comments:    '821',
   },
 ];
 
@@ -1361,60 +1337,11 @@ const FOOTER_TAGLINE = "A community giving women the confidence to explore the w
 </div></footer>
 
 <script>
-// ── Tour images per destination ──
-const TOUR_IMGS = {
-  thailand: ['https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg','https://galswhotravel.trutravels.com/thailand/khao-sok-green-waters.jpg','https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg','https://galswhotravel.trutravels.com/thailand/thailand-escape-railay-beach-kayak.jpg','https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg','https://galswhotravel.trutravels.com/phuketgwtaccomodation2.jpg','https://galswhotravel.trutravels.com/gwt-accommodation/ao-nang-fiore-resort-5.jpg','https://galswhotravel.trutravels.com/gals-who-travel-accommodation/phi-phi-2026-1.jpg','https://galswhotravel.trutravels.com/thailand/national-parks-khao-sok.jpg'],
-  bali: ['https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg','https://galswhotravel.trutravels.com/indonesia-images-itinerary/snorkellling-with-turtels-indonesia.jpg','https://galswhotravel.trutravels.com/bali-accommodation/canguu-1.png','https://galswhotravel.trutravels.com/images/legrandeuluwatu4.jpg','https://galswhotravel.trutravels.com/images/gili-t-bali-paradise.jpg','https://galswhotravel.trutravels.com/images/surfing-bali.jpg'],
-  morocco: ['https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg','https://galswhotravel.trutravels.com/images/merzouga-image-2024-2.jpg','https://galswhotravel.trutravels.com/images/ksar-merzouga-hotel-camps_2024.jpg','https://galswhotravel.trutravels.com/images/marrakech-accomodation.jpg','https://galswhotravel.trutravels.com/images/marrakech-accomodation-3.jpg'],
-  greece: ['https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg','https://galswhotravel.trutravels.com/images/gwt-santorini-sunset.jpg','https://galswhotravel.trutravels.com/images/gwt-athens-walking-tour.jpg','https://galswhotravel.trutravels.com/images/gwt-milos-day-3.jpg','https://galswhotravel.trutravels.com/greece/greece-island-hopper33.jpg'],
-  japan: ['https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg','https://galswhotravel.trutravels.com/images/legrandeuluwatu.jpg'],
-  costarica: ['https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg','https://galswhotravel.trutravels.com/thailand/national-parks-khao-sok.jpg'],
-  default: ['https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg','https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg','https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg','https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg']
-};
-
-const HERO_IMGS = {
-  thailand:'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',
-  bali:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg',
-  morocco:'https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg',
-  greece:'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',
-  japan:'https://galswhotravel.trutravels.com/images/legrandeuluwatu4.jpg',
-  costarica:'https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg'
-};
-
-// showPage now defined below
-
-// ── Trip URLs → TruTravels booking pages ──
-const TRIP_URLS = {
-  thailand:    'https://galswhotravel.trutravels.com/thailand-paradise',
-  bali:        'https://galswhotravel.trutravels.com/bali-bliss',
-  japan:       'https://galswhotravel.trutravels.com/girls-trip/japan-tour',
-  morocco:     'https://galswhotravel.trutravels.com/morocco-tour',
-  greece:      'https://galswhotravel.trutravels.com/greece-island-hopper/girls-trip',
-  costarica:   'https://galswhotravel.trutravels.com/costa-rica-girls-trip',
-  philippines: 'https://galswhotravel.trutravels.com/philippines-west/girls-trip',
-  vietnam:     'https://galswhotravel.trutravels.com/vietnam-girls-trip',
-  italy:       'https://galswhotravel.trutravels.com/italy-girls-trip',
-  europe:      'https://galswhotravel.trutravels.com/girls-trip/budapest-to-milan',
-  australia:   'https://galswhotravel.trutravels.com/australia-east-coast',
-  srilanka:    'https://galswhotravel.trutravels.com/sri-lanka-girls-trip',
-  andorra:     'https://galswhotravel.trutravels.com/andorra-ski-trip',
-};
-
+// ── UTILITY FUNCTIONS ────────────────────────────────────────────────────
 function showTour(title,days,route,price,spc,dest){
   dest = dest || 'thailand';
   const url = TRIP_URLS[dest] || 'https://galswhotravel.trutravels.com';
   window.open(url, '_blank');
-}
-
-function openModal(label,desc,imgUrl,title,days,route,price,spc,dest){
-  document.getElementById('vmod-title').textContent=label;
-  document.getElementById('vmod-desc').textContent=desc;
-  document.getElementById('vmod-bg').style.cssText=`position:absolute;inset:0;background-image:url(${imgUrl}),linear-gradient(135deg,#3A0808,#C8523A);background-size:cover;background-position:center`;
-  document.getElementById('vmod-btn').onclick=function(){
-    document.getElementById('vmod').classList.remove('open');
-    showTour(title,days,route,price,spc,dest);
-  };
-  document.getElementById('vmod').classList.add('open');
 }
 
 function toggleDay(h){const b=h.nextElementSibling,t=h.querySelector('.itog'),o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o)}
@@ -1570,8 +1497,9 @@ function openVideoModal(idx){
   // Thumbnail fallback
   bg.style.cssText = `position:absolute;inset:0;background-image:url(${c.thumbnail}),linear-gradient(135deg,#3A0808,#C8523A);background-size:cover;background-position:center;z-index:0`;
 
-  // Video
-  if(c.videoUrl){
+  // Video — TikTok URLs can't be embedded directly, so open in new tab
+  const isTikTok = c.videoUrl && c.videoUrl.includes('tiktok.com');
+  if(c.videoUrl && !isTikTok){
     vid.src = c.videoUrl;
     vid.style.display = 'block';
     vid.muted = true;
@@ -1584,6 +1512,24 @@ function openVideoModal(idx){
   } else {
     vid.style.display = 'none';
     document.getElementById('vmplay-big').classList.remove('playing');
+  }
+
+  // Show TikTok watch button if it's a TikTok link
+  let ttBtn = document.getElementById('vm-tiktok-btn');
+  if(!ttBtn){
+    ttBtn = document.createElement('a');
+    ttBtn.id = 'vm-tiktok-btn';
+    ttBtn.target = '_blank';
+    ttBtn.rel = 'noopener';
+    ttBtn.style.cssText = 'position:absolute;top:56px;left:12px;z-index:10;background:rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.25);color:#fff;border-radius:20px;padding:6px 12px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;text-decoration:none;backdrop-filter:blur(4px)';
+    document.getElementById('vmframe').appendChild(ttBtn);
+  }
+  if(isTikTok){
+    ttBtn.href = c.videoUrl;
+    ttBtn.innerHTML = '▶ Watch on TikTok';
+    ttBtn.style.display = 'flex';
+  } else {
+    ttBtn.style.display = 'none';
   }
 
   // Book button
