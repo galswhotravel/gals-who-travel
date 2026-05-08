@@ -363,6 +363,54 @@ footer{background:var(--ink);padding:52px 24px 32px}
 @media(max-width:900px){.tcgrid{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.nlinks{display:none}.hbg{display:flex}.htrust{display:none}.hstats{gap:20px}.incgrid{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr}nav{padding:0 16px}.sec{padding:40px 16px}.tcwrap{padding:24px 16px}.bbar{padding:10px 16px}.bbtabs{display:none}.gallery-grid{grid-template-columns:1fr 1fr}}
 #page-home{display:block}#page-tour{display:none}#page-blog{display:none}
+
+/* ── ARTICLE PAGE ── */
+#page-article{display:none}
+.art-hero{position:relative;height:52vh;min-height:300px;overflow:hidden;background:var(--ink)}
+.art-hero img{width:100%;height:100%;object-fit:cover;opacity:0.7}
+.art-hero-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,2,2,0.2) 0%,rgba(10,2,2,0.85) 100%)}
+.art-hero-cnt{position:absolute;bottom:0;left:0;right:0;padding:28px 24px;max-width:780px;margin:0 auto}
+.art-back{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);border-radius:20px;padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;backdrop-filter:blur(6px);margin-bottom:16px;transition:background 0.15s}
+.art-back:hover{background:rgba(255,255,255,0.2)}
+.art-catbadge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:4px 12px;border-radius:10px;margin-bottom:10px}
+.art-catbadge.cs{background:var(--pink);color:var(--red-dp)}.art-catbadge.ca{background:var(--red);color:#fff}.art-catbadge.cl{background:rgba(255,255,255,0.9);color:var(--red-dp)}.art-catbadge.cd{background:#fff;color:var(--ink)}.art-catbadge.cc{background:var(--pink-m);color:var(--red-dp)}
+.art-hero h1{font-family:'Playfair Display',serif;font-size:clamp(22px,4vw,38px);color:#fff;line-height:1.15;margin-bottom:10px}
+.art-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.art-av{width:34px;height:34px;border-radius:50%;background:var(--pink-m);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--red-dp);flex-shrink:0}
+.art-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.art-author{font-size:13px;font-weight:600;color:#fff}
+.art-date{font-size:12px;color:rgba(255,255,255,0.45)}
+.art-read{font-size:12px;color:var(--pink-m);background:rgba(232,24,10,0.18);border:1px solid rgba(232,24,10,0.3);border-radius:8px;padding:2px 8px}
+.art-body-wrap{max-width:740px;margin:0 auto;padding:44px 24px 80px}
+.art-body p{font-size:16px;line-height:1.85;color:#2A1010;margin-bottom:22px}
+.art-body h2{font-family:'Playfair Display',serif;font-size:24px;color:var(--ink);margin:36px 0 14px;line-height:1.2}
+.art-body h3{font-family:'Playfair Display',serif;font-size:19px;color:var(--ink);margin:28px 0 10px}
+.art-body ul,.art-body ol{margin:0 0 22px 22px}
+.art-body li{font-size:15px;line-height:1.75;color:#2A1010;margin-bottom:6px}
+.art-body blockquote{border-left:3px solid var(--red);margin:28px 0;padding:16px 20px;background:var(--pink-s);border-radius:0 12px 12px 0;font-style:italic;font-size:16px;color:var(--ink-m);line-height:1.7}
+.art-body img{width:100%;border-radius:16px;margin:24px 0;max-height:420px;object-fit:cover}
+.art-body strong{color:var(--ink);font-weight:600}
+.art-cta{background:var(--ink);border-radius:20px;padding:28px;text-align:center;margin:40px 0}
+.art-cta h3{font-family:'Playfair Display',serif;font-size:22px;color:#fff;margin-bottom:8px}
+.art-cta p{font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px}
+.art-cta-btn{background:var(--red);color:#fff;border:none;padding:13px 28px;border-radius:20px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.15s}
+.art-cta-btn:hover{background:var(--red-d)}
+.art-more-sec{background:var(--pink-s);padding:40px 24px}
+.art-more-sec h3{font-family:'Playfair Display',serif;font-size:22px;text-align:center;color:var(--ink);margin-bottom:24px}
+.art-more-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;max-width:820px;margin:0 auto}
+
+/* ── VIDEO MODAL UPGRADES ── */
+.vmov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,2,2,0.96) 0%,rgba(0,0,0,0.08) 55%,transparent 100%);z-index:2;pointer-events:none}
+.vmmute{position:absolute;top:12px;left:12px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.2);color:#fff;width:34px;height:34px;border-radius:50%;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;backdrop-filter:blur(4px)}
+.vmplay-big{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(232,24,10,0.2);border:2px solid rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;z-index:5;cursor:pointer;transition:all 0.2s}
+.vmplay-big.playing{opacity:0;pointer-events:none}
+.vmplay-big:hover{background:var(--red);border-color:var(--red)}
+.vmside{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:14px;z-index:6}
+.vmsa{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.vmsico{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:15px}
+.vmsa:hover .vmsico{background:rgba(232,24,10,0.4)}
+.vmslbl{font-size:9px;color:rgba(255,255,255,0.55);font-weight:600;text-align:center}
+
 </style>
 </head>
 <body>
@@ -382,224 +430,486 @@ footer{background:var(--ink);padding:52px 24px 32px}
   To HIDE the banner: add  style="display:none"  to the .ann div.
 -->
 <script>
-// ┌─────────────────────────────────────────────────────────────┐
-// │  ✏️  EDIT YOUR SITE CONTENT BELOW — no coding needed        │
-// └─────────────────────────────────────────────────────────────┘
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  ✏️  GWT CMS — EDIT YOUR ENTIRE SITE HERE                          ║
+   ║  Everything is controlled from this one block.                      ║
+   ║  Find the section you want, change the values, save & refresh.      ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
 
-// ── 🔔 ANNOUNCEMENT BANNER ─────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────
+// 🔗  PAGE URLS
+// Change the URL slug for any page. Used in the browser address bar and
+// for sharing links. Keep lowercase, no spaces (use hyphens instead).
+// ─────────────────────────────────────────────────────────────────────────
+const PAGE_URLS = {
+  home:    '/',                    // e.g. '/'  or  '/home'
+  trips:   '/trips',              // the trips listing section
+  blog:    '/stories',            // the blog / stories page
+  article: '/stories/',           // prefix — slug appended automatically
+};
+
+// ─────────────────────────────────────────────────────────────────────────
+// 🔔  ANNOUNCEMENT BANNER
+// ─────────────────────────────────────────────────────────────────────────
 const BANNER_TEXT      = "upcoming trips!";
 const BANNER_LINK      = "https://galswhotravel.trutravels.com/upcoming-trips";
 const BANNER_LINK_TEXT = "see our departures";
-const BANNER_VISIBLE   = true; // set to false to hide the banner
+const BANNER_VISIBLE   = true;
 
-// ── 🎬 HERO VIDEO ───────────────────────────────────────────────
-// Paste any direct .mp4 video URL here (e.g. from your TikTok or Google Drive)
-const HERO_VIDEO_URL = "https://www.tiktok.com/@galswhotravel/video/7634192451753938178";
+// ─────────────────────────────────────────────────────────────────────────
+// 🎬  HERO VIDEO — paste any direct .mp4 URL (TikTok export, Google Drive, etc.)
+// ─────────────────────────────────────────────────────────────────────────
+const HERO_VIDEO_URL = "https://assets.mixkit.co/videos/preview/mixkit-women-swimming-at-a-tropical-beach-1204-large.mp4";
 
-// ── 🖼  HERO CONTENT ────────────────────────────────────────────
-const HERO_HEADLINE    = "gals<br>who <em>travel</em>";
-const HERO_SUBHEADING  = "A travel community for women who want to see the world, 90\% of travellers come solo! explore more, adventure further safely with your own gal group .";
-
-// ── 📊 HERO STATS (the numbers under the headline) ─────────────
+// ─────────────────────────────────────────────────────────────────────────
+// 🖼  HERO CONTENT
+// ─────────────────────────────────────────────────────────────────────────
+const HERO_HEADLINE   = "gals<br>who <em>travel</em>";
+const HERO_SUBHEADING = "A travel community for women who want to see the world. 90% of travellers come solo — explore more, adventure further, safely with your own gal group.";
 const HERO_STATS = [
   { num: "3,500+", lbl: "Gals travelled" },
   { num: "4.9★",   lbl: "Trustpilot"     },
   { num: "15+",    lbl: "Destinations"   },
   { num: "£200",   lbl: "Secures your place" }
 ];
-
-// ── 💬 TRUST CHIPS (top-right of hero) ─────────────────────────
 const TRUST_CHIPS = [
   "★★★★★ Trustpilot",
   "🛡 ATOL Protected",
   "3,500+ gals travelled"
 ];
 
-// ── 📰 GAL TALK — BLOG POSTS ───────────────────────────────────
-// Add, remove or edit stories in this list.
-// category options: "Safety" | "Adventure" | "Lifestyle"
+// ─────────────────────────────────────────────────────────────────────────
+// 📱  TIKTOK-STYLE VIDEO CARDS
+// Each card appears in the dark video scroll section on the home page.
+// Fields:
+//   dest        → must match a key in TRIP_URLS (e.g. 'thailand')
+//   thumbnail   → image shown before/behind the video
+//   videoUrl    → direct .mp4 URL (or leave "" to show thumbnail only)
+//   title       → destination name shown on the card
+//   days        → e.g. "9 days"
+//   tag         → short location tag e.g. "🌴 Khao Sok · Phi Phi"
+//   username    → @handle shown top-left
+//   userInitial → single letter for the avatar circle
+//   likes       → e.g. "24.2k"
+//   comments    → e.g. "342"
+// ─────────────────────────────────────────────────────────────────────────
+const VIDEO_CARDS = [
+  {
+    dest:        'thailand',
+    thumbnail:   'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',
+    videoUrl:    'https://assets.mixkit.co/videos/preview/mixkit-women-swimming-at-a-tropical-beach-1204-large.mp4',
+    title:       'Thailand Paradise',
+    days:        '9 days',
+    tag:         '🌴 Khao Sok · Phi Phi',
+    username:    '@sarah.k',
+    userInitial: 'S',
+    likes:       '24.2k',
+    comments:    '342',
+  },
+  {
+    dest:        'bali',
+    thumbnail:   'https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg',
+    videoUrl:    'https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-water-1164-large.mp4',
+    title:       'Bali Paradise 🌴',
+    days:        '11 days',
+    tag:         '🌊 Gili T · Uluwatu',
+    username:    '@jess.bali',
+    userInitial: 'J',
+    likes:       '33.1k',
+    comments:    '476',
+  },
+  {
+    dest:        'morocco',
+    thumbnail:   'https://galswhotravel.trutravels.com/images/merzouga-image-2024-2.jpg',
+    videoUrl:    'https://assets.mixkit.co/videos/preview/mixkit-woman-walking-through-a-desert-dune-42337-large.mp4',
+    title:       'Morocco Uncovered',
+    days:        '9 days',
+    tag:         '🏜 Desert · Sahara',
+    username:    '@laurawanders',
+    userInitial: 'L',
+    likes:       '18.5k',
+    comments:    '209',
+  },
+  {
+    dest:        'greece',
+    thumbnail:   'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',
+    videoUrl:    'https://assets.mixkit.co/videos/preview/mixkit-yacht-sailing-through-open-sea-at-sunset-21099-large.mp4',
+    title:       'Greece Island Hopper',
+    days:        '7 days',
+    tag:         '⛵ Santorini · Milos',
+    username:    '@rebeccaj',
+    userInitial: 'R',
+    likes:       '52.3k',
+    comments:    '1.1k',
+  },
+  {
+    dest:        'costarica',
+    thumbnail:   'https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg',
+    videoUrl:    'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',
+    title:       'Costa Rica Adventure',
+    days:        '10 days',
+    tag:         '🌿 Jungle · Hot Springs',
+    username:    '@noemie.out',
+    userInitial: 'N',
+    likes:       '12.7k',
+    comments:    '188',
+  },
+  {
+    dest:        'japan',
+    thumbnail:   'https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg',
+    videoUrl:    'https://assets.mixkit.co/videos/preview/mixkit-cherry-tree-covered-with-many-flowers-26765-large.mp4',
+    title:       'Legend of Japan',
+    days:        '12 days',
+    tag:         '🌸 Tokyo · Kyoto',
+    username:    '@aisha.explores',
+    userInitial: 'A',
+    likes:       '41.8k',
+    comments:    '821',
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────
+// 🌍  TRIPS GRID
+// Each trip card on the home page.
+// Fields:
+//   dest        → key used for TRIP_URLS, gallery filtering, tour detail
+//   img         → card thumbnail image URL
+//   badge       → short badge label (e.g. "Most popular"), or ""
+//   badgeStyle  → "br" (red) | "bg" (green) | "bp" (pink)
+//   route       → e.g. "Phuket → Phuket"
+//   placesLeft  → number shown as "X left"
+//   title       → trip name
+//   days        → number only (e.g. 9)
+//   desc        → 1-2 sentence description
+//   price       → e.g. "$1,625"
+//   vibes       → array — pick from: "beach" "wellness" "city" "hike" "literary"
+//                 Controls which "Find your vibe" filter shows this trip.
+// ─────────────────────────────────────────────────────────────────────────
+const TRIPS = [
+  {
+    dest:       'thailand',
+    img:        'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',
+    badge:      'Most popular',
+    badgeStyle: 'br',
+    route:      'Phuket → Phuket',
+    placesLeft: 4,
+    title:      'Thailand Paradise',
+    days:       9,
+    desc:       'Floating bungalows in Khao Sok, elephant sanctuary, kayaking at sunset & Phi Phi. The trip gals come back from saying changed everything.',
+    price:      '$1,625',
+    vibes:      ['wellness','beach'],
+  },
+  {
+    dest:       'bali',
+    img:        'https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg',
+    badge:      'New 2026',
+    badgeStyle: 'bg',
+    route:      'Canggu → Gili T',
+    placesLeft: 6,
+    title:      'Bali Paradise 🌴',
+    days:       11,
+    desc:       'Canggu beach clubs, Uluwatu temples, snorkelling with turtles on Gili T. The ultimate Indonesian adventure.',
+    price:      '$1,395',
+    vibes:      ['beach','wellness'],
+  },
+  {
+    dest:       'greece',
+    img:        'https://galswhotravel.trutravels.com/images/gwt-santorini-sunset.jpg',
+    badge:      'Best seller',
+    badgeStyle: 'br',
+    route:      'Athens → Santorini',
+    placesLeft: 5,
+    title:      'Greece Island Hopper ⛵',
+    days:       7,
+    desc:       'Athens to Santorini via Milos — vintage shopping, sunrise yoga, volcano hike and wine tasting at sunset.',
+    price:      '$2,595',
+    vibes:      ['city','literary'],
+  },
+  {
+    dest:       'morocco',
+    img:        'https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg',
+    badge:      'Community fave',
+    badgeStyle: 'bp',
+    route:      'Marrakech → Marrakech',
+    placesLeft: 7,
+    title:      'Morocco Uncovered 🏜',
+    days:       9,
+    desc:       'Sahara desert camping, spice market exploring, Todra Gorge and the world\'s most incredible sunsets.',
+    price:      '$1,095',
+    vibes:      ['city','literary','hike'],
+  },
+  {
+    dest:       'japan',
+    img:        'https://galswhotravel.trutravels.com/images/legrandeuluwatu4.jpg',
+    badge:      '🔥 Flash sale',
+    badgeStyle: 'br',
+    route:      'Tokyo → Tokyo',
+    placesLeft: 3,
+    title:      'Legend of Japan 🌸',
+    days:       12,
+    desc:       'Tokyo, Mount Fuji, samurai workshop, Kyoto temples. Every gal comes back saying Japan surpassed every expectation.',
+    price:      '$2,495',
+    vibes:      ['city','literary'],
+  },
+  {
+    dest:       'costarica',
+    img:        'https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg',
+    badge:      'Eco pick',
+    badgeStyle: 'bg',
+    route:      'San José → Santa Teresa',
+    placesLeft: 8,
+    title:      'Costa Rica Adventure 🌿',
+    days:       10,
+    desc:       'Rainforest zip-lining, volcanic hot springs, wildlife encounters. For the gal who wants nature and proper adventure.',
+    price:      '$1,850',
+    vibes:      ['hike','wellness'],
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────
+// 📰  BLOG POSTS / STORIES
+// Each article gets its own full-page view when clicked.
+// Fields:
+//   slug        → URL-friendly ID — keep lowercase, hyphens, no spaces
+//                 The article will be at  /stories/<slug>
+//   img         → cover image URL
+//   category    → "Safety" | "Adventure" | "Lifestyle" | "Destination" | "Community"
+//   title       → article headline
+//   excerpt     → short teaser shown on the card
+//   readTime    → e.g. "4 min read"
+//   verified    → true | false  (shows ✦ Verified badge)
+//   author      → author name (shown on article page)
+//   authorImg   → author avatar URL (or "" for initials fallback)
+//   date        → publication date string e.g. "12 May 2026"
+//   heroImg     → full-width hero image on the article page (can be same as img)
+//   content     → full article HTML — use <p>, <h2>, <h3>, <ul>, <li>, <blockquote>,
+//                 <img src="..." alt="...">, <strong>, <em> tags freely.
+//                 Keep each section wrapped in <p> or a block element.
+// ─────────────────────────────────────────────────────────────────────────
 const BLOG_POSTS = [
   {
-    img:      "http://galswhotravel.trutravels.com/images/gals-who-philippines.png",
-    category: "Safety",
-    title:    "10 safest destinations for solo female travellers in 2026",
-    excerpt:  "Thailand, Japan and Morocco lead the list. Here's what to actually look for when choosing where to go.",
-    readTime: "4 min read",
-    verified: true
+    slug:      'safest-destinations-2026',
+    img:       'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',
+    category:  'Safety',
+    title:     '10 safest destinations for solo female travellers in 2026',
+    excerpt:   'Thailand, Japan and Morocco lead the list. Here\'s what to actually look for when choosing where to go.',
+    readTime:  '4 min read',
+    verified:  true,
+    author:    'GWT Team',
+    authorImg: '',
+    date:      '2 May 2026',
+    heroImg:   'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',
+    content: `
+      <p>Choosing where to go solo is one of the most Googled questions among women planning their first trip. The good news: the world is a lot safer than headlines suggest — especially when you know what to look for.</p>
+      <h2>What we actually mean by "safe"</h2>
+      <p>Safety for solo female travellers isn't just about crime stats. It's about how welcome you feel, how easy it is to get around, how much street harassment exists, and how well the local infrastructure supports independent women. We assessed over 30 destinations on all of these factors.</p>
+      <h2>The top 10 for 2026</h2>
+      <ul>
+        <li><strong>Japan</strong> — consistently the top-ranked destination. Low crime, incredible transport, extremely respectful culture.</li>
+        <li><strong>Thailand</strong> — vast solo-travel community, female-friendly hostels and hotels everywhere, well-trodden routes.</li>
+        <li><strong>Morocco</strong> — more nuanced but genuinely incredible with a group or a guide. Our gals consistently rate it highly.</li>
+        <li><strong>Portugal</strong> — safest in Western Europe for solo women, great public transport, English widely spoken.</li>
+        <li><strong>New Zealand</strong> — famously safe, stunning landscapes, exceptionally well set up for independent travel.</li>
+        <li><strong>Iceland</strong> — off-the-charts safe. One of the best places in the world to be a woman.</li>
+        <li><strong>Costa Rica</strong> — eco-tourism infrastructure is genuinely excellent; guides and parks well regulated.</li>
+        <li><strong>Greece</strong> — the islands feel incredibly safe; tourist infrastructure is well developed.</li>
+        <li><strong>Canada</strong> — Vancouver and Toronto especially welcoming; nature trails well marked and maintained.</li>
+        <li><strong>Taiwan</strong> — underrated gem. Safe, incredibly affordable, night markets, friendly locals.</li>
+      </ul>
+      <blockquote>"I've done three of these destinations solo and all three felt completely safe — once you stop watching the news and just go." — Rebecca J., GWT traveller</blockquote>
+      <h2>What to look for before you book</h2>
+      <p>Beyond the list: check the FCO/State Department advisory level for your nationality, read recent solo female travel blogs (not the news), look at how active the solo travel communities are on Reddit and Facebook for that destination, and consider whether your accommodation includes female-only dorm options or female-only floors.</p>
+      <p>Travelling with GWT removes most of these worries by design — women-only groups, vetted accommodation, and a guide who knows the destination inside out.</p>
+    `,
   },
   {
-    img:      "https://galswhotravel.trutravels.com/indonesia-images-itinerary/snorkellling-with-turtels-indonesia.jpg",
-    category: "Adventure",
-    title:    "Gorpcore is not a phase: why hiking trips are the new spa break",
-    excerpt:  "Trail culture meets great accommodation — 8 hike-and-stay itineraries for gals who want both.",
-    readTime: "6 min read",
-    verified: false
+    slug:      'gorpcore-hiking-trips',
+    img:       'https://galswhotravel.trutravels.com/indonesia-images-itinerary/snorkellling-with-turtels-indonesia.jpg',
+    category:  'Adventure',
+    title:     'Gorpcore is not a phase: why hiking trips are the new spa break',
+    excerpt:   'Trail culture meets great accommodation — 8 hike-and-stay itineraries for gals who want both.',
+    readTime:  '6 min read',
+    verified:  false,
+    author:    'Jess O.',
+    authorImg: '',
+    date:      '28 Apr 2026',
+    heroImg:   'https://galswhotravel.trutravels.com/indonesia-images-itinerary/snorkellling-with-turtels-indonesia.jpg',
+    content: `
+      <p>The gorpcore aesthetic started as a joke — trail mix snacks, functional waterproofs, ugly sandals — and somehow became the defining travel trend of the mid-2020s. And honestly? We're here for it.</p>
+      <h2>Why hiking holidays hit differently</h2>
+      <p>There's something about covering ground on foot that the Instagram feed can't really communicate. You earn the view. You can't fast-forward to the summit. The conversations you have on the trail — often with people you barely know — are some of the best you'll ever have.</p>
+      <p>Our Costa Rica and Morocco trips both include significant hiking elements, and they consistently get some of the highest reviews of any departure we run.</p>
+      <h2>The best hike-and-stay combinations in 2026</h2>
+      <ul>
+        <li><strong>Morocco Uncovered:</strong> Todra Gorge is a bucket-list hike. The desert camp afterwards makes it absurdly good.</li>
+        <li><strong>Costa Rica Adventure:</strong> Volcano hikes, cloud forest trails, Pacific coastal walks — and thermal hot springs at the end.</li>
+        <li><strong>Japan (off-itinerary):</strong> The Nakasendo Trail between Kyoto and Tokyo — ancient post towns, cedar forests, total silence.</li>
+        <li><strong>Peru (coming 2027):</strong> We're building a trek-focused departure to Machu Picchu. Watch this space.</li>
+      </ul>
+      <blockquote>"I expected to hate the hiking. I cried at the top. Then I booked Morocco the moment I got home." — Jess O., Costa Rica 2025</blockquote>
+      <h2>What to pack (actually)</h2>
+      <p>One pair of proper trail shoes is worth more than three pairs of trainers. A lightweight waterproof layer that packs small. Merino wool socks — you will thank us. Trekking poles if your knees need them (no judgment). And snacks. Always snacks.</p>
+    `,
   },
   {
-    img:      "https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg",
-    category: "Lifestyle",
-    title:    "Sober-curious travel: what it's actually like on a GWT trip",
-    excerpt:  "Our community co-wrote this one. Real talk from gals who've done it alcohol-free and loved it.",
-    readTime: "5 min read",
-    verified: true
+    slug:      'sober-curious-travel',
+    img:       'https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg',
+    category:  'Lifestyle',
+    title:     'Sober-curious travel: what it\'s actually like on a GWT trip',
+    excerpt:   'Our community co-wrote this one. Real talk from gals who\'ve done it alcohol-free and loved it.',
+    readTime:  '5 min read',
+    verified:  true,
+    author:    'GWT Community',
+    authorImg: '',
+    date:      '19 Apr 2026',
+    heroImg:   'https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg',
+    content: `
+      <p>We asked our community: what's it actually like doing a GWT trip sober-curious or alcohol-free? Here's what they said — unfiltered.</p>
+      <h2>"Nobody noticed, nobody cared"</h2>
+      <p>"I was really worried I'd feel like the odd one out. I didn't touch a drink the whole trip and honestly, after the first dinner nobody even mentioned it. The trip is so activity-packed that drinking isn't really the thing you're there for." — Clara M., Thailand 2025</p>
+      <h2>"I got more out of it"</h2>
+      <p>"Every morning I woke up feeling incredible while some gals were nursing light headaches. I did every optional activity. I have the clearest memories of that trip of any holiday I've ever taken." — Nat S., Greece 2025</p>
+      <h2>What actually happens on evenings</h2>
+      <p>Most GWT evenings are dinners, beach walks, rooftop chats. The vibe is never 'pub crawl' — it's social but not drink-centric. Mocktails are always available. Your guide sets a tone that's inclusive of everyone.</p>
+      <blockquote>"GWT trips aren't sold as drinking holidays. They're adventure + connection holidays. Huge difference." — Sophia T., Morocco 2026</blockquote>
+      <h2>Tips from the community</h2>
+      <ul>
+        <li>You don't need to announce it. Just order what you want and move on.</li>
+        <li>Sparkling water with lime looks like a G&amp;T anyway.</li>
+        <li>The group chat is a good place to mention it if you want support beforehand.</li>
+        <li>Your guide is always your ally — just let them know and they'll make sure you're looked after.</li>
+      </ul>
+    `,
   },
   {
-    img:      "https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg",
-    category: "Adventure",
-    title:    "The perfect 9 days in Thailand for women travelling solo",
-    excerpt:  "From Khao Sok to Phi Phi — the itinerary that's convinced thousands of gals to just book it.",
-    readTime: "8 min read",
-    verified: false
+    slug:      'perfect-9-days-thailand',
+    img:       'https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg',
+    category:  'Destination',
+    title:     'The perfect 9 days in Thailand for women travelling solo',
+    excerpt:   'From Khao Sok to Phi Phi — the itinerary that\'s convinced thousands of gals to just book it.',
+    readTime:  '8 min read',
+    verified:  false,
+    author:    'Sarah K.',
+    authorImg: '',
+    date:      '11 Apr 2026',
+    heroImg:   'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',
+    content: `
+      <p>Thailand is one of those destinations that sounds overwhelming until you actually get there — and then it all makes perfect sense. Here's how 9 days in southern Thailand actually flows for women travelling with GWT.</p>
+      <h2>Days 1–2: Arrival & Khao Sok National Park</h2>
+      <p>Fly into Phuket, get picked up by your GWT guide, and head straight to Khao Sok. Two nights in floating raft bungalows on the lake. The first evening involves introductions, dinner, and watching the sun drop behind limestone mountains that don't look real. This is when most gals realise they made the right call.</p>
+      <h2>Day 3: Sunset kayaking at Railay Beach</h2>
+      <p>This is the day that gets the most TikToks. Kayaking through Phra Nang Cave as the sun goes down, then cocktails on the beach. The cave itself is extraordinary — sea-carved limestone, turquoise water, and a sense that you're somewhere genuinely ancient.</p>
+      <h2>Day 4: Elephant sanctuary</h2>
+      <p>A full morning at an ethical elephant sanctuary. Feed, bathe, and walk with elephants who are genuinely well cared for. It's the moment most gals say they'll never forget — and that includes gals who've been on a lot of trips.</p>
+      <h2>Days 5–6: Koh Phi Phi</h2>
+      <p>Two nights on Phi Phi. Snorkelling, cliff jumping (optional, promise), the famous viewpoint, and beach evenings that somehow get better each night. The island is smaller than you'd think, which means it actually feels like a place rather than a resort.</p>
+      <h2>Days 7–9: Phuket finale</h2>
+      <p>Karon Beach, a GWT exclusive farewell dinner, and the last morning doing whatever each gal wants. The goodbye is always hard. The group chat doesn't end when the trip does — usually quite the opposite.</p>
+      <blockquote>"I booked this trip three times. I have no intention of stopping." — Rebecca J.</blockquote>
+    `,
   },
   {
-    img:      "https://galswhotravel.trutravels.com/images/marrakech-accomodation.jpg",
-    category: "Safety",
-    title:    "Morocco for solo female travellers: the honest guide",
-    excerpt:  "We asked 47 gals who've done this trip to be completely honest. Here's everything they said.",
-    readTime: "7 min read",
-    verified: true
+    slug:      'morocco-honest-guide',
+    img:       'https://galswhotravel.trutravels.com/images/marrakech-accomodation.jpg',
+    category:  'Safety',
+    title:     'Morocco for solo female travellers: the honest guide',
+    excerpt:   'We asked 47 gals who\'ve done this trip to be completely honest. Here\'s everything they said.',
+    readTime:  '7 min read',
+    verified:  true,
+    author:    'Laura M.',
+    authorImg: '',
+    date:      '3 Apr 2026',
+    heroImg:   'https://galswhotravel.trutravels.com/images/merzouga-image-2024-2.jpg',
+    content: `
+      <p>We surveyed 47 GWT gals who've done the Morocco trip and asked them to be completely honest — about what felt great, what felt uncomfortable, and what they'd tell someone who's on the fence.</p>
+      <h2>The honest positives</h2>
+      <p>"Morocco is the most visually stunning place I've ever been. Marrakech is chaotic in the most beautiful way." — respondent #3. This sentiment came up in 38 of 47 responses. The colours, the architecture, the food, the desert — nothing prepares you for how striking it all is.</p>
+      <h2>The honest challenges</h2>
+      <p>Nine respondents mentioned street harassment in the medina, particularly when walking without the guide. This is real and worth knowing. However, all nine also said it didn't ruin their trip and that having a guide significantly reduced it. No respondent said they felt unsafe within the group context.</p>
+      <h2>What they wish they'd known</h2>
+      <ul>
+        <li>Dress a little more conservatively in Marrakech medina than you might elsewhere — a light scarf or layer goes a long way.</li>
+        <li>The food is genuinely extraordinary. Eat everything.</li>
+        <li>The Sahara is cold at night. Pack accordingly.</li>
+        <li>The haggling in souks is part of the experience — enjoy it, don't stress it.</li>
+        <li>Your guide knows every vendor. You'll get better prices if you let them lead.</li>
+      </ul>
+      <blockquote>"I was more nervous about Morocco than any other trip I've done. And it ended up being my favourite. Go figure." — respondent #12</blockquote>
+      <h2>The verdict</h2>
+      <p>44 of 47 respondents said they would recommend the trip to a friend who asked. The three who wouldn't all cited personal preference (they prefer beach trips) rather than safety concerns. Morocco rewards the women who go — especially in a small women-only group with a great guide.</p>
+    `,
   },
   {
-    img:      "https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg",
-    category: "Lifestyle",
-    title:    "Everything you've wondered about GWT trips — honestly answered",
-    excerpt:  "Deposits, room sharing, group sizes, packing. All your questions, completely straight answers.",
-    readTime: "3 min read",
-    verified: false
-  }
+    slug:      'gwt-trips-honestly-answered',
+    img:       'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',
+    category:  'Community',
+    title:     'Everything you\'ve wondered about GWT trips — honestly answered',
+    excerpt:   'Deposits, room sharing, group sizes, packing. All your questions, completely straight answers.',
+    readTime:  '3 min read',
+    verified:  false,
+    author:    'GWT Team',
+    authorImg: '',
+    date:      '28 Mar 2026',
+    heroImg:   'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',
+    content: `
+      <p>The questions that land in our DMs every week. Answered here, completely honestly, once and for all.</p>
+      <h2>How does room sharing work?</h2>
+      <p>Most trips are twin-share — you'll be paired with one other gal in a room. We do our best to pair compatible people (night owls with night owls, early risers together). If you want a single room, it's available on most trips for a supplement — ask when booking.</p>
+      <h2>What's the age range?</h2>
+      <p>Officially 18+. In practice, most gals are 22–38. We do get some brilliant women in their 40s and 50s who fit right in. We're welcoming to everyone — the vibe matters more than the age.</p>
+      <h2>What if I don't drink?</h2>
+      <p>Completely fine. Our trips aren't party holidays. Evenings are social but never drink-centric. Lots of our gals are sober-curious or non-drinkers and report feeling completely at ease.</p>
+      <h2>How do deposits work?</h2>
+      <p>£200 / $280 / €240 secures your place. If your trip is 60+ days away, you pay the rest whenever suits you — no fixed instalment plan, just pay what you can when you can, cleared before 60 days out. If the trip doesn't run (we've cancelled one trip in four years), you get a full refund.</p>
+      <h2>What happens if I have to cancel?</h2>
+      <p>We strongly recommend travel insurance that covers trip cancellation — it's genuinely worth it. Our own cancellation policy is standard: the closer to departure, the less is refunded. Full details are in the booking terms.</p>
+      <h2>Are flights included?</h2>
+      <p>No — you book flights separately. Most gals use Skyscanner or Google Flights. We provide full arrival and departure details so you know exactly what flights to look for.</p>
+      <h2>What do I actually need to pack?</h2>
+      <p>We send a detailed packing list with every booking. The short version: less than you think, comfortable walking shoes, a good book, and an open mind. You'll buy a reusable bag for the market and have no room for it in your case.</p>
+    `,
+  },
 ];
 
-// ── ⭐ REVIEWS ──────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────
+// ⭐  REVIEWS
+// ─────────────────────────────────────────────────────────────────────────
 const REVIEWS = [
-  {
-    stars:  5,
-    text:   "I was so nervous going solo but within a few hours felt like I'd known everyone my whole life. Best decision I've ever made.",
-    name:   "Rebecca J.",
-    trip:   "Thailand Paradise · Dec 2025",
-    initials: "R"
-  },
-  {
-    stars:  5,
-    text:   "The itinerary is packed in the best way. Morgan as our guide was extraordinary. I would go again tomorrow — honestly probably will.",
-    name:   "Sarah K.",
-    trip:   "Legend of Japan · Apr 2026",
-    initials: "S"
-  },
-  {
-    stars:  5,
-    text:   "Our guide Manu made us feel so safe and welcome from hour one. It felt like one big family. This trip genuinely gave me energy.",
-    name:   "Sophia L.",
-    trip:   "Costa Rica Adventure · Oct 2024",
-    initials: "A"
-  },
-  {
-    stars:  5,
-    text:   "Morocco completely blew my mind. Came back with 11 new best friends, 400 photos and my next GWT trip already booked.",
-    name:   "Laura M.",
-    trip:   "Morocco Uncovered · Jan 2026",
-    initials: "L"
-  },
-  {
-    stars:  5,
-    text:   "Watching sunrise over the floating bungalows I genuinely cried. So far above what I expected for the price.",
-    name:   "Jess O.",
-    trip:   "Thailand Paradise · Mar 2026",
-    initials: "J"
-  }
+  { stars: 5, text: "I was so nervous going solo but within a few hours felt like I'd known everyone my whole life. Best decision I've ever made.", name: "Rebecca J.", trip: "Thailand Paradise · Dec 2025", initials: "R" },
+  { stars: 5, text: "The itinerary is packed in the best way. Morgan as our guide was extraordinary. I would go again tomorrow and I probably will.", name: "Sarah K.", trip: "Legend of Japan · Apr 2026", initials: "S" },
+  { stars: 5, text: "Our guide Manu made us feel so safe and welcome from hour one. It felt like one big family. This trip genuinely gave me energy.", name: "Sophia L.", trip: "Costa Rica Adventure · Oct 2024", initials: "A" },
+  { stars: 5, text: "Morocco completely blew my mind. Came back with 11 new best friends, 400 photos and my next GWT trip already booked.", name: "Laura M.", trip: "Morocco Uncovered · Jan 2026", initials: "L" },
+  { stars: 5, text: "Watching sunrise over the floating bungalows I genuinely cried. So far above what I expected for the price.", name: "Jess O.", trip: "Thailand Paradise · Mar 2026", initials: "J" }
 ];
 
-// ── 🏠 FOOTER ──────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────
+// 🔗  TRIP BOOKING URLS
+// Where each "Book" / "See the trip" button points.
+// ─────────────────────────────────────────────────────────────────────────
+const TRIP_URLS = {
+  thailand:    'https://galswhotravel.trutravels.com/thailand-paradise',
+  bali:        'https://galswhotravel.trutravels.com/bali-bliss',
+  japan:       'https://galswhotravel.trutravels.com/girls-trip/japan-tour',
+  morocco:     'https://galswhotravel.trutravels.com/morocco-tour',
+  greece:      'https://galswhotravel.trutravels.com/greece-island-hopper/girls-trip',
+  costarica:   'https://galswhotravel.trutravels.com/costa-rica-girls-trip',
+  philippines: 'https://galswhotravel.trutravels.com/philippines-west/girls-trip',
+  vietnam:     'https://galswhotravel.trutravels.com/vietnam-girls-trip',
+  italy:       'https://galswhotravel.trutravels.com/italy-girls-trip',
+  europe:      'https://galswhotravel.trutravels.com/girls-trip/budapest-to-milan',
+  australia:   'https://galswhotravel.trutravels.com/australia-east-coast',
+  srilanka:    'https://galswhotravel.trutravels.com/sri-lanka-girls-trip',
+  andorra:     'https://galswhotravel.trutravels.com/andorra-ski-trip',
+};
+
+// ─────────────────────────────────────────────────────────────────────────
+// 🏠  FOOTER
+// ─────────────────────────────────────────────────────────────────────────
 const FOOTER_TAGLINE = "A community giving women the confidence to explore the world — safely, joyfully, together. Partnered with TruTravels since 2022.";
 
-// ─────────────────────────────────────────────────────────────────
-// ⚠️  DO NOT EDIT BELOW THIS LINE unless you know what you're doing
-// ─────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-
-  // Banner
-  const annEl = document.getElementById('ann-bar');
-  if (annEl) {
-    if (!BANNER_VISIBLE) {
-      annEl.style.display = 'none';
-    } else {
-      document.getElementById('ann-text').textContent  = BANNER_TEXT;
-      document.getElementById('ann-link').href         = BANNER_LINK;
-      document.getElementById('ann-link').textContent  = BANNER_LINK_TEXT;
-    }
-  }
-
-  // Hero video
-  const vidEl = document.getElementById('hero-vid');
-  if (vidEl) {
-    const src = vidEl.querySelector('source');
-    if (src) src.src = HERO_VIDEO_URL;
-    vidEl.load();
-  }
-
-  // Hero headline
-  const h1El = document.querySelector('.hero h1');
-  if (h1El) h1El.innerHTML = HERO_HEADLINE;
-
-  // Hero subheading
-  const subEl = document.querySelector('.hsub');
-  if (subEl) subEl.textContent = HERO_SUBHEADING;
-
-  // Trust chips
-  const trustEl = document.querySelector('.htrust');
-  if (trustEl) {
-    trustEl.innerHTML = TRUST_CHIPS.map(t => `<div class="tc">${t}</div>`).join('');
-  }
-
-  // Hero stats
-  const statsEl = document.querySelector('.hstats');
-  if (statsEl) {
-    statsEl.innerHTML = HERO_STATS.map(s =>
-      `<div class="hst"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`
-    ).join('');
-  }
-
-  // Blog posts
-  const bgrid = document.getElementById('blog-grid');
-  if (bgrid) {
-    const catMap = { Safety:'cs', Adventure:'ca', Lifestyle:'cl' };
-    bgrid.innerHTML = BLOG_POSTS.map(p => `
-      <div class="bcard">
-        <div class="bimg">
-          <img src="${p.img}" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,var(--red),var(--red-d))'">
-          <span class="bcat ${catMap[p.category]||'cl'}">${p.category}</span>
-        </div>
-        <div class="bbody">
-          <h4>${p.title}</h4>
-          <p>${p.excerpt}</p>
-          <div class="bfoot">
-            <span>${p.readTime}</span>
-            ${p.verified ? '<span class="bver">✦ Verified</span>' : ''}
-          </div>
-        </div>
-      </div>`).join('');
-  }
-
-  // Reviews
-  const revrow = document.getElementById('rev-row');
-  if (revrow) {
-    revrow.innerHTML = REVIEWS.map(r => `
-      <div class="rcard">
-        <div class="rstars">${'★'.repeat(r.stars)}</div>
-        <p class="rtxt">"${r.text}"</p>
-        <div class="rper">
-          <div class="rav">${r.initials}</div>
-          <div>
-            <div class="rname">${r.name}</div>
-            <div class="rtrip">${r.trip}</div>
-          </div>
-        </div>
-      </div>`).join('');
-  }
-
-  // Footer tagline
-  const ftEl = document.getElementById('footer-tagline');
-  if (ftEl) ftEl.textContent = FOOTER_TAGLINE;
-});
+// ═════════════════════════════════════════════════════════════════════════
+//  ⚠️  DO NOT EDIT BELOW THIS LINE
+// ═════════════════════════════════════════════════════════════════════════
 </script>
 <!--
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -609,17 +919,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <!-- VIDEO MODAL -->
-<div class="vmod" id="vmod" onclick="if(event.target===this)this.classList.remove('open')">
+<div class="vmod" id="vmod" onclick="if(event.target===this)closeVModal()">
   <div class="vmbox">
-    <div class="vmframe">
-      <div id="vmod-bg" style="position:absolute;inset:0;background-size:cover;background-position:center"></div>
+    <div class="vmframe" id="vmframe">
+      <video id="vmod-vid" playsinline muted loop preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;display:none"></video>
+      <div id="vmod-bg" style="position:absolute;inset:0;background-size:cover;background-position:center;z-index:0"></div>
       <div class="vmov"></div>
-      <button class="vmcl" onclick="document.getElementById('vmod').classList.remove('open')">✕</button>
+      <button class="vmcl" onclick="event.stopPropagation();closeVModal()">✕</button>
+      <button class="vmmute" id="vmmute-btn" onclick="event.stopPropagation();toggleVMute()" title="Toggle sound">🔇</button>
+      <div class="vmplay-big" id="vmplay-big" onclick="event.stopPropagation();toggleVPlay()">
+        <svg width="16" height="20" viewBox="0 0 16 20" fill="none"><path d="M1 1L15 10L1 19V1Z" fill="white"/></svg>
+      </div>
+      <div class="vmside">
+        <div class="vmsa"><div class="vmsico">♥</div><div class="vmslbl" id="vm-likes">24.2k</div></div>
+        <div class="vmsa"><div class="vmsico">💬</div><div class="vmslbl" id="vm-cmts">342</div></div>
+        <div class="vmsa"><div class="vmsico">↗</div><div class="vmslbl">share</div></div>
+      </div>
       <div class="vmcnt">
         <h3 id="vmod-title">Thailand Paradise</h3>
         <p id="vmod-desc">9 days · women-only · From $1,625</p>
-        <button class="vmbtn" id="vmod-btn">See the full trip →</button>
+        <button class="vmbtn" id="vmod-btn" onclick="event.stopPropagation()">See the full trip →</button>
       </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,0.15);z-index:10"><div id="vm-prog" style="height:100%;background:var(--red);width:0%;transition:width 0.25s linear"></div></div>
     </div>
   </div>
 </div>
@@ -710,63 +1031,14 @@ document.addEventListener('DOMContentLoaded', function() {
   <button class="vmute" id="vmute-btn" onclick="toggleMute()">🔇</button>
 </section>
 
-<!-- TIKTOK VIDEO CARDS -->
+<!-- TIKTOK VIDEO CARDS — rendered from VIDEO_CARDS data above -->
 <section class="vs" id="vids-sec">
   <div class="vshdr">
     <div class="eye">As seen on TikTok & Instagram</div>
     <h2>Real trips. <em>Real gals.</em></h2>
     <p>No highlight reels — just honest moments from women who took the leap.</p>
   </div>
-  <div class="vtrack">
-    <div class="vc" onclick="openModal('Thailand Paradise','9 days · Khao Sok, Phi Phi, Phuket · From $1,625','https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg','Thailand Paradise','9','Phuket → Phuket','$1,625','4','thailand')">
-      <div class="vcf"><div class="vcbg" style="background-image:url(https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg),linear-gradient(155deg,#C8523A,#FF8C69)"></div><div class="vcfade"></div>
-        <div class="vcuser"><div class="vcav">S</div><span class="vcun">@sarah.k</span></div>
-        <div class="vcplay"><div class="vctri"></div></div>
-        <div class="vcside"><div class="vca"><div class="vcbtn">♥</div><div class="vcn">24.2k</div></div><div class="vca"><div class="vcbtn">💬</div><div class="vcn">342</div></div><div class="vca"><div class="vcbtn">↗</div><div class="vcn">share</div></div></div>
-        <div class="vcinfo"><div class="vcdest">Thailand Paradise</div><div class="vcdays">9 days · women-only</div><div class="vctag">🌴 Khao Sok · Phi Phi</div></div>
-      </div>
-    </div>
-    <div class="vc" onclick="openModal('Bali Paradise','11 days · Canggu, Uluwatu, Gili T · From $1,395','https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg','Bali Paradise','11','Canggu → Canggu','$1,395','6','bali')">
-      <div class="vcf"><div class="vcbg" style="background-image:url(https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg),linear-gradient(155deg,#2E8B6E,#5CC8A0)"></div><div class="vcfade"></div>
-        <div class="vcuser"><div class="vcav">J</div><span class="vcun">@jess.bali</span></div>
-        <div class="vcplay"><div class="vctri"></div></div>
-        <div class="vcside"><div class="vca"><div class="vcbtn">♥</div><div class="vcn">33.1k</div></div><div class="vca"><div class="vcbtn">💬</div><div class="vcn">476</div></div><div class="vca"><div class="vcbtn">↗</div><div class="vcn">share</div></div></div>
-        <div class="vcinfo"><div class="vcdest">Bali Paradise 🌴</div><div class="vcdays">11 days · women-only</div><div class="vctag">🌊 Gili T · Uluwatu</div></div>
-      </div>
-    </div>
-    <div class="vc" onclick="openModal('Morocco Uncovered','9 days · Marrakech, Sahara, Merzouga · From $1,095','https://galswhotravel.trutravels.com/images/merzouga-image-2024-2.jpg','Morocco Uncovered','9','Marrakech → Marrakech','$1,095','7','morocco')">
-      <div class="vcf"><div class="vcbg" style="background-image:url(https://galswhotravel.trutravels.com/images/merzouga-image-2024-2.jpg),linear-gradient(155deg,#8B6914,#D4A843)"></div><div class="vcfade"></div>
-        <div class="vcuser"><div class="vcav">L</div><span class="vcun">@laurawanders</span></div>
-        <div class="vcplay"><div class="vctri"></div></div>
-        <div class="vcside"><div class="vca"><div class="vcbtn">♥</div><div class="vcn">18.5k</div></div><div class="vca"><div class="vcbtn">💬</div><div class="vcn">209</div></div><div class="vca"><div class="vcbtn">↗</div><div class="vcn">share</div></div></div>
-        <div class="vcinfo"><div class="vcdest">Morocco Uncovered</div><div class="vcdays">9 days · women-only</div><div class="vctag">🏜 Desert · Sahara</div></div>
-      </div>
-    </div>
-    <div class="vc" onclick="openModal('Greece Island Hopper','7 days · Athens, Milos, Santorini · From $2,595','https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg','Greece Island Hopper','7','Athens → Santorini','$2,595','5','greece')">
-      <div class="vcf"><div class="vcbg" style="background-image:url(https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg),linear-gradient(155deg,#1A5FA8,#4A9BE0)"></div><div class="vcfade"></div>
-        <div class="vcuser"><div class="vcav">R</div><span class="vcun">@rebeccaj</span></div>
-        <div class="vcplay"><div class="vctri"></div></div>
-        <div class="vcside"><div class="vca"><div class="vcbtn">♥</div><div class="vcn">52.3k</div></div><div class="vca"><div class="vcbtn">💬</div><div class="vcn">1.1k</div></div><div class="vca"><div class="vcbtn">↗</div><div class="vcn">share</div></div></div>
-        <div class="vcinfo"><div class="vcdest">Greece Island Hopper</div><div class="vcdays">7 days · women-only</div><div class="vctag">⛵ Santorini · Milos</div></div>
-      </div>
-    </div>
-    <div class="vc" onclick="openModal('Costa Rica Adventure','10 days · Jungle, hot springs, beach · From $1,850','https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg','Costa Rica Adventure','10','San José → Santa Teresa','$1,850','8','costarica')">
-      <div class="vcf"><div class="vcbg" style="background-image:url(https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg),linear-gradient(155deg,#2D6E3E,#5CAF7A)"></div><div class="vcfade"></div>
-        <div class="vcuser"><div class="vcav">N</div><span class="vcun">@noemie.out</span></div>
-        <div class="vcplay"><div class="vctri"></div></div>
-        <div class="vcside"><div class="vca"><div class="vcbtn">♥</div><div class="vcn">12.7k</div></div><div class="vca"><div class="vcbtn">💬</div><div class="vcn">188</div></div><div class="vca"><div class="vcbtn">↗</div><div class="vcn">share</div></div></div>
-        <div class="vcinfo"><div class="vcdest">Costa Rica Adventure</div><div class="vcdays">10 days · women-only</div><div class="vctag">🌿 Jungle · Hot Springs</div></div>
-      </div>
-    </div>
-    <div class="vc" onclick="openModal('Legend of Japan','12 days · Tokyo, Kyoto, Mount Fuji · From $2,495','https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg','Legend of Japan','12','Tokyo → Tokyo','$2,495','3','japan')">
-      <div class="vcf"><div class="vcbg" style="background-image:url(https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg),linear-gradient(155deg,#B23A5A,#FF6B8A)"></div><div class="vcfade"></div>
-        <div class="vcuser"><div class="vcav">A</div><span class="vcun">@aisha.explores</span></div>
-        <div class="vcplay"><div class="vctri"></div></div>
-        <div class="vcside"><div class="vca"><div class="vcbtn">♥</div><div class="vcn">41.8k</div></div><div class="vca"><div class="vcbtn">💬</div><div class="vcn">821</div></div><div class="vca"><div class="vcbtn">↗</div><div class="vcn">share</div></div></div>
-        <div class="vcinfo"><div class="vcdest">Legend of Japan</div><div class="vcdays">12 days · women-only</div><div class="vctag">🌸 Tokyo · Kyoto</div></div>
-      </div>
-    </div>
-  </div>
+  <div class="vtrack" id="vtrack"></div>
   <div class="vhint">← swipe to explore →</div>
 </section>
 
@@ -783,46 +1055,14 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </div></div>
 
-<!-- TRIPS GRID -->
+<!-- TRIPS GRID — rendered from TRIPS data above -->
 <section class="sec tbg" id="trips-sec"><div class="si">
   <div class="sh">
     <div class="eye">2025 / 2026 Departures</div>
     <h2>Join our <em>trips</em></h2>
-    <p>built by the gals for the gals, small group adventures around the world .</p>
+    <p>Built by the gals for the gals — small group adventures around the world.</p>
   </div>
-  <div class="tgrid" id="tgrid">
-
-    <div class="tcard" data-vibe="wellness beach">
-      <div class="tcimg"><img class="tcph" src="https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg" alt="Thailand" onerror="this.parentNode.style.background='linear-gradient(135deg,#C8523A,#FF8C69)'"><div class="tcfade"></div><div class="tcbadges"><span class="bdg br">Most popular</span></div><div class="tcbot"><span class="tcroute">📍 Phuket → Phuket</span><span class="tcpl">4 left</span></div></div>
-      <div class="tcbody"><div class="tctop"><h3>Thailand Paradise</h3><span class="dpill">9 Days</span></div><p>Floating bungalows in Khao Sok, elephant sanctuary, kayaking at sunset & Phi Phi. The trip gals come back from saying changed everything.</p><div class="tcfoot"><div class="tcprice"><div class="fr">From</div><div class="am">$1,625</div><div class="pp">per person</div></div><button class="tcbtn" onclick="showTour('Thailand Paradise','9','Phuket → Phuket','$1,625','4','thailand')">See the trip</button></div></div>
-    </div>
-
-    <div class="tcard" data-vibe="beach wellness">
-      <div class="tcimg"><img class="tcph" src="https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg" alt="Bali" onerror="this.parentNode.style.background='linear-gradient(135deg,#2E8B6E,#5CC8A0)'"><div class="tcfade"></div><div class="tcbadges"><span class="bdg bg">New 2026</span></div><div class="tcbot"><span class="tcroute">📍 Canggu → Gili T</span><span class="tcpl">6 left</span></div></div>
-      <div class="tcbody"><div class="tctop"><h3>Bali Paradise 🌴</h3><span class="dpill">11 Days</span></div><p>Canggu beach clubs, Uluwatu temples, snorkelling with turtles on Gili T. The ultimate Indonesian adventure.</p><div class="tcfoot"><div class="tcprice"><div class="fr">From</div><div class="am">$1,395</div><div class="pp">per person</div></div><button class="tcbtn" onclick="showTour('Bali Paradise','11','Canggu → Canggu','$1,395','6','bali')">See the trip</button></div></div>
-    </div>
-
-    <div class="tcard" data-vibe="city literary">
-      <div class="tcimg"><img class="tcph" src="https://galswhotravel.trutravels.com/images/gwt-santorini-sunset.jpg" alt="Greece" onerror="this.parentNode.style.background='linear-gradient(135deg,#1A5FA8,#4A9BE0)'"><div class="tcfade"></div><div class="tcbadges"><span class="bdg br">Best seller</span></div><div class="tcbot"><span class="tcroute">📍 Athens → Santorini</span><span class="tcpl">5 left</span></div></div>
-      <div class="tcbody"><div class="tctop"><h3>Greece Island Hopper ⛵</h3><span class="dpill">7 Days</span></div><p>Athens to Santorini via Milos — vintage shopping, sunrise yoga, volcano hike and wine tasting at sunset.</p><div class="tcfoot"><div class="tcprice"><div class="fr">From</div><div class="am">$2,595</div><div class="pp">per person</div></div><button class="tcbtn" onclick="showTour('Greece Island Hopper','7','Athens → Santorini','$2,595','5','greece')">See the trip</button></div></div>
-    </div>
-
-    <div class="tcard" data-vibe="city literary hike">
-      <div class="tcimg"><img class="tcph" src="https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg" alt="Morocco" onerror="this.parentNode.style.background='linear-gradient(135deg,#8B6914,#D4A843)'"><div class="tcfade"></div><div class="tcbadges"><span class="bdg bp">Community fave</span></div><div class="tcbot"><span class="tcroute">📍 Marrakech → Marrakech</span><span class="tcpl">7 left</span></div></div>
-      <div class="tcbody"><div class="tctop"><h3>Morocco Uncovered 🏜</h3><span class="dpill">9 Days</span></div><p>Sahara desert camping, spice market exploring, Todra Gorge and the world's most incredible sunsets.</p><div class="tcfoot"><div class="tcprice"><div class="fr">From</div><div class="am">$1,095</div><div class="pp">per person</div></div><button class="tcbtn" onclick="showTour('Morocco Uncovered','9','Marrakech → Marrakech','$1,095','7','morocco')">See the trip</button></div></div>
-    </div>
-
-    <div class="tcard" data-vibe="city literary">
-      <div class="tcimg"><img class="tcph" src="https://galswhotravel.trutravels.com/images/legrandeuluwatu4.jpg" alt="Japan" onerror="this.parentNode.style.background='linear-gradient(135deg,#B23A5A,#FF6B8A)'"><div class="tcfade"></div><div class="tcbadges"><span class="bdg br">🔥 Flash sale</span></div><div class="tcbot"><span class="tcroute">📍 Tokyo → Tokyo</span><span class="tcpl">3 left</span></div></div>
-      <div class="tcbody"><div class="tctop"><h3>Legend of Japan 🌸</h3><span class="dpill">12 Days</span></div><p>Tokyo, Mount Fuji, samurai workshop, Kyoto temples. Every gal comes back saying Japan surpassed every expectation.</p><div class="tcfoot"><div class="tcprice"><div class="fr">From</div><div class="am">$2,495</div><div class="pp">per person</div></div><button class="tcbtn" onclick="showTour('Legend of Japan','12','Tokyo → Tokyo','$2,495','3','japan')">See the trip</button></div></div>
-    </div>
-
-    <div class="tcard" data-vibe="hike wellness">
-      <div class="tcimg"><img class="tcph" src="https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg" alt="Costa Rica" onerror="this.parentNode.style.background='linear-gradient(135deg,#2D6E3E,#5CAF7A)'"><div class="tcfade"></div><div class="tcbadges"><span class="bdg bg">Eco pick</span></div><div class="tcbot"><span class="tcroute">📍 San José → Santa Teresa</span><span class="tcpl">8 left</span></div></div>
-      <div class="tcbody"><div class="tctop"><h3>Costa Rica Adventure 🌿</h3><span class="dpill">10 Days</span></div><p>Rainforest zip-lining, volcanic hot springs, wildlife encounters. For the gal who wants nature and proper adventure.</p><div class="tcfoot"><div class="tcprice"><div class="fr">From</div><div class="am">$1,850</div><div class="pp">per person</div></div><button class="tcbtn" onclick="showTour('Costa Rica Adventure','10','San José → Santa Teresa','$1,850','8','costarica')">See the trip</button></div></div>
-    </div>
-
-  </div>
+  <div class="tgrid" id="tgrid"></div>
 </div></section>
 
 <!-- PHOTO GALLERY FROM TOUR PAGES -->
@@ -1065,16 +1305,42 @@ document.addEventListener('DOMContentLoaded', function() {
     <button class="chip">✨ Lifestyle</button>
   </div>
   <div style="background:var(--pink);border-radius:12px;padding:10px 16px;margin-bottom:24px;font-size:13px;color:var(--red-dp);font-weight:500">🔥 Trending: #SafeTravel2026 &nbsp;·&nbsp; #GalsWhoHike &nbsp;·&nbsp; #SoberCurious &nbsp;·&nbsp; #LiteraryTravel</div>
-  <div class="bgrid" id="blog-grid">
-    <div class="bcard"><div class="bimg"><img src="https://galswhotravel.trutravels.com/thailand/travelled-khao-sok-national-park.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#E8180A,#CC0000)'"><span class="bcat cs">Safety</span></div><div class="bbody"><h4>10 safest destinations for solo female travellers in 2026</h4><p>Thailand, Japan and Morocco lead the list. Here's what to actually look for when choosing where to go.</p><div class="bfoot"><span>4 min read</span><span class="bver">✦ Verified</span></div></div></div>
-    <div class="bcard"><div class="bimg"><img src="https://galswhotravel.trutravels.com/indonesia-images-itinerary/snorkellling-with-turtels-indonesia.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#2D6E3E,#5CAF7A)'"><span class="bcat ca">Adventure</span></div><div class="bbody"><h4>Gorpcore is not a phase: why hiking trips are the new spa break</h4><p>Trail culture meets great accommodation — 8 hike-and-stay itineraries for gals who want both.</p><div class="bfoot"><span>6 min read</span></div></div></div>
-    <div class="bcard"><div class="bimg"><img src="https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#FFE3E6,#E8180A)'"><span class="bcat cl">Lifestyle</span></div><div class="bbody"><h4>Sober-curious travel: what it's actually like on a GWT trip</h4><p>Our community co-wrote this one. Real talk from gals who've done it alcohol-free and loved it.</p><div class="bfoot"><span>5 min read</span><span class="bver">✦ Verified</span></div></div></div>
-    <div class="bcard"><div class="bimg"><img src="https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#8B6914,#D4A843)'"><span class="bcat ca">Destination</span></div><div class="bbody"><h4>The perfect 9 days in Thailand for women travelling solo</h4><p>From Khao Sok to Phi Phi — the itinerary that's convinced thousands of gals to just book it.</p><div class="bfoot"><span>8 min read</span></div></div></div>
-    <div class="bcard"><div class="bimg"><img src="https://galswhotravel.trutravels.com/images/marrakech-accomodation.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#B23A5A,#FF6B8A)'"><span class="bcat cs">Safety</span></div><div class="bbody"><h4>Morocco for solo female travellers: the honest guide</h4><p>We asked 47 gals who've done this trip to be completely honest. Here's everything they said.</p><div class="bfoot"><span>7 min read</span><span class="bver">✦ Verified</span></div></div></div>
-    <div class="bcard"><div class="bimg"><img src="https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#1A5FA8,#4A9BE0)'"><span class="bcat cl">Community</span></div><div class="bbody"><h4>Everything you've wondered about GWT trips — honestly answered</h4><p>Deposits, room sharing, group sizes, packing. All your questions, completely straight answers.</p><div class="bfoot"><span>3 min read</span></div></div></div>
-  </div>
+  <div class="bgrid" id="blog-grid"></div>
 </div></section>
 </div><!-- /blog -->
+
+<!-- ═══════════════ ARTICLE ═══════════════ -->
+<div id="page-article">
+  <div class="art-hero" id="art-hero">
+    <img id="art-hero-img" src="" alt="">
+    <div class="art-hero-ov"></div>
+    <div class="art-hero-cnt">
+      <button class="art-back" onclick="showPage('blog')">← Back to stories</button>
+      <div id="art-catbadge" class="art-catbadge cs">Safety</div>
+      <h1 id="art-title">Article title</h1>
+      <div class="art-meta">
+        <div class="art-av" id="art-av-wrap"><span id="art-av-init">G</span></div>
+        <div>
+          <div class="art-author" id="art-author">GWT Team</div>
+          <div class="art-date" id="art-date">1 May 2026</div>
+        </div>
+        <div class="art-read" id="art-read">4 min read</div>
+      </div>
+    </div>
+  </div>
+  <div class="art-body-wrap">
+    <div class="art-body" id="art-body"><!-- content injected --></div>
+    <div class="art-cta">
+      <h3>Ready to see the world with your gals? 🌍</h3>
+      <p>Browse our women-only group trips — from £200 deposit, all admin sorted.</p>
+      <button class="art-cta-btn" onclick="showPage('home');setTimeout(()=>document.getElementById('trips-sec').scrollIntoView({behavior:'smooth'}),300)">See all trips →</button>
+    </div>
+  </div>
+  <div class="art-more-sec" id="art-more-sec">
+    <h3>More stories</h3>
+    <div class="art-more-grid" id="art-more-grid"><!-- related articles --></div>
+  </div>
+</div><!-- /article -->
 
 <!-- FOOTER -->
 <footer><div class="si">
@@ -1115,11 +1381,7 @@ const HERO_IMGS = {
   costarica:'https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg'
 };
 
-function showPage(p){
-  ['home','blog'].forEach(id=>{document.getElementById('page-'+id).style.display=id===p?'block':'none'}); const tp=document.getElementById('page-tour'); if(tp) tp.style.display='none';
-  window.scrollTo({top:0,behavior:'smooth'});
-  document.getElementById('mob-nav').classList.remove('open');
-}
+// showPage now defined below
 
 // ── Trip URLs → TruTravels booking pages ──
 const TRIP_URLS = {
@@ -1178,6 +1440,245 @@ function toggleMute(){
   muted=!muted;v.muted=muted;
   b.textContent=muted?'🔇':'🔊';
 }
+
+// ── RENDER VIDEO CARDS FROM DATA ─────────────────────────────────────────
+function renderVideoCards(){
+  const track = document.getElementById('vtrack');
+  if(!track||!window.VIDEO_CARDS) return;
+  track.innerHTML = VIDEO_CARDS.map((c,i) => {
+    const trip = (window.TRIPS||[]).find(t=>t.dest===c.dest)||{};
+    const price = trip.price || '';
+    const desc = `${c.days} · women-only${price?' · From '+price:''}`;
+    return `<div class="vc" onclick="openVideoModal(${i})">
+      <div class="vcf">
+        <div class="vcbg" style="background-image:url(${c.thumbnail}),linear-gradient(155deg,#C8523A,#FF8C69)"></div>
+        <div class="vcfade"></div>
+        <div class="vcuser"><div class="vcav">${c.userInitial}</div><span class="vcun">${c.username}</span></div>
+        <div class="vcplay"><div class="vctri"></div></div>
+        <div class="vcside">
+          <div class="vca"><div class="vcbtn">♥</div><div class="vcn">${c.likes}</div></div>
+          <div class="vca"><div class="vcbtn">💬</div><div class="vcn">${c.comments}</div></div>
+          <div class="vca"><div class="vcbtn">↗</div><div class="vcn">share</div></div>
+        </div>
+        <div class="vcinfo">
+          <div class="vcdest">${c.title}</div>
+          <div class="vcdays">${c.days} · women-only</div>
+          <div class="vctag">${c.tag}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── RENDER TRIPS GRID FROM DATA ──────────────────────────────────────────
+function renderTrips(){
+  const grid = document.getElementById('tgrid');
+  if(!grid||!window.TRIPS) return;
+  grid.innerHTML = TRIPS.map(t => `
+    <div class="tcard" data-vibe="${t.vibes.join(' ')}">
+      <div class="tcimg">
+        <img class="tcph" src="${t.img}" alt="${t.title}" onerror="this.parentNode.style.background='linear-gradient(135deg,#C8523A,#FF8C69)'">
+        <div class="tcfade"></div>
+        ${t.badge ? `<div class="tcbadges"><span class="bdg ${t.badgeStyle}">${t.badge}</span></div>` : ''}
+        <div class="tcbot"><span class="tcroute">📍 ${t.route}</span><span class="tcpl">${t.placesLeft} left</span></div>
+      </div>
+      <div class="tcbody">
+        <div class="tctop"><h3>${t.title}</h3><span class="dpill">${t.days} Days</span></div>
+        <p>${t.desc}</p>
+        <div class="tcfoot">
+          <div class="tcprice"><div class="fr">From</div><div class="am">${t.price}</div><div class="pp">per person</div></div>
+          <button class="tcbtn" onclick="showTour('${t.title}','${t.days}','${t.route}','${t.price}','${t.placesLeft}','${t.dest}')">See the trip</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ── RENDER BLOG GRID FROM DATA ───────────────────────────────────────────
+const catMap = { Safety:'cs', Adventure:'ca', Lifestyle:'cl', Destination:'cd', Community:'cc' };
+function renderBlogGrid(container, posts){
+  if(!container) return;
+  container.innerHTML = posts.map((p,i) => `
+    <div class="bcard" onclick="showArticle(${i})" style="cursor:pointer">
+      <div class="bimg">
+        <img src="${p.img}" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,var(--red),var(--red-d))'">
+        <span class="bcat ${catMap[p.category]||'cc'}">${p.category}</span>
+      </div>
+      <div class="bbody">
+        <h4>${p.title}</h4>
+        <p>${p.excerpt}</p>
+        <div class="bfoot">
+          <span>${p.readTime}</span>
+          ${p.verified ? '<span class="bver">✦ Verified</span>' : ''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ── SHOW ARTICLE ─────────────────────────────────────────────────────────
+function showArticle(idx){
+  const p = BLOG_POSTS[idx];
+  if(!p) return;
+
+  // Update URL
+  if(window.history && PAGE_URLS) {
+    history.pushState({page:'article',idx}, p.title, PAGE_URLS.article + p.slug);
+  }
+
+  // Populate hero
+  document.getElementById('art-hero-img').src = p.heroImg || p.img;
+  document.getElementById('art-title').textContent = p.title;
+  document.getElementById('art-author').textContent = p.author;
+  document.getElementById('art-date').textContent = p.date;
+  document.getElementById('art-read').textContent = p.readTime;
+  document.getElementById('art-av-init').textContent = p.author.charAt(0).toUpperCase();
+
+  // Category badge
+  const badge = document.getElementById('art-catbadge');
+  badge.textContent = p.category;
+  badge.className = 'art-catbadge ' + (catMap[p.category]||'cc');
+
+  // Body
+  document.getElementById('art-body').innerHTML = p.content;
+
+  // Related articles (up to 3, excluding current)
+  const related = BLOG_POSTS.filter((_,i)=>i!==idx).slice(0,3);
+  renderBlogGrid(document.getElementById('art-more-grid'), related);
+
+  // Show page
+  ['home','blog'].forEach(id=>{const el=document.getElementById('page-'+id);if(el)el.style.display='none'});
+  const tp=document.getElementById('page-tour');if(tp)tp.style.display='none';
+  document.getElementById('page-article').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('mob-nav').classList.remove('open');
+}
+
+// ── OPEN VIDEO MODAL ─────────────────────────────────────────────────────
+let _vProgTimer = null;
+function openVideoModal(idx){
+  const c = VIDEO_CARDS[idx];
+  const trip = (TRIPS||[]).find(t=>t.dest===c.dest)||{};
+  const vid = document.getElementById('vmod-vid');
+  const bg  = document.getElementById('vmod-bg');
+  const prog= document.getElementById('vm-prog');
+
+  // Populate
+  document.getElementById('vmod-title').textContent = c.title;
+  document.getElementById('vmod-desc').textContent  = `${c.days} · women-only${trip.price?' · From '+trip.price:''}`;
+  document.getElementById('vm-likes').textContent   = c.likes;
+  document.getElementById('vm-cmts').textContent    = c.comments;
+
+  // Thumbnail fallback
+  bg.style.cssText = `position:absolute;inset:0;background-image:url(${c.thumbnail}),linear-gradient(135deg,#3A0808,#C8523A);background-size:cover;background-position:center;z-index:0`;
+
+  // Video
+  if(c.videoUrl){
+    vid.src = c.videoUrl;
+    vid.style.display = 'block';
+    vid.muted = true;
+    vid.load();
+    vid.play().then(()=>{
+      document.getElementById('vmplay-big').classList.add('playing');
+      document.getElementById('vmmute-btn').textContent = '🔇';
+      startProgTimer(vid, prog);
+    }).catch(()=>{});
+  } else {
+    vid.style.display = 'none';
+    document.getElementById('vmplay-big').classList.remove('playing');
+  }
+
+  // Book button
+  document.getElementById('vmod-btn').onclick = function(){
+    closeVModal();
+    showTour(c.title, trip.days||'', trip.route||'', trip.price||'', trip.placesLeft||'', c.dest);
+  };
+
+  document.getElementById('vmod').classList.add('open');
+}
+
+function closeVModal(){
+  const vid = document.getElementById('vmod-vid');
+  vid.pause();
+  vid.src='';
+  if(_vProgTimer){clearInterval(_vProgTimer);_vProgTimer=null;}
+  document.getElementById('vm-prog').style.width='0%';
+  document.getElementById('vmod').classList.remove('open');
+}
+
+function toggleVPlay(){
+  const vid=document.getElementById('vmod-vid');
+  const btn=document.getElementById('vmplay-big');
+  if(vid.paused){vid.play();btn.classList.add('playing');}
+  else{vid.pause();btn.classList.remove('playing');}
+}
+
+let _vmMuted=true;
+function toggleVMute(){
+  const vid=document.getElementById('vmod-vid');
+  _vmMuted=!_vmMuted;
+  vid.muted=_vmMuted;
+  document.getElementById('vmmute-btn').textContent=_vmMuted?'🔇':'🔊';
+}
+
+function startProgTimer(vid, bar){
+  if(_vProgTimer)clearInterval(_vProgTimer);
+  _vProgTimer=setInterval(()=>{
+    if(vid.duration){bar.style.width=((vid.currentTime/vid.duration)*100)+'%';}
+  },250);
+}
+
+// ── PAGE ROUTING (with URL support) ──────────────────────────────────────
+function showPage(p){
+  const pages=['home','blog','article'];
+  pages.forEach(id=>{const el=document.getElementById('page-'+id);if(el)el.style.display='none'});
+  const tp=document.getElementById('page-tour');if(tp)tp.style.display='none';
+  const target=document.getElementById('page-'+p);
+  if(target)target.style.display='block';
+  if(window.history&&PAGE_URLS){
+    const url=PAGE_URLS[p]||'/';
+    history.pushState({page:p},p,url);
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('mob-nav').classList.remove('open');
+}
+
+// Handle browser back/forward
+window.addEventListener('popstate',function(e){
+  const state=e.state||{};
+  if(state.page==='article'&&state.idx!=null)showArticle(state.idx);
+  else if(state.page)showPage(state.page);
+  else showPage('home');
+});
+
+// ── INITIALISE ON LOAD ───────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',function(){
+  // Banner
+  const annEl=document.getElementById('ann-bar');
+  if(annEl){if(!BANNER_VISIBLE){annEl.style.display='none';}else{document.getElementById('ann-text').textContent=BANNER_TEXT;document.getElementById('ann-link').href=BANNER_LINK;document.getElementById('ann-link').textContent=BANNER_LINK_TEXT;}}
+
+  // Hero video
+  const vidEl=document.getElementById('hero-vid');
+  if(vidEl){const src=vidEl.querySelector('source');if(src)src.src=HERO_VIDEO_URL;vidEl.load();}
+
+  // Hero content
+  const h1El=document.querySelector('.hero h1');if(h1El)h1El.innerHTML=HERO_HEADLINE;
+  const subEl=document.querySelector('.hsub');if(subEl)subEl.textContent=HERO_SUBHEADING;
+  const trustEl=document.querySelector('.htrust');
+  if(trustEl)trustEl.innerHTML=TRUST_CHIPS.map(t=>`<div class="tc">${t}</div>`).join('');
+  const statsEl=document.querySelector('.hstats');
+  if(statsEl)statsEl.innerHTML=HERO_STATS.map(s=>`<div class="hst"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`).join('');
+
+  // Render dynamic sections
+  renderVideoCards();
+  renderTrips();
+  renderBlogGrid(document.getElementById('blog-grid'), BLOG_POSTS);
+
+  // Reviews
+  const revrow=document.getElementById('rev-row');
+  if(revrow)revrow.innerHTML=REVIEWS.map(r=>`<div class="rcard"><div class="rstars">${'★'.repeat(r.stars)}</div><p class="rtxt">"${r.text}"</p><div class="rper"><div class="rav">${r.initials}</div><div><div class="rname">${r.name}</div><div class="rtrip">${r.trip}</div></div></div></div>`).join('');
+
+  // Footer
+  const ftEl=document.getElementById('footer-tagline');if(ftEl)ftEl.textContent=FOOTER_TAGLINE;
+});
 </script>
 </body>
 </html>
