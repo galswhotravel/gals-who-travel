@@ -50,15 +50,37 @@ nav{background:var(--white);border-bottom:1px solid var(--bdr);position:sticky;t
 .nlogin{font-size:13px;font-weight:500;color:var(--mut)}
 .ncta{background:var(--red);color:#fff;border-radius:24px;padding:10px 22px;font-size:13px;font-weight:700;transition:background .15s;display:inline-block}
 .ncta:hover{background:var(--red-d)}
-.nham{display:none;flex-direction:column;gap:5px;padding:6px}
-.nham span{width:22px;height:2px;background:var(--ink);border-radius:2px;display:block}
+.nham{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px;transition:background .15s;background:none;border:none;cursor:pointer}
+.nham:hover{background:var(--sand)}
+.nham span{width:22px;height:2px;background:var(--ink);border-radius:2px;display:block;transition:all .3s}
 
 /* ── MOBILE NAV ── */
-.mnav{display:none;position:fixed;inset:0;background:#fff;z-index:600;flex-direction:column;padding:80px 28px 40px;overflow-y:auto}
+.mnav{display:none;position:fixed;inset:0;background:#fff;z-index:600;flex-direction:column;padding:0;overflow-y:auto}
 .mnav.open{display:flex}
-.mnav-cl{position:absolute;top:18px;right:20px;font-size:28px;color:var(--ink)}
-.mnav a,.mnav-link{display:block;font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);padding:13px 0;border-bottom:1px solid var(--bdr)}
+.mnav-hdr{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--bdr);flex-shrink:0}
+.mnav-hdr-logo{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink)}
+.mnav-hdr-logo em{font-style:italic;color:var(--red)}
+.mnav-cl{font-size:20px;color:var(--ink);background:var(--sand);border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.mnav a{display:flex;align-items:center;justify-content:space-between;font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);padding:16px 24px;border-bottom:1px solid var(--bdr);transition:color .15s}
 .mnav a:hover{color:var(--red)}
+.mnav a.hot{color:var(--red)}
+.mnav-foot{padding:20px 24px;display:flex;flex-direction:column;gap:10px;background:var(--sand)}
+.mnav-foot a{display:block;text-align:center;padding:14px;border-radius:14px;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif}
+/* Mobile accordion */
+.mdd{border-bottom:1px solid var(--bdr)}
+.mdd-hdr{width:100%;display:flex;align-items:center;justify-content:space-between;padding:17px 24px;font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);background:none;border:none;cursor:pointer;text-align:left;transition:background .15s}
+.mdd-hdr:hover,.mdd.open .mdd-hdr{background:var(--red-pale);color:var(--red)}
+.mdd-chev{font-size:13px;opacity:.4;transition:transform .25s;display:inline-block}
+.mdd.open .mdd-chev{transform:rotate(180deg);opacity:.8}
+.mdd-body{display:none;background:var(--sand);padding:8px 0 12px}
+.mdd.open .mdd-body{display:block}
+.mdd-section-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--mut);padding:10px 24px 6px}
+.mdd-body a{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;font-size:15px;color:var(--ink-2);transition:color .15s;font-family:'DM Sans',sans-serif;border:none}
+.mdd-body a:hover{color:var(--red)}
+.mdd-badge{font-size:9px;background:var(--red);color:#fff;border-radius:6px;padding:2px 7px;font-weight:700;font-family:'DM Sans',sans-serif;flex-shrink:0}
+.mdd-flat{display:flex;align-items:center;padding:17px 24px;font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);border-bottom:1px solid var(--bdr);transition:color .15s}
+.mdd-flat:hover{color:var(--red)}
+.mdd-flat.hot{color:var(--red);font-weight:600}
 
 /* ── HERO ── */
 .hero{position:relative;height:calc(100vh - 68px);min-height:600px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
@@ -357,9 +379,9 @@ footer{background:var(--ink);padding:64px 40px 32px}
 @media(max-width:900px){
   .dest-row2{grid-template-columns:repeat(3,1fr)}
   .trust-inner{grid-template-columns:repeat(2,1fr)}
-  .about{grid-template-columns:1fr;max-height:none}
-  .about-img{max-height:220px}
-  .about-copy{padding:28px 24px}
+  .about{grid-template-columns:1fr;height:auto;overflow:visible}
+  .about-img{height:280px;max-height:280px}
+  .about-copy{height:auto;padding:32px 28px}
 }
 @media(max-width:768px){
   nav{padding:0 16px}
@@ -381,6 +403,9 @@ footer{background:var(--ink);padding:64px 40px 32px}
   .trust-inner{grid-template-columns:repeat(2,1fr);gap:16px}
   .f-grid{grid-template-columns:1fr}
   footer{padding:48px 20px 24px}
+  .about{grid-template-columns:1fr;height:auto;overflow:visible}
+  .about-img{height:260px;max-height:260px}
+  .about-copy{height:auto;padding:28px 24px}
 }
 @media(max-width:480px){
   .dest-row2{grid-template-columns:1fr 1fr}
@@ -419,15 +444,88 @@ footer{background:var(--ink);padding:64px 40px 32px}
 
 <!-- MOBILE NAV -->
 <div class="mnav" id="mob-nav">
-  <button class="mnav-cl" onclick="document.getElementById('mob-nav').classList.remove('open')">✕</button>
-  <a href="#" onclick="document.getElementById('mob-nav').classList.remove('open')">Home</a>
-  <a href="#dest-sec">Destinations</a>
-  <a href="#trips-sec">All Trips</a>
-  <a href="#why-sec">Why GWT?</a>
-  <a href="#rev-sec">Reviews</a>
-  <a href="gwt-blog.html">Blog &amp; News</a>
-  <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px">
-    <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" style="background:var(--red);color:#fff;border-radius:20px;padding:14px;text-align:center;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;border:none">Find a Trip →</a>
+  <div class="mnav-hdr">
+    <img src="https://cdn.trutravels.com/images/gals-who-logo-cropped.png" alt="GWT" style="height:34px;width:auto" onerror="this.style.display='none'">
+    <button class="mnav-cl" onclick="closeMobileNav()">✕</button>
+  </div>
+  <div style="flex:1;overflow-y:auto">
+
+    <!-- Destinations accordion -->
+    <div class="mdd">
+      <button class="mdd-hdr" onclick="toggleMdd(this)">
+        <span>Destinations</span><span class="mdd-chev">▾</span>
+      </button>
+      <div class="mdd-body">
+        <div class="mdd-section-label">Where to?</div>
+        <a href="https://galswhotravel.trutravels.com/thailand-paradise/girls-trip" target="_blank" onclick="closeMobileNav()">🌴 Thailand <span class="mdd-badge">Popular</span></a>
+        <a href="https://galswhotravel.trutravels.com/bali-paradise/girls-trip" target="_blank" onclick="closeMobileNav()">🌺 Bali <span class="mdd-badge">Sale</span></a>
+        <a href="https://galswhotravel.trutravels.com/girls-trip/japan-tour" target="_blank" onclick="closeMobileNav()">🌸 Japan</a>
+        <a href="https://galswhotravel.trutravels.com/morocco-uncovered-girls-trip" target="_blank" onclick="closeMobileNav()">🏜 Morocco</a>
+        <a href="https://galswhotravel.trutravels.com/greece-island-hopper/girls-trip" target="_blank" onclick="closeMobileNav()">⛵ Greece</a>
+        <a href="https://galswhotravel.trutravels.com/vietnam-explorer/girls-trip" target="_blank" onclick="closeMobileNav()">🛵 Vietnam <span class="mdd-badge">New</span></a>
+        <a href="https://galswhotravel.trutravels.com/italy-girls-trip" target="_blank" onclick="closeMobileNav()">🍕 Italy</a>
+        <a href="https://galswhotravel.trutravels.com/10-day-sri-lanka-uncovered" target="_blank" onclick="closeMobileNav()">🌿 Sri Lanka</a>
+        <a href="https://galswhotravel.trutravels.com/costa-rica-adventure-girls-trip" target="_blank" onclick="closeMobileNav()">🌿 Costa Rica</a>
+        <a href="https://galswhotravel.trutravels.com" target="_blank" onclick="closeMobileNav()" style="color:var(--red);font-weight:600">View all destinations →</a>
+      </div>
+    </div>
+
+    <!-- Dates accordion -->
+    <div class="mdd">
+      <button class="mdd-hdr" onclick="toggleMdd(this)">
+        <span>Dates</span><span class="mdd-chev">▾</span>
+      </button>
+      <div class="mdd-body">
+        <div class="mdd-section-label">By month</div>
+        <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" onclick="closeMobileNav()">May 2026</a>
+        <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" onclick="closeMobileNav()">June 2026</a>
+        <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" onclick="closeMobileNav()">July 2026</a>
+        <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" onclick="closeMobileNav()">August 2026</a>
+        <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" onclick="closeMobileNav()">September 2026</a>
+        <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" onclick="closeMobileNav()">October – December 2026</a>
+        <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" onclick="closeMobileNav()" style="color:var(--red);font-weight:600">All upcoming trips →</a>
+      </div>
+    </div>
+
+    <!-- Trip Styles accordion -->
+    <div class="mdd">
+      <button class="mdd-hdr" onclick="toggleMdd(this)">
+        <span>Trip Styles</span><span class="mdd-chev">▾</span>
+      </button>
+      <div class="mdd-body">
+        <div class="mdd-section-label">Choose your vibe</div>
+        <a href="#" onclick="closeMobileNav()">🌊 Beach &amp; Islands</a>
+        <a href="#" onclick="closeMobileNav()">🏙 City Explorer</a>
+        <a href="#" onclick="closeMobileNav()">🥾 Adventure &amp; Hike</a>
+        <a href="#" onclick="closeMobileNav()">✨ Wellness &amp; Glow</a>
+        <a href="#" onclick="closeMobileNav()">📚 Culture &amp; Literary</a>
+        <a href="#" onclick="closeMobileNav()">⛷ Ski &amp; Snow</a>
+      </div>
+    </div>
+
+    <!-- Flat links -->
+    <a class="mdd-flat hot" href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" onclick="closeMobileNav()">🔥 Offers</a>
+    <a class="mdd-flat" href="gwt-blog.html" onclick="closeMobileNav()">Blog &amp; News</a>
+
+    <!-- Start Here accordion -->
+    <div class="mdd">
+      <button class="mdd-hdr" onclick="toggleMdd(this)">
+        <span>Start Here</span><span class="mdd-chev">▾</span>
+      </button>
+      <div class="mdd-body">
+        <a href="#" onclick="closeMobileNav()">Our story</a>
+        <a href="#" onclick="closeMobileNav()">What to expect</a>
+        <a href="https://galswhotravel.trutravels.com/blog/frequently-asked-questions" target="_blank" onclick="closeMobileNav()">FAQs</a>
+        <a href="#" onclick="closeMobileNav()">Flights guide</a>
+        <a href="#" onclick="closeMobileNav()">Travel insurance</a>
+        <a href="gwt-blog.html" onclick="closeMobileNav()">Blog &amp; stories</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="mnav-foot">
+    <a href="https://galswhotravel.trutravels.com/account/login" target="_blank" style="background:var(--sand);color:var(--ink);border:1.5px solid var(--bdr)">Login</a>
+    <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" style="background:var(--red);color:#fff">Find a Trip →</a>
   </div>
 </div>
 
@@ -438,7 +536,6 @@ footer{background:var(--ink);padding:64px 40px 32px}
 <nav id="main-nav">
   <a class="nl" href="#">
     <img src="https://cdn.trutravels.com/images/gals-who-logo-cropped.png" alt="GWT" onerror="this.style.display='none'">
-    <span class="nl-text">gals who <em>travel</em></span>
   </a>
   <ul class="nlinks">
     <li>
@@ -1436,6 +1533,16 @@ let heroMuted=true;
 function toggleHeroMute(){
   const v=document.querySelector('.hero-bg video'),b=document.getElementById('hero-mute');
   heroMuted=!heroMuted;if(v)v.muted=heroMuted;b.textContent=heroMuted?'🔇':'🔊';
+}
+
+// Mobile nav accordion
+function closeMobileNav(){document.getElementById('mob-nav').classList.remove('open');}
+function toggleMdd(btn){
+  const mdd=btn.closest('.mdd');
+  const isOpen=mdd.classList.contains('open');
+  // Close all others
+  document.querySelectorAll('.mdd.open').forEach(m=>m.classList.remove('open'));
+  if(!isOpen) mdd.classList.add('open');
 }
 
 // Nav shadow on scroll
