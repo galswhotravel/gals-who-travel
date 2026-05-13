@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GWT Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,700&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+em{font-family:'Playfair Display',serif;font-style:italic}
+:root{--red:#E8180A;--red-d:#C01008;--red-pale:#FFF0EF;--pink:#FFE3E6;--pink-m:#FFC5CB;--ink:#0F0505;--mut:#7A5555;--sand:#FAF6F1;--bdr:#EDE0E0;--white:#fff;--sidebar:260px}
+body{font-family:'DM Sans',sans-serif;background:#F4EEE8;color:var(--ink);min-height:100vh;font-size:14px}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:'DM Sans',sans-serif;border:none}
+input,textarea,select{font-family:'DM Sans',sans-serif}
+/* LOGIN */
+#login-screen{position:fixed;inset:0;background:var(--ink);display:flex;align-items:center;justify-content:center;z-index:999}
+.login-box{background:#fff;border-radius:24px;padding:48px;width:380px;text-align:center}
+.login-box h1{font-family:'Instrument Serif',serif;font-size:28px;color:var(--ink);margin-bottom:4px}
+.login-box h1 em{font-style:italic;color:var(--red)}
+.login-box p{font-size:13px;color:var(--mut);margin-bottom:28px}
+.lf{width:100%;border:1.5px solid var(--bdr);border-radius:12px;padding:13px 16px;font-size:14px;margin-bottom:12px;outline:none;transition:border .2s}
+.lf:focus{border-color:var(--red)}
+.lb{width:100%;background:var(--red);color:#fff;border-radius:12px;padding:14px;font-size:14px;font-weight:700;transition:background .2s}
+.lb:hover{background:var(--red-d)}
+.lerr{font-size:12px;color:var(--red);margin-top:8px;display:none}
+/* LAYOUT */
+#app{display:none;min-height:100vh}
+.sidebar{width:var(--sidebar);background:var(--ink);position:fixed;top:0;left:0;height:100vh;display:flex;flex-direction:column;overflow-y:auto;z-index:100}
+.sb-logo{padding:28px 24px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-logo-text{font-family:'Instrument Serif',serif;font-size:20px;color:#fff}
+.sb-logo-text em{font-style:italic;color:var(--pink-m)}
+.sb-logo-sub{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.12em;margin-top:3px}
+.sb-nav{flex:1;padding:16px 0}
+.sb-sec{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.25);padding:16px 24px 8px}
+.sbl{display:flex;align-items:center;gap:10px;padding:10px 24px;font-size:13px;font-weight:500;color:rgba(255,255,255,.55);transition:all .15s;cursor:pointer;border:none;background:none;width:100%;text-align:left}
+.sbl:hover,.sbl.active{background:rgba(255,255,255,.07);color:#fff}
+.sbl .icon{width:18px;text-align:center;font-size:15px;flex-shrink:0}
+.sb-foot{padding:16px 24px;border-top:1px solid rgba(255,255,255,.08)}
+.sb-foot button{font-size:12px;color:rgba(255,255,255,.35);background:none;border:none;cursor:pointer}
+.main{margin-left:var(--sidebar);min-height:100vh}
+.topbar{background:#fff;border-bottom:1px solid var(--bdr);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-title{font-family:'Instrument Serif',serif;font-size:18px;font-weight:400}
+.topbar-title em{font-style:italic;color:var(--red)}
+.topbar-acts{display:flex;align-items:center;gap:10px}
+/* BUTTONS */
+.btn{border-radius:10px;padding:8px 16px;font-size:13px;font-weight:600;transition:all .15s;cursor:pointer;border:none}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover{background:var(--red-d)}
+.btn-outline{background:#fff;color:var(--ink);border:1.5px solid var(--bdr)}
+.btn-outline:hover{border-color:var(--red);color:var(--red)}
+.btn-danger{background:#fff0f0;color:var(--red);border:1.5px solid #fcc}
+.btn-danger:hover{background:var(--red);color:#fff}
+.btn-sm{padding:6px 12px;font-size:12px}
+/* CONTENT */
+.content{padding:28px 32px}
+.panel{display:none}
+.panel.active{display:block}
+/* STATS */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.stat-card{background:#fff;border-radius:16px;padding:20px;border:1px solid var(--bdr)}
+.stat-num{font-family:'Instrument Serif',serif;font-size:32px;font-style:italic;color:var(--red);line-height:1}
+.stat-lbl{font-size:12px;color:var(--mut);margin-top:4px}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.sec-hdr h2{font-family:'Instrument Serif',serif;font-size:22px;font-weight:400}
+.sec-hdr h2 em{font-style:italic;color:var(--red)}
+/* TABLE */
+.table-wrap{background:#fff;border-radius:16px;border:1px solid var(--bdr);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--mut);padding:12px 16px;text-align:left;background:var(--sand);border-bottom:1px solid var(--bdr)}
+td{padding:12px 16px;border-bottom:1px solid var(--bdr);font-size:13px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--sand)}
+.td-badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase}
+.td-badge.red{background:var(--red-pale);color:var(--red)}
+.td-badge.green{background:#e8f5e9;color:#2D7A4A}
+.td-badge.blue{background:#e3f2fd;color:#1565C0}
+.td-badge.pink{background:var(--pink);color:#7A0804}
+.td-badge.draft{background:#f5f5f5;color:#666}
+.td-actions{display:flex;gap:6px}
+/* FORMS */
+.form-grid{display:grid;gap:16px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.form-input{border:1.5px solid var(--bdr);border-radius:10px;padding:11px 14px;font-size:14px;outline:none;transition:border .2s;background:#fff}
+.form-input:focus{border-color:var(--red)}
+.form-textarea{border:1.5px solid var(--bdr);border-radius:10px;padding:11px 14px;font-size:14px;outline:none;resize:vertical;min-height:80px;transition:border .2s;background:#fff}
+.form-textarea:focus{border-color:var(--red)}
+.form-select{border:1.5px solid var(--bdr);border-radius:10px;padding:11px 14px;font-size:14px;outline:none;background:#fff;appearance:none;cursor:pointer}
+.form-select:focus{border-color:var(--red)}
+/* UPLOAD */
+.upload-zone{border:2px dashed var(--bdr);border-radius:14px;padding:28px;text-align:center;background:var(--sand);transition:all .2s;cursor:pointer;position:relative}
+.upload-zone:hover{border-color:var(--red);background:var(--red-pale)}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upload-icon{font-size:28px;margin-bottom:8px}
+.upload-zone h4{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.upload-zone p{font-size:12px;color:var(--mut)}
+/* TOGGLE */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:#fff;border:1px solid var(--bdr);border-radius:12px;margin-bottom:12px}
+.toggle-info h4{font-size:14px;font-weight:600}
+.toggle-info p{font-size:12px;color:var(--mut);margin-top:2px}
+.toggle{position:relative;width:44px;height:24px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-slider{position:absolute;inset:0;background:#ddd;border-radius:24px;transition:.3s;cursor:pointer}
+.toggle-slider::before{content:'';position:absolute;left:3px;top:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:.3s}
+.toggle input:checked + .toggle-slider{background:var(--red)}
+.toggle input:checked + .toggle-slider::before{transform:translateX(20px)}
+/* COLOUR PICKER */
+.color-opts{display:flex;gap:8px;margin-top:4px}
+.col-opt{width:28px;height:28px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .2s}
+.col-opt.sel{border-color:var(--ink)}
+.col-opt[data-c="red"]{background:var(--red)}
+.col-opt[data-c="green"]{background:#2D7A4A}
+.col-opt[data-c="blue"]{background:#1A5FA8}
+.col-opt[data-c="pink"]{background:var(--pink-m)}
+/* TRIP ROWS */
+.trip-row{background:#fff;border:1px solid var(--bdr);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.trip-row-hdr{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer}
+.trip-row-hdr:hover{background:var(--sand)}
+.trip-drag{color:var(--mut);font-size:18px;cursor:grab}
+.trip-row-img{width:52px;height:40px;border-radius:7px;object-fit:cover;flex-shrink:0;background:var(--pink)}
+.trip-row-title{flex:1;font-size:14px;font-weight:600}
+.trip-row-price{font-family:'Instrument Serif',serif;font-size:16px;font-style:italic;color:var(--red)}
+.trip-row-body{display:none;padding:0 16px 16px;border-top:1px solid var(--bdr)}
+.trip-row.open .trip-row-body{display:block}
+.trip-row.open .trip-row-hdr{background:var(--red-pale)}
+/* EDITOR */
+.editor-toolbar{display:flex;gap:4px;flex-wrap:wrap;padding:10px 12px;background:var(--sand);border-bottom:1px solid var(--bdr);border-radius:10px 10px 0 0}
+.editor-btn{padding:5px 9px;border-radius:6px;font-size:12px;font-weight:600;background:#fff;border:1px solid var(--bdr);cursor:pointer;transition:all .15s}
+.editor-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.editor-area{border:1.5px solid var(--bdr);border-top:none;border-radius:0 0 10px 10px;min-height:300px;padding:16px;outline:none;font-size:14px;line-height:1.8;background:#fff}
+.editor-area:focus{border-color:var(--red)}
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(10,2,2,.6);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:20px;width:min(680px,95vw);max-height:90vh;overflow-y:auto}
+.modal-hdr{padding:24px 28px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.modal-hdr h3{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400}
+.modal-hdr h3 em{font-style:italic;color:var(--red)}
+.modal-cl{background:var(--sand);border:none;border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer}
+.modal-body{padding:24px 28px}
+.modal-foot{padding:16px 28px;border-top:1px solid var(--bdr);display:flex;justify-content:flex-end;gap:10px}
+/* MEDIA */
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.media-item{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.media-item:hover{border-color:var(--red)}
+.media-item img{width:100%;height:100%;object-fit:cover}
+.media-item-del{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer;display:none;align-items:center;justify-content:center}
+.media-item:hover .media-item-del{display:flex}
+.media-empty{grid-column:1/-1;text-align:center;padding:48px;color:var(--mut);font-size:13px}
+/* SAVE BAR */
+.save-bar{position:fixed;bottom:0;left:var(--sidebar);right:0;background:var(--ink);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;z-index:99;transform:translateY(100%);transition:transform .3s}
+.save-bar.visible{transform:translateY(0)}
+.save-bar p{font-size:13px;color:rgba(255,255,255,.7)}
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:#fff;border-radius:12px;padding:12px 20px;font-size:13px;font-weight:600;z-index:999;transform:translateY(80px);opacity:0;transition:all .3s}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.success{background:#1a5a2a}
+#toast.error{background:var(--red)}
+@media(max-width:900px){
+  .sidebar{width:60px}
+  .sb-logo-text,.sb-logo-sub,.sbl span:not(.icon),.sb-sec,.sb-foot button span{display:none}
+  .sbl{justify-content:center;padding:12px}
+  .main{margin-left:60px}
+  .stat-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>gals who <em>travel</em></h1>
+    <p>Admin CMS &mdash; sign in to manage your site</p>
+    <input class="lf" type="text" id="lu" placeholder="Username" autocomplete="username">
+    <input class="lf" type="password" id="lp" placeholder="Password" autocomplete="current-password">
+    <button class="lb" onclick="doLogin()">Sign in &rarr;</button>
+    <p class="lerr" id="lerr">Incorrect credentials. Try again.</p>
+    <p style="font-size:11px;color:var(--mut);margin-top:16px">Default: admin / gwt2026</p>
+  </div>
+</div>
+
+<div id="toast"></div>
+<div class="save-bar" id="save-bar">
+  <p>You have unsaved changes</p>
+  <div style="display:flex;gap:10px">
+    <button class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.3)" onclick="discardChanges()">Discard</button>
+    <button class="btn btn-primary" onclick="saveAll()">Save all changes</button>
+  </div>
+</div>
+
+<!-- REVIEW MODAL -->
+<div class="modal-bg" id="rev-modal">
+  <div class="modal">
+    <div class="modal-hdr"><h3>Edit <em>review</em></h3><button class="modal-cl" onclick="closeModal('rev-modal')">X</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-row">
+          <div class="form-group"><label>Name</label><input class="form-input" id="rv-name" placeholder="Zoe Fells"></div>
+          <div class="form-group"><label>Initials</label><input class="form-input" id="rv-initials" placeholder="Z" maxlength="2"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Trip and date</label><input class="form-input" id="rv-trip" placeholder="Thailand Paradise, Feb 2026"></div>
+          <div class="form-group"><label>Stars (1-5)</label><input class="form-input" type="number" id="rv-stars" min="1" max="5" value="5"></div>
+        </div>
+        <div class="form-group"><label>Review text</label><textarea class="form-textarea" id="rv-text" placeholder="What did they say?"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal('rev-modal')">Cancel</button><button class="btn btn-primary" onclick="saveRevModal()">Save review</button></div>
+  </div>
+</div>
+
+<div id="app">
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-text">gals who <em>travel</em></div>
+      <div class="sb-logo-sub">Content Manager</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-sec">Overview</div>
+      <button class="sbl active" onclick="showPanel('dashboard')"><span class="icon">📊</span><span>Dashboard</span></button>
+      <div class="sb-sec">Homepage</div>
+      <button class="sbl" onclick="showPanel('banner')"><span class="icon">📣</span><span>Announcement Bar</span></button>
+      <button class="sbl" onclick="showPanel('hero')"><span class="icon">🏖</span><span>Hero Image &amp; Text</span></button>
+      <button class="sbl" onclick="showPanel('ticker')"><span class="icon">📢</span><span>Price Ticker</span></button>
+      <button class="sbl" onclick="showPanel('about')"><span class="icon">🖼</span><span>About Section</span></button>
+      <button class="sbl" onclick="showPanel('destinations')"><span class="icon">🗺</span><span>Destination Cards</span></button>
+      <button class="sbl" onclick="showPanel('whygtw')"><span class="icon">💫</span><span>Why GWT Section</span></button>
+      <button class="sbl" onclick="showPanel('community')"><span class="icon">🤝</span><span>Community CTA</span></button>
+      <div class="sb-sec">Trips</div>
+      <button class="sbl" onclick="showPanel('trips')"><span class="icon">🌍</span><span>Trip Cards</span></button>
+      <button class="sbl" onclick="showPanel('departures')"><span class="icon">🗓</span><span>Departures</span></button>
+      <button class="sbl" onclick="showPanel('videos')"><span class="icon">🎬</span><span>Video Cards</span></button>
+      <div class="sb-sec">Community</div>
+      <button class="sbl" onclick="showPanel('reviews')"><span class="icon">⭐</span><span>Reviews</span></button>
+      <button class="sbl" onclick="showPanel('ugc')"><span class="icon">📸</span><span>UGC Photos</span></button>
+      <div class="sb-sec">Blog</div>
+      <button class="sbl" onclick="showPanel('blog-list')"><span class="icon">📝</span><span>All Posts</span></button>
+      <button class="sbl" onclick="showPanel('blog-new')"><span class="icon">✍</span><span>New Post</span></button>
+      <div class="sb-sec">Assets</div>
+      <button class="sbl" onclick="showPanel('media')"><span class="icon">🖼</span><span>Media Library</span></button>
+    </nav>
+    <div class="sb-foot"><button onclick="logout()">Sign out</button></div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <span class="topbar-title">gals who <em>travel</em> &mdash; <span id="panel-title">Dashboard</span></span>
+      <div class="topbar-acts">
+        <a href="gwt-blog.html" target="_blank" class="btn btn-outline">View Blog</a>
+        <a href="gwt-departures.html" target="_blank" class="btn btn-outline">View Departures</a>
+        <a href="/" target="_blank" class="btn btn-primary">View Site</a>
+      </div>
+    </div>
+
+    <div class="content">
+
+<!-- DASHBOARD -->
+<div class="panel active" id="panel-dashboard">
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-num" id="s-trips">15</div><div class="stat-lbl">Trips</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-posts">0</div><div class="stat-lbl">Blog posts</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-media">0</div><div class="stat-lbl">Media files</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-revs">6</div><div class="stat-lbl">Reviews</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+    <div onclick="showPanel('trips')" style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px;cursor:pointer" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='var(--bdr)'">
+      <div style="font-size:28px;margin-bottom:10px">✏️</div>
+      <h3 style="font-family:'Instrument Serif',serif;font-size:17px;font-weight:400;margin-bottom:4px">Update <em style="font-style:italic;color:var(--red)">trip prices</em></h3>
+      <p style="font-size:12px;color:var(--mut)">Change prices, badges and descriptions</p>
+    </div>
+    <div onclick="showPanel('departures')" style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px;cursor:pointer" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='var(--bdr)'">
+      <div style="font-size:28px;margin-bottom:10px">🗓️</div>
+      <h3 style="font-family:'Instrument Serif',serif;font-size:17px;font-weight:400;margin-bottom:4px">Manage <em style="font-style:italic;color:var(--red)">departures</em></h3>
+      <p style="font-size:12px;color:var(--mut)">Add, edit or remove departure dates</p>
+    </div>
+    <div onclick="showPanel('blog-new')" style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px;cursor:pointer" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='var(--bdr)'">
+      <div style="font-size:28px;margin-bottom:10px">✍️</div>
+      <h3 style="font-family:'Instrument Serif',serif;font-size:17px;font-weight:400;margin-bottom:4px">Write a <em style="font-style:italic;color:var(--red)">blog post</em></h3>
+      <p style="font-size:12px;color:var(--mut)">Publish travel guides and stories</p>
+    </div>
+  </div>
+  <div style="margin-top:28px">
+    <div class="sec-hdr"><h2>Recent <em>posts</em></h2><button class="btn btn-outline btn-sm" onclick="showPanel('blog-list')">All posts</button></div>
+    <div class="table-wrap"><div id="recent-posts" style="padding:32px;text-align:center;color:var(--mut);font-size:13px">No posts yet</div></div>
+  </div>
+</div>
+
+<!-- BANNER -->
+<div class="panel" id="panel-banner">
+  <div class="sec-hdr"><h2>Announcement <em>bar</em></h2><button class="btn btn-primary" onclick="saveBanner()">Save</button></div>
+  <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px">
+    <div class="toggle-row">
+      <div class="toggle-info"><h4>Show announcement bar</h4><p>The dark strip at the top of every page</p></div>
+      <label class="toggle"><input type="checkbox" id="b-visible" onchange="markDirty()"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="form-grid" style="margin-top:16px">
+      <div class="form-group"><label>Text</label><input class="form-input" id="b-text" oninput="markDirty();updateBannerPreview()"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Link text</label><input class="form-input" id="b-lt" oninput="markDirty();updateBannerPreview()"></div>
+        <div class="form-group"><label>Link URL</label><input class="form-input" id="b-lu" oninput="markDirty()"></div>
+      </div>
+    </div>
+    <div id="b-preview" style="margin-top:20px;background:var(--ink);border-radius:10px;padding:12px;text-align:center;font-size:13px;font-weight:500;color:#fff"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="panel" id="panel-hero">
+  <div class="sec-hdr"><h2>Hero <em>image and text</em></h2><button class="btn btn-primary" onclick="saveHero()">Save</button></div>
+  <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px">
+    <div>
+      <div class="form-group" style="margin-bottom:14px"><label>Headline line 1</label><input class="form-input" id="h-l1" placeholder="Your next" oninput="markDirty()"></div>
+      <div class="form-group" style="margin-bottom:14px"><label>Headline italic (pink)</label><input class="form-input" id="h-l2" placeholder="adventure" oninput="markDirty()"></div>
+      <div class="form-group" style="margin-bottom:14px"><label>Headline line 3</label><input class="form-input" id="h-l3" placeholder="starts here." oninput="markDirty()"></div>
+      <div class="form-group"><label>Subtext</label><textarea class="form-textarea" id="h-sub" oninput="markDirty()"></textarea></div>
+    </div>
+    <div>
+      <div class="form-group" style="margin-bottom:14px"><label>Hero image</label>
+        <div class="upload-zone">
+          <input type="file" accept="image/*" onchange="handleFileUpload(this,'h-preview','h-b64')">
+          <div class="upload-icon">🖼</div><h4>Drop hero image here</h4><p>Recommended 1920x1080px</p>
+        </div>
+        <div id="h-preview" style="margin-top:10px"></div>
+        <input type="hidden" id="h-b64">
+      </div>
+      <div class="form-group"><label>Or paste image URL</label><input class="form-input" id="h-url" placeholder="https://..." oninput="markDirty()"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="panel" id="panel-ticker">
+  <div class="sec-hdr"><h2>Price <em>ticker</em></h2><button class="btn btn-primary" onclick="saveTicker()">Save</button></div>
+  <p style="font-size:13px;color:var(--mut);margin-bottom:16px">The scrolling red bar below the hero. Keep each item short.</p>
+  <div id="ticker-list"></div>
+  <button class="btn btn-outline" style="margin-top:10px" onclick="addTickerItem()">+ Add item</button>
+</div>
+
+<!-- ABOUT -->
+<div class="panel" id="panel-about">
+  <div class="sec-hdr"><h2>About <em>section</em></h2><button class="btn btn-primary" onclick="saveAbout()">Save</button></div>
+  <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px">
+    <div class="form-grid">
+      <div class="form-group"><label>Eyebrow label</label><input class="form-input" id="a-eye" oninput="markDirty()"></div>
+      <div class="form-group"><label>Headline line 1</label><input class="form-input" id="a-h1" oninput="markDirty()"></div>
+      <div class="form-group"><label>Headline italic (red)</label><input class="form-input" id="a-h2" oninput="markDirty()"></div>
+      <div class="form-group"><label>Headline line 3</label><input class="form-input" id="a-h3" oninput="markDirty()"></div>
+      <div class="form-group"><label>Paragraph 1</label><textarea class="form-textarea" id="a-p1" oninput="markDirty()"></textarea></div>
+      <div class="form-group"><label>Paragraph 2</label><textarea class="form-textarea" id="a-p2" oninput="markDirty()"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Button text</label><input class="form-input" id="a-bt" oninput="markDirty()"></div>
+        <div class="form-group"><label>Button URL</label><input class="form-input" id="a-bu" oninput="markDirty()"></div>
+      </div>
+      <div class="form-group"><label>Location tag (on photo)</label><input class="form-input" id="a-loc" oninput="markDirty()"></div>
+    </div>
+    <div>
+      <div class="form-group" style="margin-bottom:14px"><label>Photo</label>
+        <div class="upload-zone" style="padding:20px">
+          <input type="file" accept="image/*" onchange="handleFileUpload(this,'a-preview','a-img')">
+          <div class="upload-icon" style="font-size:22px">📷</div><h4 style="font-size:13px">Upload photo</h4><p>Ideal: 900x900px</p>
+        </div>
+        <div id="a-preview" style="margin-top:10px"></div>
+        <input type="hidden" id="a-img">
+      </div>
+      <div class="form-group"><label>Or paste image URL</label><input class="form-input" id="a-url" oninput="markDirty()"></div>
+    </div>
+  </div>
+</div>
+
+<!-- DESTINATIONS -->
+<div class="panel" id="panel-destinations">
+  <div class="sec-hdr"><h2>Destination <em>cards</em></h2><button class="btn btn-primary" onclick="saveDestinations()">Save</button></div>
+  <p style="font-size:13px;color:var(--mut);margin-bottom:16px">First 2 are wide feature cards. Next 5 are portrait cards.</p>
+  <div id="dest-list"></div>
+</div>
+
+<!-- WHY GWT -->
+<div class="panel" id="panel-whygtw">
+  <div class="sec-hdr"><h2>Why GWT <em>section</em></h2><button class="btn btn-primary" onclick="saveWhyGWT()">Save</button></div>
+  <p style="font-size:13px;color:var(--mut);margin-bottom:16px">The 6 photo cards on the homepage.</p>
+  <div id="why-list"></div>
+</div>
+
+<!-- COMMUNITY CTA -->
+<div class="panel" id="panel-community">
+  <div class="sec-hdr"><h2>Community <em>CTA</em></h2><button class="btn btn-primary" onclick="saveCommunity()">Save</button></div>
+  <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px">
+    <div class="form-grid">
+      <div class="form-row">
+        <div class="form-group"><label>Headline line 1</label><input class="form-input" id="c-h1" placeholder="Join our" oninput="markDirty()"></div>
+        <div class="form-group"><label>Headline italic</label><input class="form-input" id="c-h2" placeholder="community." oninput="markDirty()"></div>
+      </div>
+      <div class="form-group"><label>Subtext</label><textarea class="form-textarea" id="c-sub" oninput="markDirty()"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Button 1 text</label><input class="form-input" id="c-b1t" oninput="markDirty()"></div>
+        <div class="form-group"><label>Button 1 URL</label><input class="form-input" id="c-b1u" oninput="markDirty()"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Button 2 text</label><input class="form-input" id="c-b2t" oninput="markDirty()"></div>
+        <div class="form-group"><label>Button 2 URL</label><input class="form-input" id="c-b2u" oninput="markDirty()"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRIPS -->
+<div class="panel" id="panel-trips">
+  <div class="sec-hdr"><h2>Trip <em>cards</em></h2><button class="btn btn-primary" onclick="saveTrips()">Save all trips</button></div>
+  <p style="font-size:13px;color:var(--mut);margin-bottom:16px">Click any trip to expand and edit.</p>
+  <div id="trips-list"></div>
+</div>
+
+<!-- DEPARTURES -->
+<div class="panel" id="panel-departures">
+  <div class="sec-hdr"><h2>Departure <em>dates</em></h2>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-outline" onclick="addDeparture()">+ Add date</button>
+      <button class="btn btn-primary" onclick="saveDepartures()">Save</button>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--mut);margin-bottom:16px">These appear on the Upcoming Trips page. Sorted by date automatically.</p>
+  <div id="dep-list"></div>
+</div>
+
+<!-- VIDEOS -->
+<div class="panel" id="panel-videos">
+  <div class="sec-hdr"><h2>TikTok <em>video cards</em></h2><button class="btn btn-primary" onclick="saveVideos()">Save</button></div>
+  <p style="font-size:13px;color:var(--mut);margin-bottom:16px">Paste a TikTok URL or direct .mp4 link. Leave blank for photo-only.</p>
+  <div id="videos-list"></div>
+</div>
+
+<!-- REVIEWS -->
+<div class="panel" id="panel-reviews">
+  <div class="sec-hdr"><h2>Customer <em>reviews</em></h2>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-outline" onclick="addReview()">+ Add review</button>
+      <button class="btn btn-primary" onclick="saveReviews()">Save</button>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table><thead><tr><th>Name</th><th>Trip</th><th>Stars</th><th>Review</th><th>Actions</th></tr></thead>
+    <tbody id="revs-tbody"></tbody></table>
+  </div>
+</div>
+
+<!-- UGC -->
+<div class="panel" id="panel-ugc">
+  <div class="sec-hdr"><h2>UGC photo <em>strip</em></h2><button class="btn btn-primary" onclick="saveUGC()">Save</button></div>
+  <div id="ugc-list"></div>
+  <button class="btn btn-outline" style="margin-top:10px" onclick="addUGC()">+ Add photo</button>
+</div>
+
+<!-- MEDIA -->
+<div class="panel" id="panel-media">
+  <div class="sec-hdr"><h2>Media <em>library</em></h2>
+    <label class="btn btn-outline" style="cursor:pointer">Upload images<input type="file" accept="image/*" multiple style="display:none" onchange="uploadMedia(this)"></label>
+  </div>
+  <div class="media-grid" id="media-grid"><div class="media-empty">No images yet</div></div>
+</div>
+
+<!-- BLOG LIST -->
+<div class="panel" id="panel-blog-list">
+  <div class="sec-hdr"><h2>Blog <em>posts</em></h2><button class="btn btn-primary" onclick="showPanel('blog-new')">+ New post</button></div>
+  <div class="table-wrap">
+    <table><thead><tr><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody id="blog-tbody"></tbody></table>
+  </div>
+</div>
+
+<!-- BLOG NEW -->
+<div class="panel" id="panel-blog-new">
+  <div class="sec-hdr"><h2 id="blog-title">New <em>post</em></h2>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-outline" onclick="savePost('draft')">Save draft</button>
+      <button class="btn btn-primary" onclick="savePost('published')">Publish</button>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="form-group"><label>Title</label><input class="form-input" id="p-title" style="font-size:18px;font-weight:600"></div>
+      <div class="form-group"><label>Excerpt</label><textarea class="form-textarea" id="p-exc" rows="2"></textarea></div>
+      <div class="form-group"><label>Content</label>
+        <div style="border:1.5px solid var(--bdr);border-radius:10px;overflow:hidden">
+          <div class="editor-toolbar">
+            <button class="editor-btn" onclick="fmt('bold')"><b>B</b></button>
+            <button class="editor-btn" onclick="fmt('italic')"><i>I</i></button>
+            <button class="editor-btn" onclick="fmtBlock('h2')">H2</button>
+            <button class="editor-btn" onclick="fmtBlock('h3')">H3</button>
+            <button class="editor-btn" onclick="fmt('insertUnorderedList')">List</button>
+            <button class="editor-btn" onclick="fmtBlock('blockquote')">Quote</button>
+            <button class="editor-btn" onclick="insertLink()">Link</button>
+          </div>
+          <div class="editor-area" id="p-content" contenteditable="true"></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:16px">
+        <h4 style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin-bottom:12px">Settings</h4>
+        <div class="form-group" style="margin-bottom:10px"><label>Category</label>
+          <select class="form-select" id="p-cat">
+            <option>Travel Guides</option><option>Destination</option><option>Packing</option>
+            <option>Solo Travel</option><option>Tips and Advice</option><option>GWT Stories</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:10px"><label>Destination</label><input class="form-input" id="p-dest" placeholder="e.g. Thailand"></div>
+        <div class="form-group"><label>Author</label><input class="form-input" id="p-auth" value="gals who community"></div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:16px">
+        <h4 style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin-bottom:12px">Cover image</h4>
+        <div class="upload-zone" style="padding:16px">
+          <input type="file" accept="image/*" onchange="handleFileUpload(this,'p-cover-prev','p-cover')">
+          <div style="font-size:20px">📷</div><h4 style="font-size:12px">Upload cover</h4>
+        </div>
+        <div id="p-cover-prev" style="margin-top:8px"></div>
+        <input type="hidden" id="p-cover">
+        <div class="form-group" style="margin-top:8px"><label>Or URL</label><input class="form-input" id="p-cover-url" placeholder="https://..."></div>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" id="editing-post-id">
+</div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+// =============================================================================
+// CREDENTIALS - change these to secure the CMS
+const CREDS = {admin: 'gwt2026'};
+
+// =============================================================================
+// AUTH
+function doLogin(){
+  const u=document.getElementById('lu').value.trim();
+  const p=document.getElementById('lp').value;
+  if(CREDS[u]===p){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    loadAll();
+  } else {
+    document.getElementById('lerr').style.display='block';
+  }
+}
+document.querySelectorAll('.lf').forEach(f=>f.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()}));
+function logout(){document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex';}
+
+// =============================================================================
+// STORAGE
+function gs(k){try{return JSON.parse(localStorage.getItem('gwt_'+k))||null}catch{return null}}
+function ss(k,v){localStorage.setItem('gwt_'+k,JSON.stringify(v))}
+
+// =============================================================================
+// NAV
+const TITLES={dashboard:'Dashboard',banner:'Announcement Bar',hero:'Hero Image and Text',ticker:'Price Ticker',about:'About Section',destinations:'Destination Cards',whygtw:'Why GWT Section',community:'Community CTA',trips:'Trip Cards',departures:'Departure Dates',videos:'Video Cards',reviews:'Reviews',ugc:'UGC Photos',media:'Media Library','blog-list':'Blog Posts','blog-new':'New Post'};
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sbl').forEach(l=>l.classList.remove('active'));
+  const el=document.getElementById('panel-'+id);
+  if(el) el.classList.add('active');
+  const btn=document.querySelector('.sbl[onclick*="'+id+'"]');
+  if(btn) btn.classList.add('active');
+  document.getElementById('panel-title').textContent=TITLES[id]||id;
+  if(id==='blog-new') resetPostEditor();
+}
+
+// =============================================================================
+// DIRTY STATE
+let dirty=false;
+function markDirty(){dirty=true;document.getElementById('save-bar').classList.add('visible');}
+function clearDirty(){dirty=false;document.getElementById('save-bar').classList.remove('visible');}
+function discardChanges(){if(confirm('Discard unsaved changes?')){loadAll();clearDirty();}}
+function saveAll(){
+  saveBanner();saveHero();saveTicker();saveAbout();saveDestinations();saveWhyGWT();saveCommunity();
+  saveTrips();saveDepartures();saveVideos();saveReviews();saveUGC();
+  clearDirty();toast('All changes saved!','success');
+}
+
+// =============================================================================
+// TOAST
+function toast(msg,type){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='show '+(type||'');
+  setTimeout(()=>t.className='',2800);
+}
+
+// =============================================================================
+// MODALS
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');}));
+
+// =============================================================================
+// FILE UPLOAD HELPER
+function handleFileUpload(input,prevId,hiddenId){
+  const file=input.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    if(prevId) document.getElementById(prevId).innerHTML=`<img src="${e.target.result}" style="max-width:100%;border-radius:8px;max-height:180px;object-fit:cover;margin-top:6px">`;
+    if(hiddenId) document.getElementById(hiddenId).value=e.target.result;
+    markDirty();
+  };
+  reader.readAsDataURL(file);
+}
+
+// =============================================================================
+// BANNER
+function loadBanner(){
+  const b=gs('banner')||{visible:true,text:'🔥 40% off Bali Paradise — departing 20th May from £657 🌴',linkText:'Book now →',linkUrl:'https://galswhotravel.trutravels.com/bali-paradise/girls-trip'};
+  document.getElementById('b-visible').checked=b.visible;
+  document.getElementById('b-text').value=b.text||'';
+  document.getElementById('b-lt').value=b.linkText||'';
+  document.getElementById('b-lu').value=b.linkUrl||'';
+  updateBannerPreview();
+}
+function updateBannerPreview(){
+  document.getElementById('b-preview').innerHTML=`<span style="color:#fff">${document.getElementById('b-text').value}</span> <a style="color:var(--pink-m);font-weight:700">${document.getElementById('b-lt').value}</a>`;
+}
+function saveBanner(){ss('banner',{visible:document.getElementById('b-visible').checked,text:document.getElementById('b-text').value,linkText:document.getElementById('b-lt').value,linkUrl:document.getElementById('b-lu').value});toast('Banner saved!');clearDirty();}
+
+// =============================================================================
+// HERO
+function loadHero(){
+  const h=gs('hero')||{l1:'Your next',l2:'adventure',l3:'starts here.',sub:'Join a women-only group and see the world safely, joyfully, without waiting for anyone else.'};
+  document.getElementById('h-l1').value=h.l1||'';
+  document.getElementById('h-l2').value=h.l2||'';
+  document.getElementById('h-l3').value=h.l3||'';
+  document.getElementById('h-sub').value=h.sub||'';
+  if(h.img){document.getElementById('h-preview').innerHTML=`<img src="${h.img}" style="max-width:100%;border-radius:8px;max-height:160px;object-fit:cover">`;document.getElementById('h-b64').value=h.img;}
+  if(h.url) document.getElementById('h-url').value=h.url;
+}
+function saveHero(){ss('hero',{img:document.getElementById('h-b64').value||document.getElementById('h-url').value,l1:document.getElementById('h-l1').value,l2:document.getElementById('h-l2').value,l3:document.getElementById('h-l3').value,sub:document.getElementById('h-sub').value});toast('Hero saved!');clearDirty();}
+
+// =============================================================================
+// TICKER
+function loadTicker(){
+  const items=gs('ticker')||['🌴 Thailand Paradise · 9 Days · From £1,295','🌺 Bali Paradise · 11 Days · From £657','🌸 Legend of Japan · 12 Days · From £1,596','🏜 Morocco Uncovered · 9 Days · From £875','⛵ Greece Island Hopper · 7 Days · From £2,095','🛵 Vietnam Explorer · 13 Days · From £1,475','🌿 Costa Rica · 10 Days · From £1,475','🍕 Italy Girls Trip · 8 Days · From £1,845','🌿 Sri Lanka · 10 Days · From £995'];
+  window._ticker=items; renderTicker();
+}
+function renderTicker(){
+  const c=document.getElementById('ticker-list'); if(!c) return;
+  c.innerHTML=window._ticker.map((item,i)=>`
+    <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--bdr);border-radius:12px;padding:12px 14px;margin-bottom:8px">
+      <span style="color:var(--mut);font-size:18px">⠿</span>
+      <input class="form-input" style="flex:1" value="${item.replace(/&/g,'&amp;')}" onchange="window._ticker[${i}]=this.value;markDirty()">
+      <button class="btn btn-danger btn-sm" onclick="window._ticker.splice(${i},1);renderTicker();markDirty()">🗑</button>
+    </div>`).join('');
+}
+function addTickerItem(){window._ticker.push('🌍 New Trip · X Days · From £XXX');renderTicker();markDirty();}
+function saveTicker(){ss('ticker',window._ticker);toast('Ticker saved!');clearDirty();}
+
+// =============================================================================
+// ABOUT
+function loadAbout(){
+  const a=gs('about')||{eye:'About Gals Who Travel',h1:'Authentic,',h2:'women-only',h3:'adventures.',p1:'Gals Who Travel creates women-only group adventures for 18-35 year olds who want more than a holiday.',p2:'Join solo or with friends, meet incredible women, and travel with expert guides who know every hidden gem. 87% of our gals book alone. Nobody leaves that way.',btnText:'Our story',btnUrl:'https://galswhotravel.trutravels.com',location:'Nine Arches Bridge, Sri Lanka',imgUrl:''};
+  document.getElementById('a-eye').value=a.eye||'';
+  document.getElementById('a-h1').value=a.h1||'';
+  document.getElementById('a-h2').value=a.h2||'';
+  document.getElementById('a-h3').value=a.h3||'';
+  document.getElementById('a-p1').value=a.p1||'';
+  document.getElementById('a-p2').value=a.p2||'';
+  document.getElementById('a-bt').value=a.btnText||'';
+  document.getElementById('a-bu').value=a.btnUrl||'';
+  document.getElementById('a-loc').value=a.location||'';
+  document.getElementById('a-url').value=a.imgUrl||'';
+  if(a.imgUrl){document.getElementById('a-preview').innerHTML=`<img src="${a.imgUrl}" style="max-width:100%;border-radius:8px;max-height:160px;object-fit:cover">`;document.getElementById('a-img').value=a.imgUrl;}
+}
+function saveAbout(){ss('about',{eye:document.getElementById('a-eye').value,h1:document.getElementById('a-h1').value,h2:document.getElementById('a-h2').value,h3:document.getElementById('a-h3').value,p1:document.getElementById('a-p1').value,p2:document.getElementById('a-p2').value,btnText:document.getElementById('a-bt').value,btnUrl:document.getElementById('a-bu').value,location:document.getElementById('a-loc').value,imgUrl:document.getElementById('a-img').value||document.getElementById('a-url').value});toast('About saved!');clearDirty();}
+
+// =============================================================================
+// DESTINATIONS
+const DEF_DESTS=[
+  {name:'Thailand 🌴',tags:'Beaches · Elephants · Islands · Most popular',img:'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',url:'https://galswhotravel.trutravels.com/thailand-paradise/girls-trip'},
+  {name:'Bali 🌺',tags:'Turtles · Temples · Island Hopping · 40% OFF',img:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg',url:'https://galswhotravel.trutravels.com/bali-paradise/girls-trip'},
+  {name:'Greece ⛵',tags:'Islands · Sunsets',img:'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',url:'https://galswhotravel.trutravels.com/greece-island-hopper/girls-trip'},
+  {name:'Morocco 🏜',tags:'Desert · Culture',img:'https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg',url:'https://galswhotravel.trutravels.com/morocco-uncovered-girls-trip'},
+  {name:'Japan 🌸',tags:'Culture · Temples',img:'https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg',url:'https://galswhotravel.trutravels.com/girls-trip/japan-tour'},
+  {name:'Vietnam 🛵',tags:'Culture · Adventure',img:'https://galswhotravel.trutravels.com/images/lanterns-1.jpg',url:'https://galswhotravel.trutravels.com/vietnam-explorer/girls-trip'},
+  {name:'Italy 🍕',tags:'Cities · Coast',img:'https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg',url:'https://galswhotravel.trutravels.com/italy-girls-trip'},
+];
+function loadDestinations(){window._dests=gs('destinations')||DEF_DESTS;renderDests();}
+function renderDests(){
+  const c=document.getElementById('dest-list'); if(!c) return;
+  c.innerHTML=window._dests.map((d,i)=>`
+    <div style="background:#fff;border:1px solid var(--bdr);border-radius:12px;padding:14px;margin-bottom:8px;display:grid;grid-template-columns:60px 1fr;gap:14px;align-items:center">
+      <img id="dprev-${i}" src="${d.img}" style="width:60px;height:45px;border-radius:7px;object-fit:cover" onerror="this.style.background='var(--pink)'">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="form-group"><label>Name</label><input class="form-input" value="${d.name}" oninput="window._dests[${i}].name=this.value;markDirty()"></div>
+        <div class="form-group"><label>Tags</label><input class="form-input" value="${d.tags}" oninput="window._dests[${i}].tags=this.value;markDirty()"></div>
+        <div class="form-group"><label>Image URL</label><input class="form-input" id="dimg-${i}" value="${d.img}" oninput="window._dests[${i}].img=this.value;markDirty();document.getElementById('dprev-${i}').src=this.value"></div>
+        <div class="form-group"><label>Booking URL</label><input class="form-input" value="${d.url}" oninput="window._dests[${i}].url=this.value;markDirty()"></div>
+      </div>
+    </div>`).join('');
+}
+function saveDestinations(){
+  // Capture any final input values that oninput might have missed
+  document.querySelectorAll('#dest-list .trip-row').forEach((row,i)=>{
+    const inputs=row.querySelectorAll('input.form-input');
+    if(inputs[0]&&window._dests[i]) window._dests[i].name=inputs[0].value;
+    if(inputs[1]&&window._dests[i]) window._dests[i].tags=inputs[1].value;
+    if(inputs[2]&&window._dests[i]) window._dests[i].img=inputs[2].value;
+    if(inputs[3]&&window._dests[i]) window._dests[i].url=inputs[3].value;
+  });
+  ss('destinations',window._dests);toast('Destinations saved!');clearDirty();
+}
+
+// =============================================================================
+// WHY GWT
+const DEF_WHY=[
+  {title:'Women-only groups',img:'https://galswhotravel.trutravels.com/thailand/travelled-khao-sok-national-park.jpg',desc:"Every trip is 100% women-only. Join solo travellers on an unforgettable journey where you'll make genuine, lasting friendships."},
+  {title:'Expert GWT guides',img:'https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg',desc:'Our experienced guides ensure a smooth, safe trip. They know every hidden gem and become your best friend within hours.'},
+  {title:'GWT exclusives',img:'https://galswhotravel.trutravels.com/thailand/thailand-escape-railay-beach-kayak.jpg',desc:"Sunset kayaking and cocktails, private welcome dinners, ethical sanctuaries - moments you simply can't get anywhere else."},
+  {title:'Beautiful hotels',img:'https://galswhotravel.trutravels.com/images/phuketgwtaccomodation2.jpg',desc:'Boutique hotels, resort pools, jungle lodges. Flashpacker style - the best bits of backpacking, a little bit more boujee.'},
+  {title:'Wildlife and nature',img:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/snorkellling-with-turtels-indonesia.jpg',desc:'Ethical elephant sanctuaries, snorkelling with turtles, desert stargazing - experiences that stay with you forever.'},
+  {title:'Safe and fully covered',img:'https://galswhotravel.trutravels.com/thailand/thailand-escape-3.jpeg',desc:'ATOL and ABTA protected. 24/7 support. 200 GBP deposit to secure your place. Flexible payment plans included.'},
+];
+function loadWhyGWT(){window._why=gs('whygtw')||DEF_WHY;renderWhy();}
+function renderWhy(){
+  const c=document.getElementById('why-list'); if(!c) return;
+  c.innerHTML=window._why.map((w,i)=>`
+    <div style="background:#fff;border:1px solid var(--bdr);border-radius:12px;padding:14px;margin-bottom:8px;display:grid;grid-template-columns:60px 1fr;gap:14px;align-items:start">
+      <img src="${w.img}" style="width:60px;height:60px;border-radius:7px;object-fit:cover" onerror="this.style.background='var(--pink)'">
+      <div style="display:grid;gap:8px">
+        <div class="form-group"><label>Title</label><input class="form-input" value="${w.title}" oninput="window._why[${i}].title=this.value;markDirty()"></div>
+        <div class="form-group"><label>Description</label><textarea class="form-textarea" rows="2" oninput="window._why[${i}].desc=this.value;markDirty()">${w.desc}</textarea></div>
+        <div class="form-group"><label>Image URL</label><input class="form-input" value="${w.img}" oninput="window._why[${i}].img=this.value;markDirty();this.closest('div').previousElementSibling&&(this.closest('[style]').querySelector('img').src=this.value)"></div>
+      </div>
+    </div>`).join('');
+}
+function saveWhyGWT(){
+  // Capture any final input values before saving
+  document.querySelectorAll('#why-list .trip-row, #why-list > div').forEach((row,i)=>{
+    const inputs=row.querySelectorAll('input.form-input');
+    const ta=row.querySelector('textarea');
+    if(inputs[0]&&window._why[i]) window._why[i].title=inputs[0].value;
+    if(ta&&window._why[i]) window._why[i].desc=ta.value;
+    if(inputs[1]&&window._why[i]) window._why[i].img=inputs[1].value;
+  });
+  ss('whygtw',window._why);toast('Why GWT saved!');clearDirty();
+}
+
+// =============================================================================
+// COMMUNITY CTA
+function loadCommunity(){
+  const c=gs('community')||{h1:'Join our',h2:'community.',sub:'Thousands of gals sharing travel tips, trip advice, and building friendships before they even fly.',btn1Text:'Find my trip',btn1Url:'https://galswhotravel.trutravels.com/upcoming-trips',btn2Text:'Join the community',btn2Url:'https://www.facebook.com/groups/galswhotravel'};
+  document.getElementById('c-h1').value=c.h1||'';
+  document.getElementById('c-h2').value=c.h2||'';
+  document.getElementById('c-sub').value=c.sub||'';
+  document.getElementById('c-b1t').value=c.btn1Text||'';
+  document.getElementById('c-b1u').value=c.btn1Url||'';
+  document.getElementById('c-b2t').value=c.btn2Text||'';
+  document.getElementById('c-b2u').value=c.btn2Url||'';
+}
+function saveCommunity(){ss('community',{h1:document.getElementById('c-h1').value,h2:document.getElementById('c-h2').value,sub:document.getElementById('c-sub').value,btn1Text:document.getElementById('c-b1t').value,btn1Url:document.getElementById('c-b1u').value,btn2Text:document.getElementById('c-b2t').value,btn2Url:document.getElementById('c-b2u').value});toast('Community CTA saved!');clearDirty();}
+
+// =============================================================================
+// TRIPS
+const DEF_TRIPS=[
+  {dest:'thailand',img:'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',badge:'Most popular',badgeColor:'red',route:'Phuket to Phuket',title:'Thailand Paradise',days:9,price:'£1,295',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/thailand-paradise/girls-trip',vibes:['wellness','beach'],desc:'Floating bungalows, elephant sanctuary, Phi Phi island hopping and the most incredible sunsets.'},
+  {dest:'bali',img:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg',badge:'40% OFF',badgeColor:'green',route:'Canggu to Gili T',title:'Bali Paradise',days:11,price:'£657',wasPrice:'£1,095',bookingUrl:'https://galswhotravel.trutravels.com/bali-paradise/girls-trip',vibes:['beach','wellness'],desc:'Canggu beach clubs, Uluwatu temples, snorkelling with turtles on Gili T.'},
+  {dest:'greece',img:'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',badge:'Best seller',badgeColor:'red',route:'Athens to Santorini',title:'Greece Island Hopper',days:7,price:'£2,095',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/greece-island-hopper/girls-trip',vibes:['city','beach'],desc:'Athens to Santorini via Milos - sunrise yoga, volcano hike and wine tasting at sunset.'},
+  {dest:'morocco',img:'https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg',badge:'Community fave',badgeColor:'pink',route:'Marrakech to Marrakech',title:'Morocco Uncovered',days:9,price:'£875',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/morocco-uncovered-girls-trip',vibes:['city','literary','hike'],desc:'Sahara desert camping, spice market exploring, Todra Gorge and incredible sunsets.'},
+  {dest:'japan',img:'https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg',badge:'Flash sale',badgeColor:'red',route:'Tokyo to Tokyo',title:'Legend of Japan',days:12,price:'£1,596',wasPrice:'£1,995',bookingUrl:'https://galswhotravel.trutravels.com/girls-trip/japan-tour',vibes:['city','literary'],desc:'Tokyo, Mount Fuji, samurai workshop, Kyoto temples. Every gal comes back saying Japan surpassed every expectation.'},
+  {dest:'vietnam',img:'https://galswhotravel.trutravels.com/images/lanterns-1.jpg',badge:'New 2026',badgeColor:'blue',route:'Ho Chi Minh to Hanoi',title:'Vietnam Explorer',days:13,price:'£1,475',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/vietnam-explorer/girls-trip',vibes:['city','literary'],desc:'13 days through all the highlights and hidden gems from top to bottom of Vietnam.'},
+  {dest:'costarica',img:'https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg',badge:'Eco pick',badgeColor:'green',route:'San Jose to Santa Teresa',title:'Costa Rica Adventure',days:10,price:'£1,475',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/costa-rica-adventure-girls-trip',vibes:['hike','wellness'],desc:'Rainforest zip-lining, volcanic hot springs, exotic wildlife. For the gal who wants proper adventure.'},
+  {dest:'italy',img:'https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg',badge:'Girls trip!',badgeColor:'pink',route:'Rome to Sorrento',title:'Italy Girls Trip',days:8,price:'£1,845',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/italy-girls-trip',vibes:['city','literary','wellness'],desc:'Pasta, Aperols, city-exploring, coastal drives. The ultimate girls trip from Rome to Sorrento.'},
+  {dest:'srilanka',img:'https://galswhotravel.trutravels.com/images/gals-who-travel-sri-lanka-nine-arches-bridge.jpg',badge:'New!',badgeColor:'green',route:'Negombo to Unawatuna',title:'Sri Lanka Uncovered',days:10,price:'£995',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/10-day-sri-lanka-uncovered',vibes:['beach','hike'],desc:'Diverse culture, safari, Sigiriya rock climb and gorgeous coastal scenery.'},
+  {dest:'philippines',img:'https://galswhotravel.trutravels.com/images/gili-t-bali-paradise.jpg',badge:'Island life',badgeColor:'blue',route:'Manila to Coron',title:'Philippines West',days:10,price:'£1,175',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/philippines-west/girls-trip',vibes:['beach'],desc:'Island hopping through the best of the West. Swim and snorkel aqua waters.'},
+  {dest:'australia',img:'https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg',badge:'Epic!',badgeColor:'red',route:'Sydney to Airlie Beach',title:'Epic East Coast',days:15,price:'£2,695',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/australia-girls-trip',vibes:['beach','hike'],desc:'The ultimate gals trip down under - East Coast Australia, beaches, surfing and unforgettable nights.'},
+  {dest:'newzealand',img:'https://galswhotravel.trutravels.com/images/gwt-milos-day-3.jpg',badge:'Bucket list',badgeColor:'green',route:'Auckland to Queenstown',title:'New Zealand Girls Trip',days:13,price:'£2,095',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/13-day-new-zealand-girls-trip',vibes:['hike'],desc:'Incredible nature, amazing hiking and bucket-list views from top to bottom of New Zealand.'},
+  {dest:'europe',img:'https://galswhotravel.trutravels.com/images/gwt-athens-walking-tour.jpg',badge:'Culture trip',badgeColor:'pink',route:'Budapest to Milan',title:'Europe By Rail',days:11,price:'£1,575',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/girls-trip/budapest-to-milan',vibes:['city','literary'],desc:'Whirlwind tour of the best of Europe - Budapest to Milan by rail.'},
+  {dest:'andorra',img:'https://galswhotravel.trutravels.com/images/gwt-santorini-sunset.jpg',badge:'Ski!',badgeColor:'blue',route:'Barcelona to Barcelona',title:'Andorra Ski and Apres',days:7,price:'TBC',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/7-day-andorra-ski-and-apres',vibes:['ski','hike'],desc:'From city to ski! 7 days of skiing, snow tubing and apres ski parties starting in Barcelona.'},
+  {dest:'balibliss',img:'https://galswhotravel.trutravels.com/bali-accommodation/canguu-1.png',badge:'Premium',badgeColor:'red',route:'Seminyak to Seminyak',title:'Bali Bliss',days:10,price:'£1,345',wasPrice:'',bookingUrl:'https://galswhotravel.trutravels.com/bali-bliss',vibes:['wellness','beach'],desc:'Stunning hotels, beautiful viewpoints and island hopping. Live your best life in Indonesia in style.'},
+];
+let trips=[];
+function loadTrips(){trips=gs('trips')||DEF_TRIPS;renderTripsList();}
+function renderTripsList(){
+  const c=document.getElementById('trips-list'); if(!c) return;
+  const bclr={red:'red',green:'green',pink:'pink',blue:'blue'};
+  c.innerHTML=trips.map((t,i)=>`
+    <div class="trip-row" id="tr-${i}">
+      <div class="trip-row-hdr" onclick="document.getElementById('tr-${i}').classList.toggle('open')">
+        <span class="trip-drag">⠿</span>
+        <img class="trip-row-img" src="${t.img}" onerror="this.style.display='none'">
+        <span class="trip-row-title">${t.title}</span>
+        ${t.badge?`<span class="td-badge ${bclr[t.badgeColor]||'red'}">${t.badge}</span>`:''}
+        <span class="trip-row-price">${t.price}</span>
+        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();if(confirm('Delete?')){trips.splice(${i},1);renderTripsList();markDirty()}">🗑</button>
+      </div>
+      <div class="trip-row-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px">
+          <div class="form-group"><label>Title</label><input class="form-input" value="${t.title}" onchange="trips[${i}].title=this.value;markDirty()"></div>
+          <div class="form-group"><label>Route</label><input class="form-input" value="${t.route}" onchange="trips[${i}].route=this.value;markDirty()"></div>
+          <div class="form-group"><label>Price (GBP)</label><input class="form-input" value="${t.price}" onchange="trips[${i}].price=this.value;markDirty()"></div>
+          <div class="form-group"><label>Was price (blank = no sale)</label><input class="form-input" value="${t.wasPrice||''}" onchange="trips[${i}].wasPrice=this.value;markDirty()"></div>
+          <div class="form-group"><label>Days</label><input class="form-input" type="number" value="${t.days}" onchange="trips[${i}].days=+this.value;markDirty()"></div>
+          <div class="form-group"><label>Badge text</label><input class="form-input" value="${t.badge||''}" onchange="trips[${i}].badge=this.value;markDirty()"></div>
+          <div class="form-group"><label>Badge colour</label>
+            <div class="color-opts">
+              ${['red','green','blue','pink'].map(c=>`<div class="col-opt ${c}${t.badgeColor===c?' sel':''}" data-c="${c}" onclick="trips[${i}].badgeColor='${c}';this.closest('.color-opts').querySelectorAll('.col-opt').forEach(x=>x.classList.remove('sel'));this.classList.add('sel');markDirty()"></div>`).join('')}
+            </div>
+          </div>
+          <div class="form-group"><label>Booking URL</label><input class="form-input" value="${t.bookingUrl}" onchange="trips[${i}].bookingUrl=this.value;markDirty()"></div>
+          <div class="form-group" style="grid-column:1/-1"><label>Image URL</label><input class="form-input" value="${t.img}" onchange="trips[${i}].img=this.value;markDirty()"></div>
+          <div class="form-group" style="grid-column:1/-1"><label>Description</label><textarea class="form-textarea" rows="2" onchange="trips[${i}].desc=this.value;markDirty()">${t.desc}</textarea></div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function saveTrips(){ss('trips',trips);toast('Trips saved!');clearDirty();}
+
+// =============================================================================
+// DEPARTURES
+const DEF_DEPS=[
+  {slug:'bali-paradise',date:'2026-05-20',returnDate:'2026-05-30',price:'£657',wasPrice:'£1,095',badge:'40% OFF',badgeStyle:'dbdg-green'},
+  {slug:'japan',date:'2026-06-18',returnDate:'2026-06-29',price:'£1,596',wasPrice:'£1,995',badge:'20% OFF',badgeStyle:'dbdg-green'},
+  {slug:'thailand',date:'2026-06-20',returnDate:'2026-06-28',price:'£1,295',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'greece',date:'2026-06-27',returnDate:'2026-07-03',price:'£2,095',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'vietnam',date:'2026-07-04',returnDate:'2026-07-16',price:'£1,475',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'morocco',date:'2026-07-11',returnDate:'2026-07-19',price:'£875',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'italy',date:'2026-07-18',returnDate:'2026-07-25',price:'£1,845',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'bali-paradise',date:'2026-07-25',returnDate:'2026-08-04',price:'£1,095',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'thailand',date:'2026-08-01',returnDate:'2026-08-09',price:'£1,295',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'costa-rica',date:'2026-08-08',returnDate:'2026-08-17',price:'£1,475',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'sri-lanka',date:'2026-08-15',returnDate:'2026-08-24',price:'£995',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'greece',date:'2026-08-22',returnDate:'2026-08-28',price:'£2,095',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'vietnam',date:'2026-08-29',returnDate:'2026-09-10',price:'£1,475',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'italy',date:'2026-09-05',returnDate:'2026-09-12',price:'£1,845',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'morocco',date:'2026-09-12',returnDate:'2026-09-20',price:'£875',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'japan',date:'2026-09-19',returnDate:'2026-09-30',price:'£1,995',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'bali-bliss',date:'2026-09-26',returnDate:'2026-10-05',price:'£1,345',wasPrice:null,badge:'Premium',badgeStyle:'dbdg-pink'},
+  {slug:'thailand',date:'2026-10-03',returnDate:'2026-10-11',price:'£1,295',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'greece',date:'2026-10-10',returnDate:'2026-10-16',price:'£2,095',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'philippines',date:'2026-10-17',returnDate:'2026-10-26',price:'£1,175',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'new-zealand',date:'2026-10-24',returnDate:'2026-11-05',price:'£2,095',wasPrice:null,badge:'Bucket list',badgeStyle:'dbdg-pink'},
+  {slug:'vietnam',date:'2026-11-07',returnDate:'2026-11-19',price:'£1,475',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'sri-lanka',date:'2026-11-14',returnDate:'2026-11-23',price:'£995',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'australia',date:'2026-11-21',returnDate:'2026-12-05',price:'£2,695',wasPrice:null,badge:'Epic!',badgeStyle:'dbdg-red'},
+  {slug:'thailand',date:'2026-12-05',returnDate:'2026-12-13',price:'£1,295',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'bali-paradise',date:'2026-12-12',returnDate:'2026-12-22',price:'£1,095',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'andorra',date:'2026-12-27',returnDate:'2027-01-02',price:'TBC',wasPrice:null,badge:'Ski',badgeStyle:'dbdg-blue'},
+  {slug:'japan',date:'2027-01-09',returnDate:'2027-01-20',price:'£1,995',wasPrice:null,badge:'Early bird',badgeStyle:'dbdg-green'},
+  {slug:'morocco',date:'2027-01-16',returnDate:'2027-01-24',price:'£875',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'costa-rica',date:'2027-01-23',returnDate:'2027-02-01',price:'£1,475',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'thailand',date:'2027-02-06',returnDate:'2027-02-14',price:'£1,295',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'bali-paradise',date:'2027-02-13',returnDate:'2027-02-23',price:'£1,095',wasPrice:null,badge:null,badgeStyle:null},
+  {slug:'europe-rail',date:'2027-02-27',returnDate:'2027-03-09',price:'£1,575',wasPrice:null,badge:null,badgeStyle:null},
+];
+const TSLUG_NAMES={thailand:'Thailand Paradise','bali-paradise':'Bali Paradise','bali-bliss':'Bali Bliss',greece:'Greece Island Hopper',morocco:'Morocco Uncovered',japan:'Legend of Japan',vietnam:'Vietnam Explorer',italy:'Italy Girls Trip','costa-rica':'Costa Rica Adventure','sri-lanka':'Sri Lanka Uncovered',philippines:'Philippines West',australia:'Epic East Coast','new-zealand':'New Zealand Girls Trip','europe-rail':'Europe By Rail',andorra:'Andorra Ski and Apres'};
+const TSLUGS=Object.keys(TSLUG_NAMES);
+let deps=[];
+function loadDepartures(){deps=gs('departures')||DEF_DEPS;renderDepList();}
+function renderDepList(){
+  const c=document.getElementById('dep-list'); if(!c) return;
+  deps=[...deps].sort((a,b)=>new Date(a.date)-new Date(b.date));
+  c.innerHTML=deps.map((d,i)=>`
+    <div class="trip-row" id="dep-${i}">
+      <div class="trip-row-hdr" onclick="document.getElementById('dep-${i}').classList.toggle('open')">
+        <span class="trip-drag">⠿</span>
+        <div style="flex:1">
+          <div class="trip-row-title">${TSLUG_NAMES[d.slug]||d.slug}</div>
+          <div style="font-size:11px;color:var(--mut)">${d.date} to ${d.returnDate}</div>
+        </div>
+        ${d.badge?`<span class="td-badge ${d.badgeStyle==='dbdg-green'?'green':d.badgeStyle==='dbdg-pink'?'pink':d.badgeStyle==='dbdg-blue'?'blue':'red'}">${d.badge}</span>`:''}
+        <span class="trip-row-price">${d.price}</span>
+        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();if(confirm('Delete?')){deps.splice(${i},1);renderDepList();markDirty()}">🗑</button>
+      </div>
+      <div class="trip-row-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px">
+          <div class="form-group"><label>Trip</label>
+            <select class="form-select" onchange="deps[${i}].slug=this.value;markDirty()">
+              ${TSLUGS.map(s=>`<option value="${s}"${d.slug===s?' selected':''}>${TSLUG_NAMES[s]}</option>`).join('')}
+            </select>
+          </div>
+          <div class="form-group"><label>Departure date</label><input class="form-input" type="date" value="${d.date}" onchange="deps[${i}].date=this.value;markDirty()"></div>
+          <div class="form-group"><label>Return date</label><input class="form-input" type="date" value="${d.returnDate}" onchange="deps[${i}].returnDate=this.value;markDirty()"></div>
+          <div class="form-group"><label>Price</label><input class="form-input" value="${d.price}" onchange="deps[${i}].price=this.value;markDirty()"></div>
+          <div class="form-group"><label>Was price (blank = no sale)</label><input class="form-input" value="${d.wasPrice||''}" onchange="deps[${i}].wasPrice=this.value||null;markDirty()"></div>
+          <div class="form-group"><label>Badge (blank = none)</label><input class="form-input" value="${d.badge||''}" onchange="deps[${i}].badge=this.value||null;markDirty()"></div>
+          <div class="form-group"><label>Badge colour</label>
+            <div class="color-opts">
+              ${['red','green','blue','pink'].map(c=>`<div class="col-opt ${c}${(d.badgeStyle||'').includes(c)?' sel':''}" data-c="${c}" onclick="deps[${i}].badgeStyle='dbdg-${c}';this.closest('.color-opts').querySelectorAll('.col-opt').forEach(x=>x.classList.remove('sel'));this.classList.add('sel');markDirty()"></div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function addDeparture(){deps.push({slug:'thailand',date:'2026-06-01',returnDate:'2026-06-09',price:'£1,295',wasPrice:null,badge:null,badgeStyle:null});renderDepList();const rows=document.querySelectorAll('#dep-list .trip-row');if(rows.length)rows[rows.length-1].classList.add('open');markDirty();}
+function saveDepartures(){ss('departures',deps);toast('Departures saved!');clearDirty();}
+
+// =============================================================================
+// VIDEOS
+const DEF_VIDS=[
+  {dest:'italy',thumbnail:'https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg',videoUrl:'https://www.tiktok.com/@galswhotravel/video/7634192451753938178',title:'Italy Girls Trip',days:'8 days',tag:'Rome and Positano',username:'@galswhotravel'},
+  {dest:'srilanka',thumbnail:'https://galswhotravel.trutravels.com/images/gals-who-travel-sri-lanka-nine-arches-bridge.jpg',videoUrl:'https://www.tiktok.com/@galswhotravel/video/7614876491519692054',title:'Sri Lanka Girls Trip',days:'10 days',tag:'Negombo and Unawatuna',username:'@galswhotravel'},
+  {dest:'morocco',thumbnail:'https://galswhotravel.trutravels.com/images/gals-who-travel-morocco-at-last-mountains-waterfall.jpeg',videoUrl:'https://www.tiktok.com/@galswhotravel/video/7474163589314661654',title:'Morocco Uncovered',days:'9 days',tag:'Marrakech and Atlas Mountains',username:'@galswhotravel'},
+  {dest:'vietnam',thumbnail:'https://galswhotravel.trutravels.com/images/lanterns-1.jpg',videoUrl:'https://www.tiktok.com/@galswhotravel/video/7570300364906433814',title:'Vietnam Girls Trip',days:'13 days',tag:'Ho Chi Minh and Hanoi',username:'@galswhotravel'},
+];
+let vids=[];
+function loadVideos(){vids=gs('videos')||DEF_VIDS;renderVids();}
+function renderVids(){
+  const c=document.getElementById('videos-list'); if(!c) return;
+  c.innerHTML=vids.map((v,i)=>`
+    <div style="background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:16px;margin-bottom:10px;display:grid;grid-template-columns:60px 1fr;gap:14px;align-items:center">
+      <img src="${v.thumbnail}" style="width:60px;height:90px;object-fit:cover;border-radius:8px" onerror="this.style.background='var(--pink)'">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="form-group"><label>Title</label><input class="form-input" value="${v.title}" onchange="vids[${i}].title=this.value;markDirty()"></div>
+        <div class="form-group"><label>Duration</label><input class="form-input" value="${v.days}" onchange="vids[${i}].days=this.value;markDirty()"></div>
+        <div class="form-group" style="grid-column:1/-1"><label>TikTok URL or .mp4 link</label><input class="form-input" value="${v.videoUrl}" onchange="vids[${i}].videoUrl=this.value;markDirty()"></div>
+        <div class="form-group"><label>Thumbnail URL</label><input class="form-input" value="${v.thumbnail}" onchange="vids[${i}].thumbnail=this.value;markDirty()"></div>
+        <div class="form-group"><label>Tag</label><input class="form-input" value="${v.tag}" onchange="vids[${i}].tag=this.value;markDirty()"></div>
+      </div>
+    </div>`).join('');
+}
+function saveVideos(){ss('videos',vids);toast('Videos saved!');clearDirty();}
+
+// =============================================================================
+// REVIEWS
+const DEF_REVS=[
+  {initials:'Z',name:'Zoe Fells',trip:'Thailand Paradise, Feb 2026',stars:5,text:'Smile was an exceptional tour leader. His calm confidence made me feel completely safe at all times.'},
+  {initials:'O',name:'Olivia',trip:'Thailand Paradise, Dec 2025',stars:5,text:'The itinerary was perfectly planned and Ming was absolutely wonderful. Most importantly I met friends for life.'},
+  {initials:'L',name:'Laura M.',trip:'Morocco Uncovered, Jan 2026',stars:5,text:'Morocco completely blew my mind. Came back with 11 new best friends, 400 photos and my next GWT trip already booked.'},
+  {initials:'M',name:'Meg',trip:'Thailand Paradise, Feb 2026',stars:5,text:'Perfect intro to solo travel. I met amazing people and it was so nice not having to plan anything.'},
+  {initials:'L',name:'Leah',trip:'Thailand Paradise, Dec 2025',stars:5,text:'As a first time solo traveller Ming put me at such ease. I have made friends for life.'},
+  {initials:'R',name:'Rebecca Jackson',trip:'Thailand Paradise, Dec 2025',stars:5,text:"I had the most incredible experience. No question was ever too small - Ming's energy made the whole adventure even more fun."},
+];
+let reviews=[];
+let editRevIdx=-1;
+function loadReviews(){reviews=gs('reviews')||DEF_REVS;renderRevs();}
+function renderRevs(){
+  const tb=document.getElementById('revs-tbody'); if(!tb) return;
+  tb.innerHTML=reviews.map((r,i)=>`
+    <tr>
+      <td><strong>${r.name}</strong></td>
+      <td style="color:var(--mut)">${r.trip}</td>
+      <td>${'★'.repeat(r.stars)}</td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mut)">"${r.text}"</td>
+      <td><div class="td-actions">
+        <button class="btn btn-outline btn-sm" onclick="editRev(${i})">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="if(confirm('Delete?')){reviews.splice(${i},1);renderRevs();markDirty()}">🗑</button>
+      </div></td>
+    </tr>`).join('');
+}
+function addReview(){editRevIdx=-1;['rv-name','rv-initials','rv-trip','rv-text'].forEach(id=>document.getElementById(id).value='');document.getElementById('rv-stars').value=5;openModal('rev-modal');}
+function editRev(i){editRevIdx=i;const r=reviews[i];document.getElementById('rv-name').value=r.name;document.getElementById('rv-initials').value=r.initials;document.getElementById('rv-trip').value=r.trip;document.getElementById('rv-stars').value=r.stars;document.getElementById('rv-text').value=r.text;openModal('rev-modal');}
+function saveRevModal(){
+  const r={initials:document.getElementById('rv-initials').value,name:document.getElementById('rv-name').value,trip:document.getElementById('rv-trip').value,stars:+document.getElementById('rv-stars').value,text:document.getElementById('rv-text').value};
+  if(editRevIdx>=0) reviews[editRevIdx]=r; else reviews.push(r);
+  renderRevs();markDirty();closeModal('rev-modal');
+}
+function saveReviews(){ss('reviews',reviews);toast('Reviews saved!');clearDirty();}
+
+// =============================================================================
+// UGC
+const DEF_UGC=[
+  {img:'https://galswhotravel.trutravels.com/thailand/khao-sok-green-waters.jpg',handle:'@sarah.k',likes:'2.4k'},
+  {img:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg',handle:'@jess.travels',likes:'1.9k'},
+  {img:'https://galswhotravel.trutravels.com/images/merzouga-image-2024-2.jpg',handle:'@laurawanders',likes:'3.1k'},
+  {img:'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',handle:'@aisha.explores',likes:'1.2k'},
+  {img:'https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg',handle:'@rebeccaj',likes:'4.2k'},
+  {img:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/snorkellling-with-turtels-indonesia.jpg',handle:'@claireflies',likes:'887'},
+];
+let ugc=[];
+function loadUGC(){ugc=gs('ugc')||DEF_UGC;renderUGC();}
+function renderUGC(){
+  const c=document.getElementById('ugc-list'); if(!c) return;
+  c.innerHTML=ugc.map((u,i)=>`
+    <div style="background:#fff;border:1px solid var(--bdr);border-radius:12px;padding:12px;display:flex;align-items:center;gap:14px;margin-bottom:8px">
+      <img src="${u.img}" style="width:52px;height:52px;border-radius:8px;object-fit:cover">
+      <div style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div class="form-group"><label>Image URL</label><input class="form-input" value="${u.img}" onchange="ugc[${i}].img=this.value;markDirty()"></div>
+        <div class="form-group"><label>Handle</label><input class="form-input" value="${u.handle}" onchange="ugc[${i}].handle=this.value;markDirty()"></div>
+        <div class="form-group"><label>Likes</label><input class="form-input" value="${u.likes}" onchange="ugc[${i}].likes=this.value;markDirty()"></div>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="ugc.splice(${i},1);renderUGC();markDirty()">🗑</button>
+    </div>`).join('');
+}
+function addUGC(){ugc.push({img:'',handle:'@handle',likes:'0'});renderUGC();markDirty();}
+function saveUGC(){ss('ugc',ugc);toast('UGC saved!');clearDirty();}
+
+// =============================================================================
+// MEDIA
+let mediaLib=[];
+function loadMedia(){mediaLib=gs('media')||[];renderMedia();}
+function renderMedia(){
+  const g=document.getElementById('media-grid'); if(!g) return;
+  if(!mediaLib.length){g.innerHTML='<div class="media-empty">No images yet - upload some above!</div>';return;}
+  g.innerHTML=mediaLib.map((m,i)=>`
+    <div class="media-item" title="Click to copy URL" onclick="navigator.clipboard.writeText('${m.url}').then(()=>toast('URL copied!'))">
+      <img src="${m.url}" onerror="this.src='data:image/svg+xml,<svg/>'">
+      <button class="media-item-del" onclick="event.stopPropagation();if(confirm('Remove?')){mediaLib.splice(${i},1);ss('media',mediaLib);renderMedia()}">X</button>
+    </div>`).join('');
+  document.getElementById('s-media').textContent=mediaLib.length;
+}
+function uploadMedia(input){
+  Array.from(input.files).forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{mediaLib.push({url:e.target.result,name:file.name});ss('media',mediaLib);renderMedia();toast('Uploaded '+file.name);};
+    reader.readAsDataURL(file);
+  });
+}
+
+// =============================================================================
+// BLOG
+let posts=[];
+function loadBlogList(){
+  posts=gs('posts')||[];renderBlogTable();
+  document.getElementById('s-posts').textContent=posts.length;
+  const rp=document.getElementById('recent-posts');
+  if(rp && posts.length) rp.innerHTML=`<table><thead><tr><th>Title</th><th>Status</th><th>Date</th></tr></thead><tbody>${posts.slice(0,5).map(p=>`<tr><td><strong>${p.title}</strong></td><td><span class="td-badge ${p.status==='published'?'green':'draft'}">${p.status}</span></td><td style="color:var(--mut)">${p.date||''}</td></tr>`).join('')}</tbody></table>`;
+}
+function renderBlogTable(){
+  const tb=document.getElementById('blog-tbody'); if(!tb) return;
+  if(!posts.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--mut)">No posts yet</td></tr>';return;}
+  tb.innerHTML=posts.map(p=>`
+    <tr>
+      <td><strong>${p.title}</strong></td>
+      <td><span class="td-badge blue">${p.category}</span></td>
+      <td style="color:var(--mut)">${p.date||''}</td>
+      <td><span class="td-badge ${p.status==='published'?'green':'draft'}">${p.status}</span></td>
+      <td><div class="td-actions">
+        <button class="btn btn-outline btn-sm" onclick="editPost('${p.id}')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="if(confirm('Delete?')){posts=posts.filter(x=>x.id!=='${p.id}');ss('posts',posts);loadBlogList();toast('Deleted')}">🗑</button>
+      </div></td>
+    </tr>`).join('');
+}
+function resetPostEditor(){
+  document.getElementById('editing-post-id').value='';
+  document.getElementById('blog-title').innerHTML='New <em>post</em>';
+  ['p-title','p-exc','p-dest','p-cover-url'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('p-content').innerHTML='';
+  document.getElementById('p-cat').value='Travel Guides';
+  document.getElementById('p-auth').value='gals who community';
+  document.getElementById('p-cover').value='';
+  document.getElementById('p-cover-prev').innerHTML='';
+}
+function editPost(id){
+  const p=posts.find(x=>x.id===id); if(!p) return;
+  document.getElementById('editing-post-id').value=id;
+  document.getElementById('blog-title').innerHTML='Edit <em>post</em>';
+  document.getElementById('p-title').value=p.title||'';
+  document.getElementById('p-exc').value=p.excerpt||'';
+  document.getElementById('p-content').innerHTML=p.content||'';
+  document.getElementById('p-cat').value=p.category||'Travel Guides';
+  document.getElementById('p-dest').value=p.dest||'';
+  document.getElementById('p-auth').value=p.author||'gals who community';
+  document.getElementById('p-cover-url').value=p.coverUrl||'';
+  if(p.cover){document.getElementById('p-cover').value=p.cover;document.getElementById('p-cover-prev').innerHTML=`<img src="${p.cover}" style="max-width:100%;border-radius:8px;margin-top:6px">`;}
+  showPanel('blog-new');
+}
+function savePost(status){
+  const title=document.getElementById('p-title').value.trim();
+  if(!title){toast('Please enter a title','error');return;}
+  const id=document.getElementById('editing-post-id').value||'post-'+Date.now();
+  const cover=document.getElementById('p-cover').value||document.getElementById('p-cover-url').value;
+  const p={id,title,excerpt:document.getElementById('p-exc').value,content:document.getElementById('p-content').innerHTML,category:document.getElementById('p-cat').value,dest:document.getElementById('p-dest').value,author:document.getElementById('p-auth').value,cover,coverUrl:document.getElementById('p-cover-url').value,status,date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};
+  const idx=posts.findIndex(x=>x.id===id);
+  if(idx>=0) posts[idx]=p; else posts.unshift(p);
+  ss('posts',posts);loadBlogList();toast(status==='published'?'Post published!':'Draft saved!','success');showPanel('blog-list');
+}
+function fmt(cmd){document.execCommand(cmd,false,null);}
+function fmtBlock(tag){document.execCommand('formatBlock',false,tag);}
+function insertLink(){const url=prompt('URL:');if(url)document.execCommand('createLink',false,url);}
+
+// =============================================================================
+// STATS
+function updateStats(){
+  document.getElementById('s-trips').textContent=(gs('trips')||DEF_TRIPS).length;
+  document.getElementById('s-revs').textContent=(gs('reviews')||DEF_REVS).length;
+}
+
+// =============================================================================
+// LOAD ALL
+function loadAll(){
+  loadBanner();loadHero();loadTicker();loadAbout();loadDestinations();loadWhyGWT();loadCommunity();
+  loadTrips();loadDepartures();loadVideos();loadReviews();loadUGC();loadBlogList();loadMedia();
+  updateStats();
+}
+</script>
+</body>
+</html>
