@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Upcoming Departures — Gals Who Travel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,700&family=Instrument+Serif:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+em{font-family:'Playfair Display',serif;font-style:italic}
+:root{
+  --red:#E8180A;--red-d:#C01008;--red-pale:#FFF0EF;
+  --pink:#FFE3E6;--pink-m:#FFC5CB;
+  --ink:#0F0505;--ink-2:#2A1010;--mut:#7A5555;
+  --sand:#FAF6F1;--bdr:#EDE0E0;--white:#fff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{cursor:pointer;font-family:'DM Sans',sans-serif;border:none;background:none}
+
+.ann{background:var(--ink);color:#fff;text-align:center;padding:10px 16px;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px}
+.ann a{color:var(--pink-m);font-weight:700;text-decoration:underline}
+
+nav{background:var(--white);border-bottom:1px solid var(--bdr);height:68px;display:flex;align-items:center;padding:0 40px;gap:24px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(10,2,2,.05)}
+.nav-logo img{height:40px;width:auto}
+.nav-links{display:flex;align-items:center;list-style:none;flex:1;gap:4px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--mut);padding:0 12px;height:68px;display:flex;align-items:center;transition:color .15s;white-space:nowrap}
+.nav-links a:hover,.nav-links a.act{color:var(--red)}
+.nav-acts{margin-left:auto}
+.ncta{background:var(--red);color:#fff;border-radius:24px;padding:10px 22px;font-size:13px;font-weight:700;transition:background .15s;display:inline-block}
+.ncta:hover{background:var(--red-d)}
+
+/* HERO */
+.hero{background:var(--ink);padding:72px 40px 64px;position:relative;overflow:hidden;text-align:center}
+.hero::before{content:'';position:absolute;top:-60px;left:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(232,24,10,.18) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-80px;right:-40px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,197,203,.06) 0%,transparent 65%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:780px;margin:0 auto}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(232,24,10,.15);border:1px solid rgba(232,24,10,.3);border-radius:20px;padding:6px 16px;font-size:11px;font-weight:700;color:var(--pink-m);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.hero-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 2s infinite;border-radius:50%}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(36px,6vw,68px);color:#fff;font-weight:400;line-height:1.05;margin-bottom:14px}
+.hero h1 em{font-style:italic;color:var(--pink-m)}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.45);max-width:520px;margin:0 auto 36px;line-height:1.75}
+.stats-row{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-n{font-family:'Instrument Serif',serif;font-size:28px;font-style:italic;color:var(--pink-m);line-height:1}
+.stat-l{font-size:11px;color:rgba(255,255,255,.35);font-weight:500;margin-top:3px}
+.stat-div{width:1px;height:32px;background:rgba(255,255,255,.1)}
+
+/* DEPARTURES */
+.departures{padding:56px 40px;max-width:1260px;margin:0 auto}
+.sec-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;gap:16px;flex-wrap:wrap}
+.sec-h2{font-family:'Instrument Serif',serif;font-size:clamp(24px,3.5vw,38px);color:var(--ink);font-weight:400;line-height:1.1}
+.sec-h2 em{font-style:italic;color:var(--red)}
+.sec-sub{font-size:14px;color:var(--mut);margin-top:6px}
+
+/* MONTH GROUP */
+.month-group{margin-bottom:48px}
+.month-label{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.month-title{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);font-weight:400;font-style:italic;white-space:nowrap}
+.month-line{flex:1;height:1px;background:var(--bdr)}
+.month-count{font-size:12px;color:var(--mut);font-weight:600;background:var(--sand);border:1px solid var(--bdr);border-radius:20px;padding:3px 10px;white-space:nowrap}
+
+/* CARDS */
+.dep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.dep-card{background:var(--white);border:1px solid var(--bdr);border-radius:20px;overflow:hidden;transition:transform .22s,box-shadow .22s,border-color .22s;cursor:pointer;display:flex;flex-direction:column}
+.dep-card:hover{transform:translateY(-5px);box-shadow:0 18px 48px rgba(232,24,10,.1);border-color:var(--pink-m)}
+.dc-img{height:185px;overflow:hidden;position:relative;flex-shrink:0}
+.dc-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s;display:block}
+.dep-card:hover .dc-img img{transform:scale(1.05)}
+.dc-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,2,2,.6) 0%,transparent 55%)}
+.dc-badges{position:absolute;top:11px;left:11px;display:flex;gap:5px;flex-wrap:wrap}
+.dbdg{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 9px;border-radius:8px}
+.dbdg-red{background:var(--red);color:#fff}
+.dbdg-green{background:#1a6b35;color:#fff}
+.dbdg-pink{background:var(--pink-m);color:#7A0804}
+.dbdg-blue{background:#1A5FA8;color:#fff}
+.dc-dest-ov{position:absolute;bottom:0;left:0;right:0;padding:10px 14px}
+.dc-dest{font-family:'Instrument Serif',serif;font-size:18px;color:#fff;font-weight:400;line-height:1.2}
+.dc-route{font-size:10px;color:rgba(255,255,255,.6);font-weight:500;margin-top:2px}
+.dc-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+.dc-date-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.dc-date{display:flex;align-items:center;gap:8px}
+.dc-cal{width:36px;height:36px;border-radius:8px;background:var(--red-pale);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.dc-cal-day{font-size:15px;font-weight:700;color:var(--red);line-height:1}
+.dc-cal-mon{font-size:8px;font-weight:700;text-transform:uppercase;color:var(--red);letter-spacing:.06em}
+.dc-departs{font-size:12px;font-weight:600;color:var(--ink)}
+.dc-returns{font-size:11px;color:var(--mut)}
+.dc-days-pill{background:var(--sand);border:1px solid var(--bdr);border-radius:10px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.dc-vibes{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.dc-vibe{font-size:11px;color:var(--mut);background:var(--sand);border-radius:7px;padding:4px 9px}
+.dc-price-row{display:flex;align-items:flex-end;justify-content:space-between;margin-top:auto}
+.dc-from{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut)}
+.dc-was{font-size:12px;color:var(--mut);text-decoration:line-through;margin-right:4px}
+.dc-price{font-family:'Instrument Serif',serif;font-size:28px;color:var(--red);font-style:italic;line-height:1}
+.dc-pp{font-size:10px;color:var(--mut);font-style:normal;font-family:'DM Sans',sans-serif}
+.dc-btn{background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;font-size:12px;font-weight:700;transition:all .2s;white-space:nowrap;flex-shrink:0;border:none;cursor:pointer}
+.dep-card:hover .dc-btn{background:var(--red)}
+
+/* TRUST */
+.trust{background:var(--ink);padding:28px 40px}
+.trust-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.trust-item{text-align:center}
+.trust-n{font-family:'Instrument Serif',serif;font-size:28px;color:var(--pink-m);font-style:italic;line-height:1;margin-bottom:5px}
+.trust-l{font-size:12px;color:rgba(255,255,255,.4);font-weight:500}
+
+/* NEWSLETTER */
+.nl-sec{background:var(--sand);border-top:1px solid var(--bdr);padding:64px 40px;text-align:center}
+.nl-sec h2{font-family:'Instrument Serif',serif;font-size:clamp(26px,4vw,42px);color:var(--ink);font-weight:400;margin-bottom:10px}
+.nl-sec h2 em{font-style:italic;color:var(--red)}
+.nl-sec p{font-size:14px;color:var(--mut);margin-bottom:24px}
+.nl-form{display:flex;gap:8px;max-width:400px;margin:0 auto}
+.nl-form input{flex:1;border:1.5px solid var(--bdr);border-radius:12px;padding:12px 16px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none}
+.nl-form input:focus{border-color:var(--red)}
+.nl-form button{background:var(--red);color:#fff;border-radius:12px;padding:12px 20px;font-size:14px;font-weight:700;transition:background .15s;white-space:nowrap}
+.nl-form button:hover{background:var(--red-d)}
+
+footer{background:var(--ink);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+footer p{font-size:12px;color:rgba(255,255,255,.3)}
+.f-links{display:flex;gap:16px}
+.f-links a{font-size:12px;color:rgba(255,255,255,.4);transition:color .15s}
+.f-links a:hover{color:var(--pink-m)}
+
+#scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:var(--ink);color:#fff;border-radius:50%;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(10,2,2,.2);opacity:0;transition:all .3s;z-index:50;border:none}
+#scroll-top.visible{opacity:1}
+#scroll-top:hover{background:var(--red)}
+
+@media(max-width:1024px){.dep-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){
+  nav{padding:0 16px}.nav-links{display:none}
+  .hero{padding:48px 24px 44px}.stats-row{gap:20px}.stat-div{display:none}
+  .departures{padding:36px 16px}
+  .dep-grid{grid-template-columns:1fr}
+  .trust{padding:24px 20px}.trust-inner{grid-template-columns:repeat(2,1fr);gap:14px}
+  .nl-sec{padding:44px 20px}.nl-form{flex-direction:column}
+  footer{padding:24px 20px;flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div id="ann-bar"></div>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="https://cdn.trutravels.com/images/gals-who-logo-cropped.png" alt="Gals Who Travel" onerror="this.style.display='none'">
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="gwt-final.html#dest-sec">Destinations</a></li>
+    <li><a href="gwt-departures.html" class="act">Upcoming Trips</a></li>
+    <li><a href="gwt-blog.html">Blog & News</a></li>
+  </ul>
+  <div class="nav-acts">
+    <a class="ncta" href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank">Book now</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-pill">2026 / 2027 departures</div>
+    <h1>Upcoming <em>departures</em><br>— grab your spot</h1>
+    <p class="hero-sub">Women-only group trips for 18–35s. Most join solo — nobody leaves that way.</p>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-n">£200</div><div class="stat-l">Deposit to book</div></div>
+      <div class="stat-div"></div>
+      <div class="stat"><div class="stat-n">4.9★</div><div class="stat-l">Trustpilot</div></div>
+      <div class="stat-div"></div>
+      <div class="stat"><div class="stat-n">90%</div><div class="stat-l">Join solo</div></div>
+      <div class="stat-div"></div>
+      <div class="stat"><div class="stat-n">ATOL</div><div class="stat-l">Protected</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="departures">
+  <div class="sec-hdr">
+    <div>
+      <h2 class="sec-h2">All upcoming <em>trips</em></h2>
+      <p class="sec-sub">Sorted by departure date · click any card to check live availability & book</p>
+    </div>
+    <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank"
+       style="display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--bdr);color:var(--ink);border-radius:24px;padding:10px 20px;font-size:13px;font-weight:600;white-space:nowrap;transition:all .2s"
+       onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'"
+       onmouseout="this.style.borderColor='var(--bdr)';this.style.color='var(--ink)'">
+      View all on GWT site ↗
+    </a>
+  </div>
+  <div id="dep-container"></div>
+</section>
+
+<div class="trust">
+  <div class="trust-inner">
+    <div class="trust-item"><div class="trust-n">£200</div><div class="trust-l">Deposit to secure your place</div></div>
+    <div class="trust-item"><div class="trust-n">Free</div><div class="trust-l">Date changes (60+ days out)</div></div>
+    <div class="trust-item"><div class="trust-n">ATOL</div><div class="trust-l">&amp; ABTA fully protected</div></div>
+    <div class="trust-item"><div class="trust-n">24/7</div><div class="trust-l">Support on every trip</div></div>
+  </div>
+</div>
+
+<section class="nl-sec">
+  <h2>Never miss a <em>departure</em></h2>
+  <p>Get notified when new dates drop and be first in line for flash sales.</p>
+  <form class="nl-form" onsubmit="event.preventDefault();this.innerHTML='<p style=color:var(--red);font-size:14px;font-weight:600>✓ You\'re on the list!</p>'">
+    <input type="email" placeholder="your@email.com" required>
+    <button type="submit">Notify me →</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2026 Gals Who Travel · Operated by TruTravels Ltd · Registered in England #08094426</p>
+  <div class="f-links">
+    <a href="/">Home</a>
+    <a href="gwt-blog.html">Blog</a>
+    <a href="https://galswhotravel.trutravels.com/terms-and-conditions-gals-who-travel" target="_blank">T&Cs</a>
+    <a href="https://galswhotravel.trutravels.com/contact-us" target="_blank">Contact</a>
+  </div>
+</footer>
+
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// ✏️  DEPARTURES CMS
+//
+//  This is the single place to update all departure dates and prices.
+//  Edit these whenever TruTravels publishes new dates or changes prices.
+//
+//  Fields:
+//    slug       → matches a key in TRIPS below
+//    date       → departure date YYYY-MM-DD
+//    returnDate → return date YYYY-MM-DD
+//    price      → GBP price string shown on card, e.g. '£1,295'
+//    wasPrice   → original price if on sale, e.g. '£1,095' — omit if no sale
+//    badge      → optional label on card image, e.g. '40% OFF 🔥'
+//    badgeStyle → 'dbdg-red' | 'dbdg-green' | 'dbdg-pink' | 'dbdg-blue'
+// ─────────────────────────────────────────────────────────────────────────────
+const DEPARTURES = [
+
+  // ── MAY 2026 ──────────────────────────────────────────────────────────────
+  { slug:'bali-paradise',        date:'2026-05-20', returnDate:'2026-05-30', price:'£657',   wasPrice:'£1,095', badge:'40% OFF 🔥',  badgeStyle:'dbdg-green' },
+
+  // ── JUNE 2026 ─────────────────────────────────────────────────────────────
+  { slug:'japan',                date:'2026-06-18', returnDate:'2026-06-29', price:'£1,596', wasPrice:'£1,995', badge:'20% OFF',     badgeStyle:'dbdg-green' },
+  { slug:'thailand',             date:'2026-06-20', returnDate:'2026-06-28', price:'£1,295', wasPrice:null },
+  { slug:'greece',               date:'2026-06-27', returnDate:'2026-07-03', price:'£2,095', wasPrice:null },
+
+  // ── JULY 2026 ─────────────────────────────────────────────────────────────
+  { slug:'vietnam',              date:'2026-07-04', returnDate:'2026-07-16', price:'£1,475', wasPrice:null },
+  { slug:'morocco',              date:'2026-07-11', returnDate:'2026-07-19', price:'£875',   wasPrice:null },
+  { slug:'italy',                date:'2026-07-18', returnDate:'2026-07-25', price:'£1,845', wasPrice:null },
+  { slug:'bali-paradise',        date:'2026-07-25', returnDate:'2026-08-04', price:'£1,095', wasPrice:null },
+
+  // ── AUGUST 2026 ───────────────────────────────────────────────────────────
+  { slug:'thailand',             date:'2026-08-01', returnDate:'2026-08-09', price:'£1,295', wasPrice:null },
+  { slug:'costa-rica',           date:'2026-08-08', returnDate:'2026-08-17', price:'£1,475', wasPrice:null },
+  { slug:'sri-lanka',            date:'2026-08-15', returnDate:'2026-08-24', price:'£995',   wasPrice:null },
+  { slug:'greece',               date:'2026-08-22', returnDate:'2026-08-28', price:'£2,095', wasPrice:null },
+  { slug:'vietnam',              date:'2026-08-29', returnDate:'2026-09-10', price:'£1,475', wasPrice:null },
+
+  // ── SEPTEMBER 2026 ────────────────────────────────────────────────────────
+  { slug:'italy',                date:'2026-09-05', returnDate:'2026-09-12', price:'£1,845', wasPrice:null },
+  { slug:'morocco',              date:'2026-09-12', returnDate:'2026-09-20', price:'£875',   wasPrice:null },
+  { slug:'japan',                date:'2026-09-19', returnDate:'2026-09-30', price:'£1,995', wasPrice:null },
+  { slug:'bali-bliss',           date:'2026-09-26', returnDate:'2026-10-05', price:'£1,345', wasPrice:null, badge:'Premium', badgeStyle:'dbdg-pink' },
+
+  // ── OCTOBER 2026 ──────────────────────────────────────────────────────────
+  { slug:'thailand',             date:'2026-10-03', returnDate:'2026-10-11', price:'£1,295', wasPrice:null },
+  { slug:'greece',               date:'2026-10-10', returnDate:'2026-10-16', price:'£2,095', wasPrice:null },
+  { slug:'philippines',          date:'2026-10-17', returnDate:'2026-10-26', price:'£1,175', wasPrice:null },
+  { slug:'new-zealand',          date:'2026-10-24', returnDate:'2026-11-05', price:'£2,095', wasPrice:null, badge:'Bucket list', badgeStyle:'dbdg-pink' },
+
+  // ── NOVEMBER 2026 ─────────────────────────────────────────────────────────
+  { slug:'vietnam',              date:'2026-11-07', returnDate:'2026-11-19', price:'£1,475', wasPrice:null },
+  { slug:'sri-lanka',            date:'2026-11-14', returnDate:'2026-11-23', price:'£995',   wasPrice:null },
+  { slug:'australia',            date:'2026-11-21', returnDate:'2026-12-05', price:'£2,695', wasPrice:null, badge:'Epic!', badgeStyle:'dbdg-red' },
+
+  // ── DECEMBER 2026 ─────────────────────────────────────────────────────────
+  { slug:'thailand',             date:'2026-12-05', returnDate:'2026-12-13', price:'£1,295', wasPrice:null },
+  { slug:'bali-paradise',        date:'2026-12-12', returnDate:'2026-12-22', price:'£1,095', wasPrice:null },
+  { slug:'andorra',              date:'2026-12-27', returnDate:'2027-01-02', price:'TBC',    wasPrice:null,     badge:'⛷ Ski', badgeStyle:'dbdg-blue' },
+
+  // ── JANUARY 2027 ──────────────────────────────────────────────────────────
+  { slug:'japan',                date:'2027-01-09', returnDate:'2027-01-20', price:'£1,995', wasPrice:null, badge:'Early bird', badgeStyle:'dbdg-green' },
+  { slug:'morocco',              date:'2027-01-16', returnDate:'2027-01-24', price:'£875',   wasPrice:null },
+  { slug:'costa-rica',           date:'2027-01-23', returnDate:'2027-02-01', price:'£1,475', wasPrice:null },
+
+  // ── FEBRUARY 2027 ─────────────────────────────────────────────────────────
+  { slug:'thailand',             date:'2027-02-06', returnDate:'2027-02-14', price:'£1,295', wasPrice:null },
+  { slug:'bali-paradise',        date:'2027-02-13', returnDate:'2027-02-23', price:'£1,095', wasPrice:null },
+  { slug:'europe-rail',          date:'2027-02-27', returnDate:'2027-03-09', price:'£1,575', wasPrice:null },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TRIP META — links, images, route info per destination
+// ─────────────────────────────────────────────────────────────────────────────
+const TRIPS = {
+  'thailand':     { title:'Thailand Paradise',        img:'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',                days:9,  route:'Phuket → Phuket',         url:'https://galswhotravel.trutravels.com/thailand-paradise/girls-trip',        vibes:['🌴 Beaches','🐘 Elephants','🏝 Islands'] },
+  'bali-paradise':{ title:'Bali Paradise 🌺',          img:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg',               days:11, route:'Canggu → Gili T',          url:'https://galswhotravel.trutravels.com/bali-paradise/girls-trip',            vibes:['🌺 Temples','🐢 Turtles','🏄 Surf'] },
+  'bali-bliss':   { title:'Bali Bliss 🌺',             img:'https://galswhotravel.trutravels.com/bali-accommodation/canguu-1.png',                                       days:10, route:'Seminyak → Seminyak',      url:'https://galswhotravel.trutravels.com/bali-bliss',                          vibes:['✨ Luxury','🏖 Beach','🌸 Wellness'] },
+  'greece':       { title:'Greece Island Hopper ⛵',   img:'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',                             days:7,  route:'Athens → Santorini',       url:'https://galswhotravel.trutravels.com/greece-island-hopper/girls-trip',     vibes:['⛵ Islands','🌅 Sunsets','🧘 Yoga'] },
+  'morocco':      { title:'Morocco Uncovered 🏜',      img:'https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg',                                      days:9,  route:'Marrakech → Marrakech',    url:'https://galswhotravel.trutravels.com/morocco-uncovered-girls-trip',        vibes:['🏜 Desert','🛍 Markets','🌄 Gorges'] },
+  'japan':        { title:'Legend of Japan 🌸',        img:'https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg',                          days:12, route:'Tokyo → Tokyo',            url:'https://galswhotravel.trutravels.com/girls-trip/japan-tour',               vibes:['🌸 Temples','🍜 Food','🗻 Fuji'] },
+  'vietnam':      { title:'Vietnam Explorer 🛵',       img:'https://galswhotravel.trutravels.com/images/lanterns-1.jpg',                                                 days:13, route:'Ho Chi Minh → Hanoi',      url:'https://galswhotravel.trutravels.com/vietnam-explorer/girls-trip',         vibes:['🛵 Culture','🏮 Lanterns','🚣 Halong'] },
+  'italy':        { title:'Italy Girls Trip! 🍕',      img:'https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg',                                        days:8,  route:'Rome → Sorrento',          url:'https://galswhotravel.trutravels.com/italy-girls-trip',                    vibes:['🍕 Food','🏛 Culture','🌊 Coast'] },
+  'costa-rica':   { title:'Costa Rica Adventure 🌿',   img:'https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg',                                      days:10, route:'San José → Santa Teresa',  url:'https://galswhotravel.trutravels.com/costa-rica-adventure-girls-trip',     vibes:['🌿 Jungle','🐒 Wildlife','🏄 Surf'] },
+  'sri-lanka':    { title:'Sri Lanka Uncovered 🌿',    img:'https://galswhotravel.trutravels.com/images/gals-who-travel-sri-lanka-nine-arches-bridge.jpg',               days:10, route:'Negombo → Unawatuna',      url:'https://galswhotravel.trutravels.com/10-day-sri-lanka-uncovered',          vibes:['🌿 Culture','🦁 Safari','🏖 Beaches'] },
+  'philippines':  { title:'Philippines West 🏝',       img:'https://galswhotravel.trutravels.com/images/gili-t-bali-paradise.jpg',                                       days:10, route:'Manila → Coron',           url:'https://galswhotravel.trutravels.com/philippines-west/girls-trip',         vibes:['🏝 Islands','🤿 Snorkelling','☀️ Sun'] },
+  'australia':    { title:'Epic East Coast 🦘',        img:'https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg',                                      days:15, route:'Sydney → Airlie Beach',    url:'https://galswhotravel.trutravels.com/australia-girls-trip',                vibes:['🦘 Adventure','🏄 Surf','🌊 Beaches'] },
+  'new-zealand':  { title:'New Zealand Girls Trip 🥝', img:'https://galswhotravel.trutravels.com/images/gwt-milos-day-3.jpg',                                            days:13, route:'Auckland → Queenstown',    url:'https://galswhotravel.trutravels.com/13-day-new-zealand-girls-trip',       vibes:['🏔 Mountains','🥾 Hiking','🌿 Nature'] },
+  'europe-rail':  { title:'Europe By Rail 🚂',         img:'https://galswhotravel.trutravels.com/images/gwt-athens-walking-tour.jpg',                                    days:11, route:'Budapest → Milan',         url:'https://galswhotravel.trutravels.com/girls-trip/budapest-to-milan',        vibes:['🚂 Rail','🏙 Cities','🍷 Culture'] },
+  'andorra':      { title:'Andorra Ski & Après ⛷',    img:'https://galswhotravel.trutravels.com/images/gwt-santorini-sunset.jpg',                                       days:7,  route:'Barcelona → Barcelona',    url:'https://galswhotravel.trutravels.com/7-day-andorra-ski-and-apres',         vibes:['⛷ Ski','❄️ Snow','🎉 Après'] },
+};
+
+// ─── HELPERS ─────────────────────────────────────────────────
+const ML = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const MS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function pd(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function fd(d){return `${d.getDate()} ${MS[d.getMonth()]} ${d.getFullYear()}`}
+function mk(d){return `${ML[d.getMonth()]} ${d.getFullYear()}`}
+function gs(k){try{return JSON.parse(localStorage.getItem('gwt_'+k))||null}catch{return null}}
+
+function renderCard(dep) {
+  const t = TRIPS[dep.slug]; if(!t) return '';
+  const d = pd(dep.date), r = pd(dep.returnDate);
+  const badge = dep.badge;
+  return `
+    <div class="dep-card" onclick="window.open('${t.url}','_blank')">
+      <div class="dc-img">
+        <img src="${t.img}" alt="${t.title}" loading="lazy" onerror="this.style.background='var(--pink)'">
+        <div class="dc-ov"></div>
+        ${badge?`<div class="dc-badges"><span class="dbdg ${dep.badgeStyle||'dbdg-red'}">${badge}</span></div>`:''}
+        <div class="dc-dest-ov">
+          <div class="dc-dest">${t.title}</div>
+          <div class="dc-route">📍 ${t.route}</div>
+        </div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-date-row">
+          <div class="dc-date">
+            <div class="dc-cal">
+              <div class="dc-cal-day">${d.getDate()}</div>
+              <div class="dc-cal-mon">${MS[d.getMonth()]}</div>
+            </div>
+            <div>
+              <div class="dc-departs">Departs ${fd(d)}</div>
+              <div class="dc-returns">Returns ${fd(r)}</div>
+            </div>
+          </div>
+          <div class="dc-days-pill">${t.days} days</div>
+        </div>
+        <div class="dc-vibes">${t.vibes.map(v=>`<span class="dc-vibe">${v}</span>`).join('')}</div>
+        <div class="dc-price-row">
+          <div>
+            <div class="dc-from">From</div>
+            <div>${dep.wasPrice?`<span class="dc-was">${dep.wasPrice}</span>`:''}<span class="dc-price">${dep.price}</span> <span class="dc-pp">pp</span></div>
+          </div>
+          <button class="dc-btn" onclick="event.stopPropagation();window.open('${t.url}','_blank')">Book →</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function render() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const sorted = DEPARTURES.filter(d=>pd(d.date)>=today).sort((a,b)=>pd(a.date)-pd(b.date));
+
+  // Group by month
+  const grouped = {};
+  sorted.forEach(dep=>{
+    const key = mk(pd(dep.date));
+    if(!grouped[key]) grouped[key]=[];
+    grouped[key].push(dep);
+  });
+
+  document.getElementById('dep-container').innerHTML =
+    Object.entries(grouped).map(([month,deps])=>`
+      <div class="month-group">
+        <div class="month-label">
+          <span class="month-title">${month}</span>
+          <span class="month-line"></span>
+          <span class="month-count">${deps.length} departure${deps.length>1?'s':''}</span>
+        </div>
+        <div class="dep-grid">${deps.map(renderCard).join('')}</div>
+      </div>`).join('');
+}
+
+function init() {
+  const b = gs('banner')||{visible:true,text:'🔥 40% off Bali Paradise — departing 20th May from £657 🌴',linkText:'Book now →',linkUrl:'https://galswhotravel.trutravels.com/bali-paradise/girls-trip'};
+  if(b.visible) document.getElementById('ann-bar').innerHTML=`<div class="ann">${b.text} <a href="${b.linkUrl}" target="_blank">${b.linkText}</a></div>`;
+  // Load from CMS (localStorage) if available, else use hardcoded defaults
+  const saved = gs('departures');
+  if(saved && saved.length) Object.assign(DEPARTURES, saved.map ? saved : []);
+  if(saved && saved.length) { DEPARTURES.length=0; saved.forEach(d=>DEPARTURES.push(d)); }
+  render();
+}
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('scroll-top').classList.toggle('visible',window.scrollY>400);
+});
+
+init();
+</script>
+</body>
+</html>

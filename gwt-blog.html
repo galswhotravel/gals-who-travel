@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blog & Stories — Gals Who Travel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,700&family=Instrument+Serif:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+em{font-family:'Playfair Display',serif;font-style:italic}
+:root{--red:#E8180A;--red-d:#C01008;--red-pale:#FFF0EF;--pink:#FFE3E6;--pink-m:#FFC5CB;--ink:#0F0505;--ink-2:#2A1010;--mut:#7A5555;--sand:#FAF6F1;--bdr:#EDE0E0;--white:#fff}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{cursor:pointer;font-family:'DM Sans',sans-serif;border:none;background:none}
+
+/* ANN */
+.ann{background:var(--ink);color:#fff;text-align:center;padding:10px 16px;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px}
+.ann a{color:var(--pink-m);font-weight:700;text-decoration:underline}
+
+/* NAV */
+nav{background:var(--white);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:500;height:68px;display:flex;align-items:center;padding:0 40px;gap:24px}
+.nl-text{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);letter-spacing:-.01em}
+.nl-text em{font-style:italic;color:var(--red)}
+.nav-links{display:flex;align-items:center;list-style:none;flex:1;gap:4px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--mut);padding:0 12px;height:68px;display:flex;align-items:center;transition:color .15s}
+.nav-links a:hover,.nav-links a.act{color:var(--red)}
+.nav-acts{margin-left:auto;display:flex;gap:10px}
+.ncta{background:var(--red);color:#fff;border-radius:24px;padding:10px 22px;font-size:13px;font-weight:700;transition:background .15s}
+.ncta:hover{background:var(--red-d)}
+
+/* HERO */
+.blog-hero{background:var(--ink);padding:80px 40px;text-align:center;position:relative;overflow:hidden}
+.blog-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(232,24,10,.15) 0%,transparent 65%)}
+.blog-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(255,197,203,.06) 0%,transparent 60%)}
+.blog-hero-inner{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.blog-hero .eye{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--pink-m);display:block;margin-bottom:16px}
+.blog-hero h1{font-family:'Instrument Serif',serif;font-size:clamp(40px,6vw,72px);color:#fff;font-weight:400;line-height:1.05;margin-bottom:16px}
+.blog-hero h1 em{font-style:italic;color:var(--pink-m)}
+.blog-hero p{font-size:16px;color:rgba(255,255,255,.45);line-height:1.8;max-width:480px;margin:0 auto 32px}
+
+/* FILTER BAR */
+.filter-bar{background:var(--sand);border-bottom:1px solid var(--bdr);padding:14px 40px;position:sticky;top:68px;z-index:100}
+.filter-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.filter-lbl{font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.chips{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;background:var(--white);border:1.5px solid var(--bdr);border-radius:20px;padding:6px 16px;font-size:13px;font-weight:500;color:var(--ink-2);cursor:pointer;transition:all .15s;white-space:nowrap}
+.chip.active,.chip:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.search-input{flex:1;min-width:180px;max-width:280px;border:1.5px solid var(--bdr);border-radius:20px;padding:8px 16px;font-size:13px;outline:none;font-family:'DM Sans',sans-serif}
+.search-input:focus{border-color:var(--red)}
+
+/* GRID */
+.blog-section{padding:64px 40px;max-width:1200px;margin:0 auto}
+
+/* FEATURED */
+.featured-card{display:grid;grid-template-columns:1fr 1fr;border-radius:24px;overflow:hidden;background:var(--white);border:1px solid var(--bdr);margin-bottom:56px;transition:transform .25s,box-shadow .25s;cursor:pointer}
+.featured-card:hover{transform:translateY(-5px);box-shadow:0 24px 60px rgba(232,24,10,.1)}
+.fc-img{height:420px;overflow:hidden;position:relative}
+.fc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.featured-card:hover .fc-img img{transform:scale(1.04)}
+.fc-cat{position:absolute;top:20px;left:20px;background:var(--red);color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:5px 12px;border-radius:20px}
+.fc-body{padding:48px 48px;display:flex;flex-direction:column;justify-content:center}
+.fc-meta{font-size:12px;color:var(--mut);margin-bottom:14px}
+.fc-title{font-family:'Instrument Serif',serif;font-size:clamp(24px,3vw,36px);color:var(--ink);margin-bottom:14px;line-height:1.15;font-weight:400}
+.fc-title em{font-style:italic;color:var(--red)}
+.fc-exc{font-size:15px;color:var(--mut);line-height:1.75;margin-bottom:24px}
+.fc-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--red);transition:gap .2s}
+.featured-card:hover .fc-link{gap:12px}
+
+/* GRID CARDS */
+.grid-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.grid-hdr h2{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400}
+.grid-hdr h2 em{font-style:italic;color:var(--red)}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.bc{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid var(--bdr);transition:transform .22s,box-shadow .22s;cursor:pointer;display:flex;flex-direction:column}
+.bc:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(232,24,10,.09)}
+.bc-img{height:200px;overflow:hidden;position:relative}
+.bc-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.bc:hover .bc-img img{transform:scale(1.06)}
+.bc-cat{position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:4px 10px;border-radius:10px}
+.bc-body{padding:20px;flex:1;display:flex;flex-direction:column}
+.bc-meta{font-size:11px;color:var(--mut);margin-bottom:8px}
+.bc-title{font-family:'Instrument Serif',serif;font-size:18px;color:var(--ink);margin-bottom:8px;line-height:1.25;font-weight:400;flex:1}
+.bc-exc{font-size:12.5px;color:var(--mut);line-height:1.6;margin-bottom:14px}
+.bc-read{font-size:12px;font-weight:700;color:var(--red)}
+.bc:hover .bc-read{text-decoration:underline}
+
+/* EMPTY */
+.empty-state{text-align:center;padding:80px 20px;color:var(--mut)}
+.empty-state h3{font-family:'Instrument Serif',serif;font-size:24px;font-weight:400;color:var(--ink);margin-bottom:8px}
+.empty-state p{font-size:14px;line-height:1.6;max-width:360px;margin:0 auto 20px}
+.empty-state a{color:var(--red);font-weight:600}
+
+/* NEWSLETTER */
+.nl-sec{background:var(--ink);padding:72px 40px;text-align:center}
+.nl-sec h2{font-family:'Instrument Serif',serif;font-size:clamp(32px,5vw,52px);color:#fff;font-weight:400;margin-bottom:12px}
+.nl-sec h2 em{font-style:italic;color:var(--pink-m)}
+.nl-sec p{font-size:15px;color:rgba(255,255,255,.45);margin-bottom:28px}
+.nl-form{display:flex;gap:8px;max-width:440px;margin:0 auto}
+.nl-form input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:13px 16px;color:#fff;font-size:14px;font-family:'DM Sans',sans-serif;outline:none}
+.nl-form input::placeholder{color:rgba(255,255,255,.3)}
+.nl-form input:focus{border-color:var(--red)}
+.nl-form button{background:var(--red);color:#fff;border-radius:12px;padding:13px 22px;font-size:14px;font-weight:700;transition:background .15s;white-space:nowrap}
+.nl-form button:hover{background:var(--red-d)}
+
+/* FOOTER */
+footer{background:#080202;padding:40px;text-align:center}
+footer p{font-size:12px;color:rgba(255,255,255,.25)}
+footer a{color:rgba(255,255,255,.4);margin:0 8px}
+footer a:hover{color:var(--pink-m)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .featured-card{grid-template-columns:1fr}
+  .fc-img{height:260px}
+  .fc-body{padding:28px}
+  .blog-grid{grid-template-columns:repeat(2,1fr)}
+  .blog-section{padding:40px 20px}
+  .filter-bar{padding:12px 20px}
+}
+@media(max-width:600px){
+  .blog-grid{grid-template-columns:1fr}
+  .blog-hero{padding:56px 24px}
+  .nl-form{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div id="ann-bar"></div>
+
+<nav>
+  <a href="/" style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+    <span class="nl-text">gals who <em>travel</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="gwt-final.html#dest-sec">Destinations</a></li>
+    <li><a href="gwt-final.html#trips-sec">Trips</a></li>
+    <li><a href="gwt-blog.html" class="act">Blog</a></li>
+  </ul>
+  <div class="nav-acts">
+    <a class="ncta" href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank">Find a Trip</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="blog-hero-inner">
+    <span class="eye">Gals Who Travel Blog</span>
+    <h1>Travel tips, guides<br>& <em>real stories</em></h1>
+    <p>Inspo for your next trip, packing lists, destination guides and everything in between — written by gals who've been there.</p>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <div class="filter-inner">
+    <span class="filter-lbl">Filter:</span>
+    <div class="chips">
+      <button class="chip active" onclick="filterCat(this,'all')">All posts</button>
+      <button class="chip" onclick="filterCat(this,'Travel Guides')">📍 Travel Guides</button>
+      <button class="chip" onclick="filterCat(this,'Destination')">🌍 Destinations</button>
+      <button class="chip" onclick="filterCat(this,'Solo Travel')">🙋‍♀️ Solo Travel</button>
+      <button class="chip" onclick="filterCat(this,'Packing')">🧳 Packing</button>
+      <button class="chip" onclick="filterCat(this,'Tips & Advice')">💡 Tips & Advice</button>
+      <button class="chip" onclick="filterCat(this,'GWT Stories')">💬 GWT Stories</button>
+    </div>
+    <input class="search-input" type="text" placeholder="🔍 Search posts..." id="search-input" oninput="filterSearch()">
+  </div>
+</div>
+
+<div class="blog-section">
+  <div id="featured-section"></div>
+  <div id="posts-section"></div>
+  <div id="fallback-posts"></div>
+</div>
+
+<section class="nl-sec">
+  <h2>Get travel inspo in<br>your <em>inbox</em></h2>
+  <p>New blog posts, early-bird trip offers and destination guides — every week.</p>
+  <form class="nl-form" onsubmit="this.innerHTML='<p style=color:var(--pink-m);font-size:14px>✓ You\'re in! Check your inbox.</p>';return false">
+    <input type="email" placeholder="your@email.com">
+    <button type="submit">Subscribe →</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2026 Gals Who Travel · Operated by TruTravels Ltd ·
+    <a href="/">Home</a>
+    <a href="gwt-cms.html">Admin</a>
+    <a href="https://galswhotravel.trutravels.com" target="_blank">Book a trip</a>
+  </p>
+</footer>
+
+<!-- FALLBACK POSTS (shown when CMS has none) -->
+<template id="fallback-data">
+  [{"id":"fb1","title":"The Perfect 9-Day Thailand Trip for Solo Girls","excerpt":"Thailand is magic! With turquoise waters that don't look real, floating bungalows surrounded by limestone mountains, island-hopping and elephant sanctuaries — it's the trip every gal should do.","category":"Travel Guides","dest":"Thailand","date":"9 Apr 2026","status":"published","author":"gals who community","coverUrl":"https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg"},
+  {"id":"fb2","title":"Why Bali Is the Perfect Gap Year Destination","excerpt":"You've just finished university, your passport is ready, and the whole world is waiting. Bali ticks every box — affordable, safe, beautiful and packed with experiences.","category":"Destination","dest":"Bali","date":"2 Apr 2026","status":"published","author":"gals who community","coverUrl":"https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg"},
+  {"id":"fb3","title":"Teacher-Friendly School Holiday Girls Trips","excerpt":"If you're a teacher, you already know the struggle: limited annual leave, fixed schedules, having to wait all year for school holidays. Here's how to make the most of them.","category":"Tips & Advice","dest":"Various","date":"24 Mar 2026","status":"published","author":"gals who community","coverUrl":"https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg"},
+  {"id":"fb4","title":"Ultimate Guide to Planning the Girls' Trip of a Lifetime","excerpt":"This is your guide to dreaming, choosing and booking the girls' trip of a lifetime. Whether you've been following us on socials or just discovered us — this is the place to start.","category":"Solo Travel","dest":"Various","date":"19 Feb 2026","status":"published","author":"gals who community","coverUrl":"https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg"},
+  {"id":"fb5","title":"5 Films & TV Shows to Watch Before Your GWT Trip","excerpt":"We love travelling the world, but obviously we can't always be jet setting. When we're not jumping on a plane, we're getting our travel fix through films and TV shows.","category":"GWT Stories","dest":"Various","date":"21 Feb 2026","status":"published","author":"gals who community","coverUrl":"https://galswhotravel.trutravels.com/images/gwt-mount-batur-group.jpeg"},
+  {"id":"fb6","title":"Why Japan Is the Perfect Trip for Girls in 2026","excerpt":"If you ask anyone who's been to Japan, they'll tell you it's simply the best place they have EVER been, and then they'll immediately start planning their next visit.","category":"Destination","dest":"Japan","date":"15 Jan 2026","status":"published","author":"gals who community","coverUrl":"https://galswhotravel.trutravels.com/japan-edits/kyoto-bamboo_lightroom.jpg"}]
+</template>
+
+<script>
+let allPosts=[];
+let currentCat='all';
+let currentSearch='';
+
+function gs(k){try{return JSON.parse(localStorage.getItem('gwt_'+k))||null}catch{return null}}
+
+function init(){
+  // Announcement bar
+  const b=gs('banner')||{visible:true,text:'🔥 40% off Bali Paradise — departing 20th May from £657 🌴',linkText:'Book now →',linkUrl:'https://galswhotravel.trutravels.com/bali-paradise/girls-trip'};
+  if(b.visible){
+    document.getElementById('ann-bar').innerHTML=`<div class="ann">${b.text} <a href="${b.linkUrl}" target="_blank">${b.linkText}</a></div>`;
+  }
+
+  // Load posts
+  const stored=gs('posts')||[];
+  const pub=stored.filter(p=>p.status==='published');
+  if(pub.length>0){
+    allPosts=pub;
+  } else {
+    // Use fallback demo data
+    allPosts=JSON.parse(document.getElementById('fallback-data').innerHTML);
+  }
+
+  // Check URL hash for single post view
+  if(location.hash && location.hash.length>1){
+    const slug=location.hash.slice(1);
+    const post=allPosts.find(p=>p.slug===slug||p.id===slug);
+    if(post){showArticle(post);return;}
+  }
+
+  renderBlog(allPosts);
+}
+
+function renderBlog(posts){
+  document.querySelector('.blog-section').style.display='block';
+  const feat=document.getElementById('featured-section');
+  const grid=document.getElementById('posts-section');
+  const fb=document.getElementById('fallback-posts');
+  fb.innerHTML='';
+
+  if(!posts.length){
+    feat.innerHTML='';
+    grid.innerHTML=`<div class="empty-state"><h3>No posts yet</h3><p>Check back soon — travel guides and stories are on the way.</p><a href="gwt-cms.html">Write a post in the CMS →</a></div>`;
+    return;
+  }
+
+  // Featured (first post)
+  const f=posts[0];
+  feat.innerHTML=`
+    <div class="featured-card" onclick="openPost('${f.id}')">
+      <div class="fc-img">
+        <img src="${f.coverUrl||f.cover||''}" alt="${f.title}" onerror="this.src='https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg'">
+        <span class="fc-cat">${f.category||'Blog'}</span>
+      </div>
+      <div class="fc-body">
+        <div class="fc-meta">${f.author||'gals who community'} · ${f.date||''}</div>
+        <h2 class="fc-title">${formatTitle(f.title)}</h2>
+        <p class="fc-exc">${f.excerpt||''}</p>
+        <span class="fc-link">Read the full post →</span>
+      </div>
+    </div>`;
+
+  // Rest of posts
+  const rest=posts.slice(1);
+  if(rest.length){
+    grid.innerHTML=`
+      <div class="grid-hdr"><h2>More <em>stories</em></h2></div>
+      <div class="blog-grid">${rest.map(p=>`
+        <div class="bc" onclick="openPost('${p.id}')">
+          <div class="bc-img">
+            <img src="${p.coverUrl||p.cover||''}" alt="${p.title}" loading="lazy" onerror="this.src='https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg'">
+            <span class="bc-cat">${p.category||'Blog'}</span>
+          </div>
+          <div class="bc-body">
+            <div class="bc-meta">${p.author||'gals who community'} · ${p.date||''}</div>
+            <div class="bc-title">${p.title}</div>
+            <div class="bc-exc">${(p.excerpt||'').slice(0,120)}${(p.excerpt||'').length>120?'…':''}</div>
+            <span class="bc-read">Read more →</span>
+          </div>
+        </div>`).join('')}
+      </div>`;
+  } else {
+    grid.innerHTML='';
+  }
+}
+
+function formatTitle(t){
+  // Italicise last word for editorial feel
+  const w=t.split(' ');
+  if(w.length>3){const last=w.pop();return w.join(' ')+' <em>'+last+'</em>';}
+  return t;
+}
+
+function filterCat(btn,cat){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat=cat;
+  applyFilters();
+}
+function filterSearch(){
+  currentSearch=document.getElementById('search-input').value.toLowerCase();
+  applyFilters();
+}
+function applyFilters(){
+  let filtered=allPosts;
+  if(currentCat!=='all') filtered=filtered.filter(p=>p.category===currentCat);
+  if(currentSearch) filtered=filtered.filter(p=>(p.title+p.excerpt+p.dest).toLowerCase().includes(currentSearch));
+  renderBlog(filtered);
+}
+
+function openPost(id){
+  const p=allPosts.find(x=>x.id===id);
+  if(!p)return;
+  // Open article page
+  window.location.href=`gwt-article.html?id=${id}`;
+}
+
+function showArticle(post){
+  // redirect to article page
+  window.location.href=`gwt-article.html?id=${post.id}`;
+}
+
+init();
+window.addEventListener('hashchange',init);
+</script>
+</body>
+</html>
