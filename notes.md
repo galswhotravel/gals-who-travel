@@ -1,0 +1,1 @@
+Can we make the header/footer consistent across all pages?
