@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deals & Offers — Gals Who Travel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:   #FF1717;
+  --pink:  #FFE3E6;
+  --navy:  #0B213E;
+  --white: #ffffff;
+  --page:  #fff7f8;
+  --border:#f5d0d5;
+  --mid:   #6b5a60;
+  --light: #fff0f2;
+  --font-b:'Arial Nova',Arial,sans-serif;
+  --font-h:'Playfair Display',serif;
+  --sh:    0 2px 18px rgba(255,23,23,0.08),0 1px 4px rgba(0,0,0,0.04);
+  --sh-hov:0 10px 36px rgba(255,23,23,0.15),0 2px 8px rgba(0,0,0,0.06);
+  --r:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-b);background:var(--page);color:var(--navy);min-height:100vh;}
+
+/* TOP BAR */
+.topbar{background:var(--red);color:#fff;text-align:center;padding:10px 16px;font-size:13px;font-weight:600;}
+.topbar a{color:#fff;font-weight:700;text-decoration:underline;}
+
+/* NAV */
+nav{
+  background:var(--navy);display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;height:66px;position:sticky;top:0;z-index:200;
+  box-shadow:0 2px 16px rgba(11,33,62,0.3);
+}
+.nav-brand{display:flex;align-items:center;gap:3px;text-decoration:none;}
+.nav-brand-a{font-family:var(--font-h);font-size:19px;font-weight:700;color:#fff;}
+.nav-brand-b{font-family:var(--font-h);font-size:19px;font-style:italic;font-weight:400;color:var(--pink);}
+.nav-links{display:flex;align-items:center;gap:24px;}
+.nav-links a{font-size:14px;font-weight:500;color:rgba(255,255,255,0.75);text-decoration:none;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--pink);}
+.nav-links a.active{font-weight:700;}
+.nav-cta{background:var(--red);color:#fff;padding:10px 22px;border-radius:50px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;transition:background .2s;}
+.nav-cta:hover{background:#cc0000;}
+.nav-hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;}
+.nav-hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;}
+
+/* HERO */
+.hero{
+  background:url('https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg') center 45%/cover no-repeat;
+  padding:90px 32px 68px;text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,33,62,.72) 0%,rgba(11,33,62,.52) 45%,rgba(11,33,62,.86) 100%);pointer-events:none;}
+.hero>*{position:relative;z-index:1;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--red);color:#fff;border-radius:50px;padding:6px 18px;
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px;
+}
+.hero h1{font-family:var(--font-h);font-size:clamp(36px,6vw,68px);font-weight:700;color:#fff;line-height:1.06;margin-bottom:12px;}
+.hero h1 em{font-style:italic;color:var(--pink);}
+.hero p{font-size:16px;color:rgba(255,255,255,.75);max-width:520px;margin:0 auto;line-height:1.65;}
+.hero-stats{display:flex;justify-content:center;gap:40px;margin-top:28px;flex-wrap:wrap;}
+.hero-stat strong{display:block;font-family:var(--font-h);font-size:20px;color:#fff;}
+.hero-stat span{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;}
+
+/* FILTER SECTION — image continues */
+.filter-section{
+  background:url('https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg') center 80%/cover no-repeat;
+  position:relative;padding:0 20px 28px;display:flex;justify-content:center;
+}
+.filter-section::before{content:'';position:absolute;inset:0;background:rgba(11,33,62,.84);pointer-events:none;}
+.filter-section>*{position:relative;z-index:1;}
+
+/* PINK BUBBLE */
+.filter-bubble{
+  background:var(--pink);border-radius:60px;padding:14px 22px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  max-width:960px;width:100%;
+  box-shadow:0 6px 28px rgba(11,33,62,.22);
+}
+.fb-pill{
+  display:flex;align-items:center;gap:8px;
+  background:var(--white);border-radius:50px;padding:10px 18px;
+  cursor:pointer;position:relative;white-space:nowrap;
+  border:2px solid transparent;transition:border-color .18s,box-shadow .18s;
+}
+.fb-pill:hover{border-color:var(--red);box-shadow:0 2px 12px rgba(255,23,23,.12);}
+.fb-pill svg{width:14px;height:14px;stroke:var(--red);stroke-width:2;fill:none;flex-shrink:0;}
+.fb-label{font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.05em;}
+.fb-val{font-size:13px;color:var(--mid);}
+.fb-val.set{color:var(--navy);font-weight:600;}
+.date-overlay{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.date-overlay::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}
+.fb-dot{width:5px;height:5px;border-radius:50%;background:rgba(11,33,62,.2);flex-shrink:0;}
+
+/* ON SALE TOGGLE PILL */
+.fb-toggle{
+  display:flex;align-items:center;gap:10px;
+  background:var(--white);border-radius:50px;padding:10px 18px;
+  cursor:pointer;user-select:none;white-space:nowrap;
+  border:2px solid transparent;transition:all .18s;
+}
+.fb-toggle:hover{border-color:var(--red);}
+.fb-toggle.active{background:var(--red);border-color:var(--red);}
+.fb-toggle.active .fb-label{color:#fff;}
+.fb-toggle.active .fb-val{color:rgba(255,255,255,.85);}
+.fb-toggle input{display:none;}
+.tog-track{width:34px;height:20px;border-radius:10px;background:var(--border);position:relative;transition:background .2s;flex-shrink:0;}
+.fb-toggle.active .tog-track{background:rgba(255,255,255,.3);}
+.tog-thumb{width:16px;height:16px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.fb-toggle.active .tog-thumb{transform:translateX(14px);}
+
+/* VIBE CHIPS */
+.vibe-row{
+  background:url('https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg') center 85%/cover no-repeat;
+  position:relative;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 20px 28px;
+}
+.vibe-row::before{content:'';position:absolute;inset:0;background:rgba(11,33,62,.84);pointer-events:none;}
+.vibe-row>*{position:relative;z-index:1;}
+.vchip{
+  padding:8px 18px;border-radius:50px;font-size:13px;font-weight:600;
+  border:2px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.75);
+  cursor:pointer;transition:all .18s;font-family:var(--font-b);
+}
+.vchip:hover{border-color:var(--pink);color:var(--pink);}
+.vchip.active{background:var(--pink);border-color:var(--pink);color:var(--navy);font-weight:700;}
+
+/* MAIN */
+main{max-width:1200px;margin:0 auto;padding:36px 24px 80px;}
+.sort-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.sort-bar h2{font-family:var(--font-h);font-size:24px;font-weight:700;color:var(--navy);}
+.sort-bar h2 em{font-style:italic;color:var(--red);}
+.sort-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.result-count{font-size:13px;color:var(--mid);}
+.result-count strong{color:var(--navy);}
+.sort-wrap{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mid);}
+.sort-wrap select{
+  border:2px solid var(--border);border-radius:8px;
+  padding:8px 14px;background:var(--white);
+  font-family:var(--font-b);font-size:13px;color:var(--navy);
+  cursor:pointer;outline:none;
+}
+.sort-wrap select:focus{border-color:var(--red);}
+
+/* CARDS — horizontal list */
+.deals-grid{display:flex;flex-direction:column;gap:20px;}
+.deal-card{
+  background:var(--white);border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--sh);border:2px solid var(--border);
+  transition:box-shadow .25s,transform .25s,border-color .25s;
+  display:flex;flex-direction:row;
+}
+.deal-card:hover{box-shadow:var(--sh-hov);transform:translateY(-3px);border-color:var(--pink);}
+.deal-card.hidden{display:none;}
+
+.card-img-wrap{flex:0 0 300px;position:relative;overflow:hidden;}
+.card-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .45s;display:block;}
+.deal-card:hover .card-img-wrap img{transform:scale(1.06);}
+.card-badge{position:absolute;top:12px;left:12px;display:flex;gap:5px;flex-wrap:wrap;z-index:2;}
+.badge{padding:4px 11px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-family:var(--font-b);}
+.badge-sale{background:var(--red);color:#fff;}
+.badge-popular{background:var(--navy);color:#fff;}
+.badge-new{background:#1a9c5e;color:#fff;}
+.badge-flash{background:#ff8c00;color:#fff;}
+
+.card-body{padding:22px 26px 22px;flex:1;display:flex;flex-direction:column;gap:9px;min-width:0;}
+.card-top-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.card-dest{font-size:12px;color:var(--mid);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.card-fav{
+  flex-shrink:0;width:34px;height:34px;border-radius:50%;
+  background:var(--pink);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,transform .15s;
+}
+.card-fav:hover{background:var(--border);transform:scale(1.1);}
+.card-fav svg{width:15px;height:15px;stroke:var(--red);fill:none;stroke-width:2;}
+.card-fav.loved svg{fill:var(--red);}
+.card-title{font-family:var(--font-h);font-size:22px;font-weight:700;line-height:1.2;color:var(--navy);}
+.card-desc{font-size:14px;color:var(--mid);line-height:1.6;flex:1;}
+.card-meta{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--mid);}
+.card-meta svg{width:13px;height:13px;stroke:var(--red);stroke-width:2;fill:none;flex-shrink:0;}
+.card-dates{display:flex;gap:6px;flex-wrap:wrap;}
+.date-pill{font-size:11px;font-weight:700;background:var(--pink);color:var(--navy);border-radius:50px;padding:3px 11px;border:1px solid var(--border);}
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:14px;margin-top:auto;border-top:2px solid var(--pink);}
+.price-from{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);}
+.price-was{font-size:13px;color:#bbb;text-decoration:line-through;}
+.price-now{font-family:var(--font-h);font-size:28px;font-weight:700;color:var(--navy);line-height:1;}
+.price-now.sale-price{color:var(--red);}
+.card-btn{
+  background:var(--red);color:#fff;border:none;border-radius:50px;
+  padding:12px 26px;font-family:var(--font-b);font-size:14px;font-weight:700;
+  cursor:pointer;text-decoration:none;display:inline-block;
+  transition:background .2s,transform .15s;white-space:nowrap;
+}
+.card-btn:hover{background:#cc0000;transform:translateY(-1px);}
+
+/* NO RESULTS */
+.no-results{text-align:center;padding:80px 20px;display:none;}
+.no-results.visible{display:block;}
+.no-results h3{font-family:var(--font-h);font-size:26px;color:var(--navy);margin-bottom:12px;}
+.no-results p{color:var(--mid);font-size:15px;}
+
+/* TRUST BAR */
+.trust-bar{
+  background:var(--navy);padding:26px 32px;
+  display:flex;justify-content:center;gap:36px;flex-wrap:wrap;
+}
+.trust-item{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:rgba(255,255,255,.85);}
+.trust-item svg{width:18px;height:18px;stroke:var(--pink);stroke-width:2;fill:none;flex-shrink:0;}
+
+/* ═══════════════════════════
+   MOBILE
+═══════════════════════════ */
+@media(max-width:768px){
+  nav{padding:0 16px;}
+  .nav-links,.nav-cta{display:none;}
+  .nav-hamburger{display:flex;}
+
+  .hero{padding:56px 16px 44px;}
+  .hero h1{font-size:34px;}
+  .hero p{font-size:15px;}
+  .hero-stats{gap:20px;margin-top:20px;}
+
+  /* filter bubble stacks vertically */
+  .filter-bubble{border-radius:28px;padding:12px 16px;flex-direction:column;gap:8px;align-items:stretch;}
+  .fb-pill{justify-content:flex-start;width:100%;}
+  .fb-toggle{width:100%;}
+  .fb-dot{display:none;}
+
+  .vibe-row{padding:0 16px 24px;gap:8px;}
+  .vchip{font-size:12px;padding:8px 14px;}
+
+  main{padding:24px 16px 60px;}
+  .sort-bar{flex-direction:column;align-items:flex-start;}
+  .sort-right{width:100%;justify-content:space-between;}
+
+  /* cards stack vertically on mobile */
+  .deal-card{flex-direction:column;}
+  .card-img-wrap{flex:none;height:220px;width:100%;}
+  .card-body{padding:16px;}
+  .card-title{font-size:20px;}
+  .price-now{font-size:24px;}
+
+  .trust-bar{padding:20px 16px;gap:16px;}
+  .trust-item{font-size:12px;}
+}
+
+@media(max-width:420px){
+  .hero h1{font-size:28px;}
+  .hero-stats{display:none;}
+  .card-footer{flex-direction:column;align-items:flex-start;gap:10px;}
+  .card-btn{width:100%;text-align:center;}
+  .filter-section{padding:0 12px 20px;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">🔥 40% off Bali Paradise — from £657 · Limited spaces 🌴 <a href="#">Book now →</a></div>
+
+<nav>
+  <a class="nav-brand" href="#">
+    <span class="nav-brand-a">Gals Who</span><span class="nav-brand-b">&nbsp;Travel</span>
+  </a>
+  <div class="nav-links">
+    <a href="#">Destinations ▾</a><a href="#">Dates ▾</a>
+    <a href="#">Trip Styles ▾</a><a href="#" class="active">🔥 Offers</a>
+    <a href="#">Blog</a>
+  </div>
+  <a class="nav-cta" href="#">Find a Trip →</a>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">🔥 Hot Deals — Updated Weekly</div>
+  <h1>Our best <em>deals</em><br>&amp; offers</h1>
+  <p>Women-only group adventures at prices that make it easy to say yes. Don't wait — spaces fill fast.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>£200</strong><span>deposit to secure</span></div>
+    <div class="hero-stat"><strong>3,500+</strong><span>gals travelled</span></div>
+    <div class="hero-stat"><strong>★ 4.9</strong><span>Trustpilot</span></div>
+    <div class="hero-stat"><strong>ATOL &amp; ABTA</strong><span>protected</span></div>
+  </div>
+</section>
+
+<div class="filter-section">
+  <div class="filter-bubble">
+    <div class="fb-pill">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="fb-label">From</span>
+      <span class="fb-val" id="from-display">Any date</span>
+      <input type="date" id="start-date" class="date-overlay" min="2026-05-27">
+    </div>
+    <div class="fb-dot"></div>
+    <div class="fb-pill">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="fb-label">To</span>
+      <span class="fb-val" id="to-display">Any date</span>
+      <input type="date" id="end-date" class="date-overlay" min="2026-05-27">
+    </div>
+    <div class="fb-dot"></div>
+    <div class="fb-pill" style="position:relative;">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="fb-label">Duration</span>
+      <span class="fb-val" id="dur-display">Any</span>
+      <select id="duration-filter" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;font-size:16px;">
+        <option value="">Any duration</option>
+        <option value="short">Up to 7 days</option>
+        <option value="medium">8–10 days</option>
+        <option value="long">11–14 days</option>
+        <option value="extended">15+ days</option>
+      </select>
+    </div>
+    <div class="fb-dot"></div>
+    <label class="fb-toggle" id="sale-toggle">
+      <input type="checkbox" id="sale-only">
+      <div class="tog-track"><div class="tog-thumb"></div></div>
+      <span class="fb-label">On sale</span>
+      <span class="fb-val" id="sale-display">All trips</span>
+    </label>
+  </div>
+</div>
+
+<div class="vibe-row">
+  <button class="vchip active" data-vibe="all">✦ All trips</button>
+  <button class="vchip" data-vibe="beach">🌊 Beach</button>
+  <button class="vchip" data-vibe="city">🏙 City</button>
+  <button class="vchip" data-vibe="adventure">🥾 Adventure</button>
+  <button class="vchip" data-vibe="culture">📚 Culture</button>
+</div>
+
+<main>
+  <div class="sort-bar">
+    <h2>All <em>deals</em></h2>
+    <div class="sort-right">
+      <span class="result-count" id="result-count"><strong>15</strong> trips</span>
+      <div class="sort-wrap">Sort: <select id="sort-select">
+        <option value="upcoming">Upcoming departures</option>
+        <option value="price-asc">Lowest priced</option>
+        <option value="duration-asc">Duration</option>
+      </select></div>
+    </div>
+  </div>
+  <div class="deals-grid" id="deals-grid"></div>
+  <div class="no-results" id="no-results">
+    <h3>No trips match your filters 🌍</h3>
+    <p>Try adjusting your dates, duration, or removing the "on sale" filter.</p>
+  </div>
+</main>
+
+<div class="trust-bar">
+  <div class="trust-item"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>ATOL &amp; ABTA Protected</div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Women-only groups</div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Trustpilot 4.9</div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>£200 deposit</div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.87 2 2 0 0 1 3.59 2.69h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17.38z"/></svg>24/7 support</div>
+</div>
+
+<script>
+const TRIPS=[
+  {id:1, title:'Bali Paradise 🌺',        dest:'Canggu → Gili T',        days:11,price:657, was:1095,sale:true, badge:['sale','popular'],vibe:'beach',   desc:'Beach clubs, temples, snorkelling with turtles on Gili T. 40% off — not for long.',img:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg',       departures:['20 May','17 Jun','15 Jul'],startDate:new Date('2026-05-20'),link:'https://galswhotravel.trutravels.com/bali-paradise/girls-trip'},
+  {id:2, title:'Legend of Japan 🌸',      dest:'Tokyo → Tokyo',          days:12,price:1595,was:1995,sale:true, badge:['flash'],        vibe:'culture', desc:'Tokyo, Mount Fuji, samurai workshop, Kyoto temples. Flash sale — limited spaces.',   img:'https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg',               departures:['12 Jun','10 Jul','7 Aug'], startDate:new Date('2026-06-12'),link:'https://galswhotravel.trutravels.com/girls-trip/japan-tour'},
+  {id:3, title:'Thailand Paradise 🌴',    dest:'Phuket → Phuket',        days:9, price:1295,was:null, sale:false,badge:['popular'],     vibe:'beach',   desc:'Floating bungalows, elephant sanctuary, Phi Phi island hopping and incredible sunsets.',img:'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',    departures:['5 Jun','3 Jul','31 Jul'],  startDate:new Date('2026-06-05'),link:'https://galswhotravel.trutravels.com/thailand-paradise/girls-trip'},
+  {id:4, title:'Morocco Uncovered 🏜',   dest:'Marrakech → Marrakech',  days:9, price:875, was:null, sale:false,badge:['popular'],     vibe:'culture', desc:'Sahara desert camping, spice market exploring, Todra Gorge and stunning sunsets.',   img:'https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg',                          departures:['19 Jun','17 Jul','14 Aug'],startDate:new Date('2026-06-19'),link:'https://galswhotravel.trutravels.com/morocco-uncovered-girls-trip'},
+  {id:5, title:'Greece Island Hopper ⛵',dest:'Athens → Santorini',     days:7, price:2095,was:null, sale:false,badge:['popular'],     vibe:'beach',   desc:'Athens to Santorini via Milos — sunrise yoga, volcano hike and wine tasting.',      img:'https://galswhotravel.trutravels.com/images/gwt-santorini-sunset.jpg',                           departures:['26 Jun','24 Jul','21 Aug'],startDate:new Date('2026-06-26'),link:'https://galswhotravel.trutravels.com/greece-island-hopper/girls-trip'},
+  {id:6, title:'Vietnam Explorer 🛵',    dest:'Ho Chi Minh → Hanoi',    days:13,price:1475,was:null, sale:false,badge:['new'],         vibe:'adventure',desc:'13 days through all the highlights and hidden gems from top to bottom of Vietnam.',  img:'https://galswhotravel.trutravels.com/images/lanterns-1.jpg',                                     departures:['2 Jul','30 Jul','27 Aug'], startDate:new Date('2026-07-02'),link:'https://galswhotravel.trutravels.com/vietnam-explorer/girls-trip'},
+  {id:7, title:'Costa Rica Adventure 🌿',dest:'San José → Santa Teresa',days:10,price:1475,was:null, sale:false,badge:[],             vibe:'adventure',desc:'Rainforest zip-lining, volcanic hot springs, exotic wildlife. For the gal who wants adventure.',img:'https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg',                        departures:['9 Jul','6 Aug','3 Sep'],   startDate:new Date('2026-07-09'),link:'https://galswhotravel.trutravels.com/costa-rica-adventure-girls-trip'},
+  {id:8, title:'Italy Girls Trip 🍕',    dest:'Rome → Sorrento',        days:8, price:1845,was:null, sale:false,badge:[],             vibe:'city',    desc:'Pasta, Aperols, city-exploring, coastal drives. The ultimate girls trip.',           img:'https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg',                            departures:['16 Jul','13 Aug','10 Sep'],startDate:new Date('2026-07-16'),link:'https://galswhotravel.trutravels.com/italy-girls-trip'},
+  {id:9, title:'Sri Lanka Uncovered 🌿', dest:'Negombo → Unawatuna',    days:10,price:995, was:null, sale:false,badge:['new'],         vibe:'culture', desc:'Diverse culture, safari, Sigiriya rock climb and gorgeous coastal scenery.',          img:'https://galswhotravel.trutravels.com/images/gals-who-travel-sri-lanka-nine-arches-bridge.jpg',   departures:['23 Jul','20 Aug','17 Sep'],startDate:new Date('2026-07-23'),link:'https://galswhotravel.trutravels.com/10-day-sri-lanka-uncovered'},
+  {id:10,title:'Philippines West 🏝',    dest:'Manila → Coron',         days:10,price:1175,was:null, sale:false,badge:[],             vibe:'beach',   desc:'Island hopping aqua waters and a castaway experience.',                              img:'https://galswhotravel.trutravels.com/images/gili-t-bali-paradise.jpg',                           departures:['30 Jul','27 Aug'],         startDate:new Date('2026-07-30'),link:'https://galswhotravel.trutravels.com'},
+  {id:11,title:'New Zealand 🥝',         dest:'Auckland → Queenstown',  days:13,price:2095,was:null, sale:false,badge:[],             vibe:'adventure',desc:'Incredible nature, amazing hiking and bucket-list views from top to bottom of Aotearoa.',img:'https://galswhotravel.trutravels.com/images/gwt-milos-day-3.jpg',                              departures:['6 Aug','3 Sep'],           startDate:new Date('2026-08-06'),link:'https://galswhotravel.trutravels.com'},
+  {id:12,title:'Europe By Rail 🚂',      dest:'Budapest → Milan',       days:11,price:1575,was:1895,sale:true, badge:['sale'],        vibe:'city',    desc:'Whirlwind tour of the best of Europe — Budapest to Milan by rail.',                  img:'https://galswhotravel.trutravels.com/images/gwt-athens-walking-tour.jpg',                        departures:['13 Aug','10 Sep'],         startDate:new Date('2026-08-13'),link:'https://galswhotravel.trutravels.com'},
+  {id:13,title:'Epic East Coast 🦘',     dest:'Sydney → Airlie Beach',  days:15,price:2695,was:null, sale:false,badge:[],             vibe:'adventure',desc:'East Coast Australia — beaches, surfing and unforgettable nights.',                   img:'https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg',                          departures:['3 Sep','1 Oct'],           startDate:new Date('2026-09-03'),link:'https://galswhotravel.trutravels.com'},
+  {id:14,title:'Bali Bliss 🌺',          dest:'Seminyak → Seminyak',    days:10,price:1345,was:1595,sale:true, badge:['sale'],        vibe:'beach',   desc:'Boutique hotels, beautiful viewpoints and island hopping. Live your best life.',    img:'https://galswhotravel.trutravels.com/bali-accommodation/canguu-1.png',                           departures:['10 Sep','8 Oct'],          startDate:new Date('2026-09-10'),link:'https://galswhotravel.trutravels.com'},
+  {id:15,title:'Andorra Ski & Après ⛷', dest:'Barcelona → Barcelona',  days:7, price:1195,was:null, sale:false,badge:[],             vibe:'adventure',desc:'From city to ski — 7 days of skiing, snow tubing and après ski parties.',             img:'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',                 departures:['15 Jan 27','12 Feb 27'],   startDate:new Date('2027-01-15'),link:'https://galswhotravel.trutravels.com'},
+];
+const BL={sale:'🔥 On Sale',popular:'⭐ Popular',new:'✨ New',flash:'⚡ Flash'};
+
+function fmt(v){const d=new Date(v+'T12:00:00');return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+
+function buildCard(t){
+  const ph=t.sale&&t.was
+    ?`<span class="price-was">£${t.was.toLocaleString()}</span><span class="price-now sale-price">£${t.price.toLocaleString()}</span>`
+    :`<span class="price-now">£${t.price.toLocaleString()}</span>`;
+  const badges=t.badge.map(b=>`<span class="badge badge-${b}">${BL[b]}</span>`).join('');
+  const dates=t.departures.slice(0,3).map(d=>`<span class="date-pill">${d}</span>`).join('');
+  return `<div class="deal-card" data-id="${t.id}" data-days="${t.days}" data-price="${t.price}" data-sale="${t.sale}" data-vibe="${t.vibe}" data-start="${t.startDate.toISOString()}">
+    <div class="card-img-wrap"><img src="${t.img}" alt="${t.title}" loading="lazy"><div class="card-badge">${badges}</div></div>
+    <div class="card-body">
+      <div class="card-top-row">
+        <div class="card-dest">📍 ${t.dest} · ${t.days} days</div>
+        <button class="card-fav" onclick="toggleFav(this,event)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+      </div>
+      <div class="card-title">${t.title}</div>
+      <div class="card-desc">${t.desc}</div>
+      <div class="card-meta"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Next departures:</div>
+      <div class="card-dates">${dates}</div>
+      <div class="card-footer">
+        <div class="card-price"><span class="price-from">From</span>${ph}</div>
+        <a class="card-btn" href="${t.link}" target="_blank">Book now →</a>
+      </div>
+    </div>
+  </div>`;
+}
+function toggleFav(b,e){e.stopPropagation();b.classList.toggle('loved');}
+
+const grid=document.getElementById('deals-grid');
+grid.innerHTML=TRIPS.map(buildCard).join('');
+
+function sortCards(){
+  const v=document.getElementById('sort-select').value;
+  const cards=[...document.querySelectorAll('.deal-card')];
+  cards.sort((a,b)=>{
+    if(v==='upcoming')    return new Date(a.dataset.start)-new Date(b.dataset.start);
+    if(v==='price-asc')   return +a.dataset.price-+b.dataset.price;
+    if(v==='duration-asc')return +a.dataset.days-+b.dataset.days;
+    return +a.dataset.id-+b.dataset.id;
+  });
+  cards.forEach(c=>grid.appendChild(c));
+}
+
+function applyFilters(){
+  const sv=document.getElementById('start-date').value;
+  const ev=document.getElementById('end-date').value;
+  const dv=document.getElementById('duration-filter').value;
+  const so=document.getElementById('sale-only').checked;
+  const vibe=document.querySelector('.vchip.active').dataset.vibe;
+  const sf=sv?new Date(sv):null,ef=ev?new Date(ev):null;
+  let vis=0;
+  document.querySelectorAll('.deal-card').forEach(card=>{
+    const days=+card.dataset.days,sale=card.dataset.sale==='true',cv=card.dataset.vibe,start=new Date(card.dataset.start);
+    let show=true;
+    if(sf&&start<sf)show=false;
+    if(ef&&start>ef)show=false;
+    if(dv==='short'&&days>7)show=false;
+    if(dv==='medium'&&(days<8||days>10))show=false;
+    if(dv==='long'&&(days<11||days>14))show=false;
+    if(dv==='extended'&&days<15)show=false;
+    if(so&&!sale)show=false;
+    if(vibe!=='all'&&cv!==vibe)show=false;
+    card.classList.toggle('hidden',!show);
+    if(show)vis++;
+  });
+  document.getElementById('result-count').innerHTML=`<strong>${vis}</strong> trip${vis!==1?'s':''}`;
+  document.getElementById('no-results').classList.toggle('visible',vis===0);
+  sortCards();
+}
+
+document.getElementById('start-date').addEventListener('change',function(){
+  const el=document.getElementById('from-display');
+  el.textContent=this.value?fmt(this.value):'Any date';el.classList.toggle('set',!!this.value);applyFilters();
+});
+document.getElementById('end-date').addEventListener('change',function(){
+  const el=document.getElementById('to-display');
+  el.textContent=this.value?fmt(this.value):'Any date';el.classList.toggle('set',!!this.value);applyFilters();
+});
+const DL={'':'Any','short':'≤7 days','medium':'8–10 days','long':'11–14 days','extended':'15+ days'};
+document.getElementById('duration-filter').addEventListener('change',function(){
+  const el=document.getElementById('dur-display');el.textContent=DL[this.value]||'Any';el.classList.toggle('set',!!this.value);applyFilters();
+});
+document.getElementById('sale-toggle').addEventListener('click',function(e){
+  e.preventDefault();const cb=document.getElementById('sale-only');cb.checked=!cb.checked;
+  this.classList.toggle('active',cb.checked);
+  document.getElementById('sale-display').textContent=cb.checked?'Sale only':'All trips';applyFilters();
+});
+document.querySelectorAll('.vchip').forEach(c=>c.addEventListener('click',function(){
+  document.querySelectorAll('.vchip').forEach(x=>x.classList.remove('active'));this.classList.add('active');applyFilters();
+}));
+document.getElementById('sort-select').addEventListener('change',sortCards);
+sortCards();
+</script>
+</body>
+</html>
