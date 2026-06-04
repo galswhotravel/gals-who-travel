@@ -6,7 +6,7 @@
 <title>Deals &amp; Offers — Gals Who Travel</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <style>
 
@@ -58,7 +58,7 @@ nav{background:var(--white);border-bottom:1px solid var(--bdr);position:sticky;t
 .mnav-hdr{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--bdr);flex-shrink:0}
 .mnav-cl{font-size:20px;color:var(--ink);background:var(--sand);border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
 .mdd{border-bottom:1px solid var(--bdr)}
-.mdd-hdr{width:100%;display:flex;align-items:center;justify-content:space-between;padding:17px 24px;font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);background:none;border:none;cursor:pointer;text-align:left;transition:background .15s}
+.mdd-hdr{width:100%;display:flex;align-items:center;justify-content:space-between;padding:17px 24px;font-family:'Playfair Display',serif;font-size:20px;color:var(--ink);background:none;border:none;cursor:pointer;text-align:left;transition:background .15s}
 .mdd-hdr:hover,.mdd.open .mdd-hdr{background:var(--red-pale);color:var(--red)}
 .mdd-chev{font-size:13px;opacity:.4;transition:transform .25s;display:inline-block}
 .mdd.open .mdd-chev{transform:rotate(180deg);opacity:.8}
@@ -68,7 +68,7 @@ nav{background:var(--white);border-bottom:1px solid var(--bdr);position:sticky;t
 .mdd-body a{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;font-size:15px;color:var(--ink-2);transition:color .15s;font-family:'DM Sans',sans-serif;border:none}
 .mdd-body a:hover{color:var(--red)}
 .mdd-badge{font-size:9px;background:var(--red);color:#fff;border-radius:6px;padding:2px 7px;font-weight:700}
-.mdd-flat{display:flex;align-items:center;padding:17px 24px;font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);border-bottom:1px solid var(--bdr);transition:color .15s}
+.mdd-flat{display:flex;align-items:center;padding:17px 24px;font-family:'Playfair Display',serif;font-size:20px;color:var(--ink);border-bottom:1px solid var(--bdr);transition:color .15s}
 .mdd-flat:hover{color:var(--red)}
 .mdd-flat.hot{color:var(--red);font-weight:600}
 .mnav-foot{padding:20px 24px;display:flex;flex-direction:column;gap:10px;background:var(--sand)}
@@ -76,25 +76,26 @@ nav{background:var(--white);border-bottom:1px solid var(--bdr);position:sticky;t
 @media(max-width:768px){nav{padding:0 16px}.nlinks{display:none}.nham{display:flex}}
 
 /* ── HERO ── */
-.hero{background:url('https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg') center 45%/cover no-repeat;position:relative;padding:96px 48px 80px;text-align:center;}
-.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,2,2,.38) 0%,rgba(10,2,2,.28) 45%,rgba(10,2,2,.55) 100%);}
+.hero{background:url('https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg') center 45%/cover no-repeat;position:relative;min-height:420px;display:flex;align-items:center;justify-content:center;text-align:center;}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,2,2,.55) 0%,rgba(10,2,2,.48) 45%,rgba(10,2,2,.72) 100%);}
 .hero>*{position:relative;z-index:1;}
-.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(38px,5.5vw,66px);font-weight:400;color:#fff;line-height:1.05;margin-bottom:14px;}
+.hero-inner{padding:80px 48px;width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(48px,5.5vw,80px);font-weight:400;color:#fff;line-height:1.1;margin-bottom:16px;}
 .hero h1 em{font-style:italic;color:var(--pink-m);}
-.hero-sub{font-size:16px;color:rgba(255,255,255,.78);max-width:480px;margin:0 auto;line-height:1.7;}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.72);max-width:520px;margin:0 auto;line-height:1.7;}
 
 /* ── MAIN LAYOUT ── */
 .page-wrap{max-width:1300px;margin:0 auto;padding:48px 40px 80px;display:grid;grid-template-columns:260px 1fr;gap:36px;align-items:start;}
 
 /* ── SIDEBAR ── */
 .sidebar{position:sticky;top:84px;display:flex;flex-direction:column;gap:10px;}
-.sb-toggle{display:none;width:100%;padding:13px 18px;background:var(--pink);border:1.5px solid var(--bdr);border-radius:12px;cursor:pointer;font-family:'Instrument Serif',serif;font-size:15px;font-weight:400;color:var(--ink);align-items:center;justify-content:space-between;}
+.sb-toggle{display:none;width:100%;padding:13px 18px;background:var(--pink);border:1.5px solid var(--bdr);border-radius:12px;cursor:pointer;font-family:'Playfair Display',serif;font-size:15px;font-weight:400;color:var(--ink);align-items:center;justify-content:space-between;}
 .sb-toggle svg{width:16px;height:16px;stroke:var(--ink);stroke-width:2;fill:none;transition:transform .25s;}
 .sb-toggle.open svg{transform:rotate(180deg);}
 .sb-panels{display:flex;flex-direction:column;gap:10px;}
 .sb-card{background:var(--white);border-radius:14px;overflow:hidden;border:1px solid var(--bdr);}
 .sb-head{padding:13px 16px;background:var(--pink);border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
-.sb-head h3{font-family:'Instrument Serif',serif;font-size:15px;font-weight:400;color:var(--ink);}
+.sb-head h3{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;color:var(--ink);}
 .sb-head-r{display:flex;align-items:center;gap:8px;}
 .sb-clr{font-size:11px;color:var(--red);font-weight:700;background:none;border:none;cursor:pointer;text-decoration:underline;}
 .sb-chev{width:14px;height:14px;stroke:var(--ink);stroke-width:2.5;fill:none;transition:transform .25s;flex-shrink:0;}
@@ -103,7 +104,7 @@ nav{background:var(--white);border-bottom:1px solid var(--bdr);position:sticky;t
 .sb-card.col .sb-body{display:none;}
 .sale-card{background:var(--pink);border-radius:14px;border:1.5px solid var(--bdr);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color .15s;}
 .sale-card.on{border-color:var(--red);}
-.sale-lbl{font-family:'Instrument Serif',serif;font-size:15px;color:var(--ink);}
+.sale-lbl{font-family:'Playfair Display',serif;font-size:15px;color:var(--ink);}
 .sale-sub{font-size:12px;color:var(--mut);margin-top:2px;}
 .tog-t{width:38px;height:22px;border-radius:11px;background:#d0c8c8;position:relative;transition:background .2s;flex-shrink:0;}
 .sale-card.on .tog-t{background:var(--red);}
@@ -125,14 +126,21 @@ nav{background:var(--white);border-bottom:1px solid var(--bdr);position:sticky;t
 .range-wrap{padding:4px 0;}
 .range-lbls{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin-bottom:10px;}
 .range-v{font-weight:700;color:var(--ink);}
-input[type="range"]{-webkit-appearance:none;width:100%;height:4px;background:linear-gradient(to right,var(--red) 0%,var(--red) var(--pct,100%),var(--bdr) var(--pct,100%),var(--bdr) 100%);border-radius:2px;outline:none;cursor:pointer;}
-input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--red);border:3px solid #fff;box-shadow:0 2px 6px rgba(232,24,10,.3);}
+/* single range removed - dual range used instead */
 /* Price opts */
 .price-opts{display:flex;flex-direction:column;gap:5px;}
 .popt{display:flex;align-items:center;gap:8px;padding:8px 11px;border-radius:10px;border:1.5px solid var(--bdr);background:var(--white);cursor:pointer;font-size:13px;font-weight:500;color:var(--ink);transition:all .15s;}
 .popt:hover{border-color:var(--red);}
 .popt.on{background:var(--pink);border-color:var(--red);}
-.popt input[type="radio"]{accent-color:var(--red);width:14px;height:14px;flex-shrink:0;}
+.popt input[type="checkbox"]{accent-color:var(--red);width:14px;height:14px;flex-shrink:0;cursor:pointer;}
+/* Dual range */
+.dur-range-wrap{position:relative;height:22px;margin:8px 0 4px;}
+.dur-track{position:absolute;top:50%;transform:translateY(-50%);left:0;right:0;height:4px;background:var(--bdr);border-radius:2px;pointer-events:none;}
+.dur-fill{position:absolute;height:4px;background:var(--red);border-radius:2px;pointer-events:none;}
+.dur-range-wrap input[type="range"]{position:absolute;width:100%;height:4px;background:transparent;-webkit-appearance:none;appearance:none;pointer-events:none;top:50%;transform:translateY(-50%);margin:0;}
+.dur-range-wrap input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--red);border:3px solid #fff;box-shadow:0 2px 6px rgba(232,24,10,.3);pointer-events:all;cursor:pointer;}
+.dur-range-wrap input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--red);border:3px solid #fff;box-shadow:0 2px 6px rgba(232,24,10,.3);pointer-events:all;cursor:pointer;border:3px solid #fff;}
+.dur-range-wrap input[type="range"]::-webkit-slider-track{background:transparent;}
 /* Date inputs */
 .date-inputs{display:flex;flex-direction:column;gap:8px;}
 .date-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);display:block;margin-bottom:4px;}
@@ -142,7 +150,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;hei
 /* ── RESULTS ── */
 .results{min-width:0;}
 .results-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
-.results-hdr h2{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:var(--ink);}
+.results-hdr h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--ink);}
 .results-hdr h2 em{font-style:italic;color:var(--red);}
 .results-r{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 .rcount{font-size:13px;color:var(--mut);}
@@ -173,15 +181,15 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;hei
 .tcroute{font-size:11px;color:rgba(255,255,255,.72);font-weight:500;}
 .tc-body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column;}
 .tc-days{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);margin-bottom:4px;}
-.tc-title{font-family:'Instrument Serif',serif;font-size:19px;color:var(--ink);margin-bottom:6px;line-height:1.2;font-weight:400;}
+.tc-title{font-family:'Playfair Display',serif;font-size:19px;color:var(--ink);margin-bottom:6px;line-height:1.2;font-weight:400;}
 .tc-desc{font-size:13px;color:var(--mut);line-height:1.55;margin-bottom:14px;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .tc-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;}
 .tc-price .fr{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);}
 .tc-price .was{font-size:13px;color:var(--mut);text-decoration:line-through;margin-right:4px;}
-.tc-price .now{font-family:'Instrument Serif',serif;font-size:26px;color:var(--red);line-height:1;font-style:italic;}
+.tc-price .now{font-family:'Playfair Display',serif;font-size:26px;color:var(--red);line-height:1;font-style:italic;}
 .tc-arrow{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--ink);transition:all .2s;flex-shrink:0;}
 
-/* Date pills (shown when date filter active or sort=upcoming) */
+/* Date pills (shown only when date filter active) */
 .dep-pills{display:none;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
 .dep-pills.show{display:flex;}
 .dep-pill{background:var(--pink);color:var(--ink-2);border-radius:50px;padding:3px 10px;font-size:11px;font-weight:600;}
@@ -189,7 +197,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;hei
 /* No results */
 .no-results{text-align:center;padding:64px 20px;display:none;}
 .no-results.show{display:block;}
-.no-results h3{font-family:'Instrument Serif',serif;font-size:26px;color:var(--ink);margin-bottom:10px;}
+.no-results h3{font-family:'Playfair Display',serif;font-size:26px;color:var(--ink);margin-bottom:10px;}
 .no-results p{font-size:15px;color:var(--mut);}
 
 /* ── RESPONSIVE ── */
@@ -202,7 +210,8 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;hei
   .sb-panels.open{display:flex;}
 }
 @media(max-width:600px){
-  .hero{padding:64px 20px 52px;}
+  .hero-inner{padding:56px 20px;}
+  .hero h1{font-size:clamp(40px,9vw,56px);}
   .page-wrap{padding:24px 16px 48px;}
   .tgrid{grid-template-columns:1fr;gap:16px;}
   .hero h1{font-size:34px;}
@@ -314,8 +323,10 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;hei
 
 <!-- HERO -->
 <section class="hero">
-  <h1>find your perfect <em>gals trip</em></h1>
-  <p class="hero-sub">join us on a trip across asia, latin america, africa, europe and oceania!</p>
+  <div class="hero-inner">
+    <h1>find your perfect <em>gals trip</em></h1>
+    <p class="hero-sub">join us on a trip across asia, latin america, africa, europe and oceania!</p>
+  </div>
 </section>
 
 <!-- MAIN -->
@@ -364,11 +375,32 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;hei
         </div>
         <div class="sb-body">
           <div class="price-opts" id="price-opts">
-            <label class="popt on"><input type="radio" name="price" value="all" checked>All prices</label>
-            <label class="popt"><input type="radio" name="price" value="u1000">Under &#xA3;1,000</label>
-            <label class="popt"><input type="radio" name="price" value="1k2k">&#xA3;1,000 &#x2013; &#xA3;2,000</label>
-            <label class="popt"><input type="radio" name="price" value="2k3k">&#xA3;2,000 &#x2013; &#xA3;3,000</label>
-            <label class="popt"><input type="radio" name="price" value="o3k">Over &#xA3;3,000</label>
+            <label class="popt on" id="popt-all"><input type="checkbox" id="price-all" value="all" checked>All prices</label>
+            <label class="popt"><input type="checkbox" value="u1000">Under &#xA3;1,000</label>
+            <label class="popt"><input type="checkbox" value="1k2k">&#xA3;1,000 &#x2013; &#xA3;2,000</label>
+            <label class="popt"><input type="checkbox" value="2k3k">&#xA3;2,000 &#x2013; &#xA3;3,000</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Duration -->
+      <div class="sb-card">
+        <div class="sb-head" onclick="toggleSbCard(this)">
+          <h3>Duration</h3>
+          <div class="sb-head-r">
+            <button class="sb-clr" onclick="event.stopPropagation();resetDur()">Reset</button>
+            <svg class="sb-chev" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="sb-body">
+          <div class="range-wrap">
+            <div class="range-lbls"><span>1 day</span><span class="range-v" id="dur-val">any</span><span>15+ days</span></div>
+            <div class="dur-range-wrap" id="dur-range-wrap">
+              <div class="dur-track"></div>
+              <div class="dur-fill" id="dur-fill"></div>
+              <input type="range" id="dur-min" min="1" max="15" value="1" oninput="onDurChange()">
+              <input type="range" id="dur-max" min="1" max="15" value="15" oninput="onDurChange()">
+            </div>
           </div>
         </div>
       </div>
@@ -415,23 +447,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;hei
         </div>
       </div>
 
-      <!-- Duration -->
-      <div class="sb-card">
-        <div class="sb-head" onclick="toggleSbCard(this)">
-          <h3>Duration</h3>
-          <div class="sb-head-r">
-            <button class="sb-clr" onclick="event.stopPropagation();resetDur()">Reset</button>
-            <svg class="sb-chev" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-        </div>
-        <div class="sb-body">
-          <div class="range-wrap">
-            <div class="range-lbls"><span>1 day</span><span class="range-v" id="dur-val">any</span><span>15+ days</span></div>
-            <input type="range" id="dur-range" min="1" max="15" value="15" style="--pct:100%" oninput="onDurChange(this)">
-          </div>
-        </div>
-      </div>
-
     </div><!-- /sb-panels -->
   </aside>
 
@@ -443,9 +458,11 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;hei
         <span class="rcount" id="rcount"><strong>15</strong> trips</span>
         <div class="sort-wrap">Sort:
           <select id="sort-sel">
-            <option value="upcoming">upcoming departures</option>
-            <option value="price">lowest price</option>
-            <option value="duration">duration</option>
+            <option value="upcoming">Upcoming Departures</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="dur-asc">Duration: Shortest First</option>
+            <option value="dur-desc">Duration: Longest First</option>
           </select>
         </div>
       </div>
@@ -461,160 +478,217 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;hei
 </div><!-- /page-wrap -->
 
 <script>
-// ── TRIP DATA ──────────────────────────────────────────────────────
+// TRIP DATA
 const TRIPS = [
-  {id:1, title:'Thailand Paradise',    dest:'Phuket → Phuket',         days:9,  price:1295, was:null,  sale:false, badge:'br', badgeTxt:'Most popular', vibe:['beach','adventure'], region:'asia',     start:new Date('2026-06-05'), link:'https://galswhotravel.trutravels.com/thailand-paradise/girls-trip',    img:'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',              desc:'Floating bungalows, elephant sanctuary, Phi Phi island hopping and the most incredible sunsets.', dep:['5 jun','3 jul','31 jul']},
-  {id:2, title:'Bali Paradise',        dest:'Canggu → Gili T',         days:11, price:657,  was:1095,  sale:true,  badge:'bg', badgeTxt:'40% OFF 🔥',   vibe:['beach','wellness'],  region:'asia',     start:new Date('2026-05-20'), link:'https://galswhotravel.trutravels.com/bali-paradise/girls-trip',        img:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg',             desc:'Canggu beach clubs, Uluwatu temples, snorkelling with turtles on Gili T.', dep:['20 may','17 jun','15 jul']},
-  {id:3, title:'Greece Island Hopper', dest:'Athens → Santorini',      days:9,  price:2095, was:null,  sale:false, badge:'br', badgeTxt:'Best seller',  vibe:['beach','city'],      region:'europe',   start:new Date('2026-06-26'), link:'https://galswhotravel.trutravels.com/greece-island-hopper/girls-trip', img:'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',                          desc:'Athens to Santorini via Milos — sunrise yoga, volcano hike and wine tasting at sunset.', dep:['26 jun','24 jul','21 aug']},
-  {id:4, title:'Morocco Uncovered',    dest:'Marrakech → Marrakech',   days:9,  price:875,  was:null,  sale:false, badge:'bp', badgeTxt:'Community fave',vibe:['culture','adventure'],region:'africa',   start:new Date('2026-06-19'), link:'https://galswhotravel.trutravels.com/morocco-uncovered-girls-trip',    img:'https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg',                                    desc:'Sahara desert camping, spice market exploring, Todra Gorge and the world\'s most incredible sunsets.', dep:['19 jun','17 jul','14 aug']},
-  {id:5, title:'Legend of Japan',      dest:'Tokyo → Tokyo',           days:12, price:1895, was:null,  sale:false, badge:'br', badgeTxt:'Best seller',  vibe:['culture','city'],    region:'asia',     start:new Date('2026-06-12'), link:'https://galswhotravel.trutravels.com/girls-trip/japan-tour',            img:'https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg',                        desc:'Tokyo to Kyoto via Hakone — teamLab, Mount Fuji, geisha districts and bullet trains.', dep:['12 jun','10 jul','7 aug']},
-  {id:6, title:'Vietnam Explorer',     dest:'Ho Chi Minh → Hanoi',     days:13, price:1475, was:null,  sale:false, badge:'br', badgeTxt:'New',          vibe:['culture','adventure'],region:'asia',     start:new Date('2026-07-02'), link:'https://galswhotravel.trutravels.com/vietnam-explorer/girls-trip',      img:'https://galswhotravel.trutravels.com/images/lanterns-1.jpg',                                               desc:'13 days through all the highlights and hidden gems from top to bottom of Vietnam.', dep:['2 jul','30 jul','27 aug']},
-  {id:7, title:'Costa Rica Adventure', dest:'San José → Santa Teresa', days:10, price:1475, was:null,  sale:false, badge:'',   badgeTxt:'',             vibe:['adventure'],         region:'americas', start:new Date('2026-07-09'), link:'https://galswhotravel.trutravels.com/costa-rica-adventure-girls-trip',  img:'https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg',                                    desc:'Rainforest zip-lining, volcanic hot springs, exotic wildlife. For the gal who wants adventure.', dep:['9 jul','6 aug','3 sep']},
-  {id:8, title:'Italy Girls Trip',     dest:'Rome → Sorrento',         days:8,  price:1845, was:null,  sale:false, badge:'',   badgeTxt:'',             vibe:['city','culture'],    region:'europe',   start:new Date('2026-07-16'), link:'https://galswhotravel.trutravels.com/italy-girls-trip',                img:'https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg',                                      desc:'Pasta, Aperols, city-exploring, coastal drives. The ultimate girls trip.', dep:['16 jul','13 aug','10 sep']},
-  {id:9, title:'Sri Lanka Uncovered',  dest:'Negombo → Unawatuna',     days:10, price:995,  was:null,  sale:false, badge:'br', badgeTxt:'New',          vibe:['culture','beach'],   region:'asia',     start:new Date('2026-07-23'), link:'https://galswhotravel.trutravels.com/10-day-sri-lanka-uncovered',       img:'https://galswhotravel.trutravels.com/images/gals-who-travel-sri-lanka-nine-arches-bridge.jpg',             desc:'Diverse culture, safari, Sigiriya rock climb and gorgeous coastal scenery.', dep:['23 jul','20 aug','17 sep']},
-  {id:10,title:'Philippines West',     dest:'Manila → Coron',          days:10, price:1175, was:null,  sale:false, badge:'',   badgeTxt:'',             vibe:['beach'],             region:'asia',     start:new Date('2026-07-30'), link:'https://galswhotravel.trutravels.com/philippines-west-girls-only-tour', img:'https://galswhotravel.trutravels.com/images/gili-t-bali-paradise.jpg',                                     desc:'Island hopping aqua waters and a castaway experience across the Philippines.', dep:['30 jul','27 aug']},
-  {id:11,title:'New Zealand',          dest:'Auckland → Queenstown',   days:13, price:2095, was:null,  sale:false, badge:'',   badgeTxt:'',             vibe:['adventure'],         region:'pacific',  start:new Date('2026-08-06'), link:'https://galswhotravel.trutravels.com/new-zealand-female-group-tour',    img:'https://galswhotravel.trutravels.com/images/gwt-milos-day-3.jpg',                                          desc:'Incredible nature, amazing hiking and bucket-list views from top to bottom of Aotearoa.', dep:['6 aug','3 sep']},
-  {id:12,title:'Europe By Rail',       dest:'Budapest → Milan',        days:11, price:1575, was:1895,  sale:true,  badge:'br', badgeTxt:'🔥 On Sale',   vibe:['city','culture'],    region:'europe',   start:new Date('2026-08-13'), link:'https://galswhotravel.trutravels.com/europe-interrail-group-trip-gals', img:'https://galswhotravel.trutravels.com/images/gwt-athens-walking-tour.jpg',                                  desc:'Whirlwind tour of the best of Europe — Budapest to Milan by rail.', dep:['13 aug','10 sep']},
-  {id:13,title:'Epic East Coast',      dest:'Sydney → Airlie Beach',   days:15, price:2695, was:null,  sale:false, badge:'',   badgeTxt:'',             vibe:['adventure','beach'], region:'pacific',  start:new Date('2026-09-03'), link:'https://galswhotravel.trutravels.com/australia-girls-trip',             img:'https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg',                                    desc:'East Coast Australia — beaches, surfing and unforgettable nights.', dep:['3 sep','1 oct']},
-  {id:14,title:'Bali Bliss',           dest:'Seminyak → Seminyak',     days:10, price:1345, was:1595,  sale:true,  badge:'br', badgeTxt:'🔥 On Sale',   vibe:['beach','wellness'],  region:'asia',     start:new Date('2026-09-10'), link:'https://galswhotravel.trutravels.com/bali-all-female-group-tour/bali-bliss', img:'https://galswhotravel.trutravels.com/bali-accommodation/canguu-1.png',                              desc:'Boutique hotels, beautiful viewpoints and island hopping. Live your best life.', dep:['10 sep','8 oct']},
-  {id:15,title:'Andorra Ski & Après',  dest:'Barcelona → Barcelona',   days:7,  price:1195, was:null,  sale:false, badge:'',   badgeTxt:'',             vibe:['ski'],               region:'europe',   start:new Date('2027-01-15'), link:'https://galswhotravel.trutravels.com/7-day-andorra-ski-and-apres',      img:'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',                          desc:'From city to ski — 7 days of skiing, snow tubing and après ski parties.', dep:['15 jan 27','12 feb 27']},
+  {id:1,title:'Thailand Paradise',dest:'Phuket to Phuket',days:9,price:1295,was:null,sale:false,badge:'br',badgeTxt:'Most popular',vibe:['beach','adventure'],region:'asia',start:new Date('2026-06-05'),link:'https://galswhotravel.trutravels.com/thailand-paradise/girls-trip',img:'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',desc:'Floating bungalows, elephant sanctuary, Phi Phi island hopping and the most incredible sunsets.',dep:['5 jun','3 jul','31 jul']},
+  {id:2,title:'Bali Paradise',dest:'Canggu to Gili T',days:11,price:657,was:1095,sale:true,badge:'bg',badgeTxt:'40% OFF',vibe:['beach','wellness'],region:'asia',start:new Date('2026-05-20'),link:'https://galswhotravel.trutravels.com/bali-paradise/girls-trip',img:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg',desc:'Canggu beach clubs, Uluwatu temples, snorkelling with turtles on Gili T.',dep:['20 may','17 jun','15 jul']},
+  {id:3,title:'Greece Island Hopper',dest:'Athens to Santorini',days:9,price:2095,was:null,sale:false,badge:'br',badgeTxt:'Best seller',vibe:['beach','city'],region:'europe',start:new Date('2026-06-26'),link:'https://galswhotravel.trutravels.com/greece-island-hopper/girls-trip',img:'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',desc:'Athens to Santorini via Milos - sunrise yoga, volcano hike and wine tasting at sunset.',dep:['26 jun','24 jul','21 aug']},
+  {id:4,title:'Morocco Uncovered',dest:'Marrakech loop',days:9,price:875,was:null,sale:false,badge:'bp',badgeTxt:'Community fave',vibe:['culture','adventure'],region:'africa',start:new Date('2026-06-19'),link:'https://galswhotravel.trutravels.com/morocco-uncovered-girls-trip',img:'https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg',desc:'Sahara desert camping, spice market exploring, Todra Gorge and incredible sunsets.',dep:['19 jun','17 jul','14 aug']},
+  {id:5,title:'Legend of Japan',dest:'Tokyo loop',days:12,price:1895,was:null,sale:false,badge:'br',badgeTxt:'Best seller',vibe:['culture','city'],region:'asia',start:new Date('2026-06-12'),link:'https://galswhotravel.trutravels.com/girls-trip/japan-tour',img:'https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg',desc:'Tokyo to Kyoto via Hakone - teamLab, Mount Fuji, geisha districts and bullet trains.',dep:['12 jun','10 jul','7 aug']},
+  {id:6,title:'Vietnam Explorer',dest:'Ho Chi Minh to Hanoi',days:13,price:1475,was:null,sale:false,badge:'br',badgeTxt:'New',vibe:['culture','adventure'],region:'asia',start:new Date('2026-07-02'),link:'https://galswhotravel.trutravels.com/vietnam-explorer/girls-trip',img:'https://galswhotravel.trutravels.com/images/lanterns-1.jpg',desc:'13 days through all the highlights and hidden gems from top to bottom of Vietnam.',dep:['2 jul','30 jul','27 aug']},
+  {id:7,title:'Costa Rica Adventure',dest:'San Jose to Santa Teresa',days:10,price:1475,was:null,sale:false,badge:'',badgeTxt:'',vibe:['adventure'],region:'americas',start:new Date('2026-07-09'),link:'https://galswhotravel.trutravels.com/costa-rica-adventure-girls-trip',img:'https://galswhotravel.trutravels.com/thailand/thailand-escape-10.jpeg',desc:'Rainforest zip-lining, volcanic hot springs, exotic wildlife.',dep:['9 jul','6 aug','3 sep']},
+  {id:8,title:'Italy Girls Trip',dest:'Rome to Sorrento',days:8,price:1845,was:null,sale:false,badge:'',badgeTxt:'',vibe:['city','culture'],region:'europe',start:new Date('2026-07-16'),link:'https://galswhotravel.trutravels.com/italy-girls-trip',img:'https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg',desc:'Pasta, Aperols, city-exploring, coastal drives. The ultimate girls trip.',dep:['16 jul','13 aug','10 sep']},
+  {id:9,title:'Sri Lanka Uncovered',dest:'Negombo to Unawatuna',days:10,price:995,was:null,sale:false,badge:'br',badgeTxt:'New',vibe:['culture','beach'],region:'asia',start:new Date('2026-07-23'),link:'https://galswhotravel.trutravels.com/10-day-sri-lanka-uncovered',img:'https://galswhotravel.trutravels.com/images/gals-who-travel-sri-lanka-nine-arches-bridge.jpg',desc:'Diverse culture, safari, Sigiriya rock climb and gorgeous coastal scenery.',dep:['23 jul','20 aug','17 sep']},
+  {id:10,title:'Philippines West',dest:'Manila to Coron',days:10,price:1175,was:null,sale:false,badge:'',badgeTxt:'',vibe:['beach'],region:'asia',start:new Date('2026-07-30'),link:'https://galswhotravel.trutravels.com/philippines-west-girls-only-tour',img:'https://galswhotravel.trutravels.com/images/gili-t-bali-paradise.jpg',desc:'Island hopping aqua waters and a castaway experience across the Philippines.',dep:['30 jul','27 aug']},
+  {id:11,title:'New Zealand',dest:'Auckland to Queenstown',days:13,price:2095,was:null,sale:false,badge:'',badgeTxt:'',vibe:['adventure'],region:'pacific',start:new Date('2026-08-06'),link:'https://galswhotravel.trutravels.com/new-zealand-female-group-tour',img:'https://galswhotravel.trutravels.com/images/gwt-milos-day-3.jpg',desc:'Incredible nature, amazing hiking and bucket-list views from top to bottom of Aotearoa.',dep:['6 aug','3 sep']},
+  {id:12,title:'Europe By Rail',dest:'Budapest to Milan',days:11,price:1575,was:1895,sale:true,badge:'br',badgeTxt:'On Sale',vibe:['city','culture'],region:'europe',start:new Date('2026-08-13'),link:'https://galswhotravel.trutravels.com/europe-interrail-group-trip-gals',img:'https://galswhotravel.trutravels.com/images/gwt-athens-walking-tour.jpg',desc:'Whirlwind tour of the best of Europe - Budapest to Milan by rail.',dep:['13 aug','10 sep']},
+  {id:13,title:'Epic East Coast',dest:'Sydney to Airlie Beach',days:15,price:2695,was:null,sale:false,badge:'',badgeTxt:'',vibe:['adventure','beach'],region:'pacific',start:new Date('2026-09-03'),link:'https://galswhotravel.trutravels.com/australia-girls-trip',img:'https://galswhotravel.trutravels.com/thailand/girls-pool-thailand.jpg',desc:'East Coast Australia - beaches, surfing and unforgettable nights.',dep:['3 sep','1 oct']},
+  {id:14,title:'Bali Bliss',dest:'Seminyak loop',days:10,price:1345,was:1595,sale:true,badge:'br',badgeTxt:'On Sale',vibe:['beach','wellness'],region:'asia',start:new Date('2026-09-10'),link:'https://galswhotravel.trutravels.com/bali-all-female-group-tour/bali-bliss',img:'https://galswhotravel.trutravels.com/bali-accommodation/canguu-1.png',desc:'Boutique hotels, beautiful viewpoints and island hopping. Live your best life.',dep:['10 sep','8 oct']},
+  {id:15,title:'Andorra Ski',dest:'Barcelona loop',days:7,price:1195,was:null,sale:false,badge:'',badgeTxt:'',vibe:['ski'],region:'europe',start:new Date('2027-01-15'),link:'https://galswhotravel.trutravels.com/7-day-andorra-ski-and-apres',img:'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',desc:'From city to ski - 7 days of skiing, snow tubing and apres ski parties.',dep:['15 jan 27','12 feb 27']},
 ];
 
-// ── STATE ──────────────────────────────────────────────────────────
-const S = {sale:false, region:'all', vibe:null, maxDays:15, price:'all', fromDate:null, toDate:null};
+// STATE
+const S = {sale:false,regions:new Set(),vibes:new Set(),minDays:1,maxDays:15,prices:new Set(),fromDate:null,toDate:null};
 
-// ── BUILD CARD — exact homepage tcard structure ────────────────────
+// BUILD CARD
 function buildCard(t) {
-  const badgeHtml = t.badge
-    ? '<div class="tcbadges"><span class="bdg '+t.badge+'">'+t.badgeTxt+'</span></div>' : '';
-  const priceHtml = t.sale && t.was
-    ? '<span class="was">£'+t.was.toLocaleString()+'</span><span class="now">£'+t.price.toLocaleString()+'</span>'
-    : '<span class="now">£'+t.price.toLocaleString()+'</span>';
-  const depsHtml = (t.dep||[]).slice(0,3).map(d=>'<span class="dep-pill">'+d+'</span>').join('');
+  const badge = t.badge ? '<div class="tcbadges"><span class="bdg '+t.badge+'">'+t.badgeTxt+'</span></div>' : '';
+  const price = (t.sale && t.was)
+    ? '<span class="was">&pound;'+t.was.toLocaleString()+'</span><span class="now">&pound;'+t.price.toLocaleString()+'</span>'
+    : '<span class="now">&pound;'+t.price.toLocaleString()+'</span>';
+  const deps = (t.dep||[]).slice(0,3).map(d=>'<span class="dep-pill">'+d+'</span>').join('');
   return '<a class="tcard" href="'+t.link+'" target="_blank"'
     +' data-id="'+t.id+'" data-days="'+t.days+'" data-price="'+t.price+'"'
     +' data-sale="'+t.sale+'" data-vibe=\''+JSON.stringify(t.vibe)+'\''
     +' data-region="'+t.region+'" data-start="'+t.start.toISOString()+'">'
     +'<div class="tc-img">'
-    +'<img class="tcph" src="'+t.img+'" alt="'+t.title+'" loading="lazy" onerror="this.style.opacity=\'0\'">'
-    +'<div class="tcfade"></div>'
-    +badgeHtml
-    +'<div class="tcbot"><span class="tcroute">📍 '+t.dest+'</span></div>'
-    +'</div>'
-    +'<div class="tc-body">'
-    +'<div class="tc-days">'+t.days+' Days · '+t.dest+'</div>'
+    +'<img class="tcph" src="'+t.img+'" alt="'+t.title+'" loading="lazy" onerror="this.style.opacity=0">'
+    +'<div class="tcfade"></div>'+badge
+    +'<div class="tcbot"><span class="tcroute">&#x1F4CD; '+t.dest+'</span></div>'
+    +'</div><div class="tc-body">'
+    +'<div class="tc-days">'+t.days+' Days &middot; '+t.dest+'</div>'
     +'<div class="tc-title">'+t.title+'</div>'
     +'<div class="tc-desc">'+t.desc+'</div>'
-    +'<div class="dep-pills" id="dp-'+t.id+'">'+depsHtml+'</div>'
-    +'<div class="tc-foot">'
-    +'<div class="tc-price"><div class="fr">From</div><div>'+priceHtml+'</div></div>'
-    +'<div class="tc-arrow">→</div>'
-    +'</div>'
-    +'</div></a>';
+    +'<div class="dep-pills" id="dp-'+t.id+'">'+deps+'</div>'
+    +'<div class="tc-foot"><div class="tc-price"><div class="fr">From</div><div>'+price+'</div></div>'
+    +'<div class="tc-arrow">&rarr;</div></div></div></a>';
 }
 
-// ── RENDER ─────────────────────────────────────────────────────────
+// RENDER
 const grid = document.getElementById('tgrid');
 grid.innerHTML = TRIPS.map(buildCard).join('');
 
-// ── SORT ───────────────────────────────────────────────────────────
+// SORT
 function sortCards() {
   const v = document.getElementById('sort-sel').value;
-  [...document.querySelectorAll('.tcard')].sort((a,b) => {
-    if (v==='upcoming') return new Date(a.dataset.start)-new Date(b.dataset.start);
-    if (v==='price')    return +a.dataset.price-+b.dataset.price;
-    if (v==='duration') return +a.dataset.days-+b.dataset.days;
-    return +a.dataset.id-+b.dataset.id;
-  }).forEach(c => grid.appendChild(c));
+  [...document.querySelectorAll('.tcard')].sort((a,b)=>{
+    if(v==='upcoming')   return new Date(a.dataset.start)-new Date(b.dataset.start);
+    if(v==='price-asc')  return +a.dataset.price - +b.dataset.price;
+    if(v==='price-desc') return +b.dataset.price - +a.dataset.price;
+    if(v==='dur-asc')    return +a.dataset.days  - +b.dataset.days;
+    if(v==='dur-desc')   return +b.dataset.days  - +a.dataset.days;
+    return +a.dataset.id - +b.dataset.id;
+  }).forEach(c=>grid.appendChild(c));
 }
 
-// ── FILTER ─────────────────────────────────────────────────────────
+// FILTER
 function applyFilters() {
-  let vis = 0;
-  document.querySelectorAll('.tcard').forEach(c => {
-    const days=+c.dataset.days, price=+c.dataset.price;
-    const sale=c.dataset.sale==='true';
-    const region=c.dataset.region;
-    const vibes=JSON.parse(c.dataset.vibe);
-    const start=new Date(c.dataset.start);
-    let show = true;
-    if (S.sale && !sale) show=false;
-    if (S.region!=='all' && region!==S.region) show=false;
-    if (S.vibe && !vibes.includes(S.vibe)) show=false;
-    if (days > S.maxDays) show=false;
-    if (S.price==='u1000' && price>=1000) show=false;
-    if (S.price==='1k2k' && (price<1000||price>=2000)) show=false;
-    if (S.price==='2k3k' && (price<2000||price>=3000)) show=false;
-    if (S.price==='o3k' && price<3000) show=false;
-    if (S.fromDate && start<S.fromDate) show=false;
-    if (S.toDate   && start>S.toDate)   show=false;
-    c.classList.toggle('hidden', !show);
+  let vis=0;
+  document.querySelectorAll('.tcard').forEach(card=>{
+    const days=+card.dataset.days, price=+card.dataset.price;
+    const sale=card.dataset.sale==='true';
+    const region=card.dataset.region;
+    const vibes=JSON.parse(card.dataset.vibe);
+    const start=new Date(card.dataset.start);
+    let show=true;
+    if(S.sale && !sale) show=false;
+    if(S.regions.size && !S.regions.has(region)) show=false;
+    if(S.vibes.size && !vibes.some(v=>S.vibes.has(v))) show=false;
+    if(days<S.minDays||days>S.maxDays) show=false;
+    if(S.prices.size){
+      const ok=[...S.prices].some(p=>{
+        if(p==='u1000') return price<1000;
+        if(p==='1k2k')  return price>=1000&&price<2000;
+        if(p==='2k3k')  return price>=2000&&price<3000;
+        if(p==='o3k')   return price>=3000;
+        return true;
+      });
+      if(!ok) show=false;
+    }
+    if(S.fromDate&&start<S.fromDate) show=false;
+    if(S.toDate&&start>S.toDate)     show=false;
+    card.classList.toggle('hidden',!show);
     if(show) vis++;
   });
   document.getElementById('rcount').innerHTML='<strong>'+vis+'</strong> trip'+(vis!==1?'s':'');
-  document.getElementById('no-results').classList.toggle('show', vis===0);
-  // Show dep pills when date filter active or sort=upcoming
-  const showDeps = !!(S.fromDate||S.toDate||document.getElementById('sort-sel').value==='upcoming');
-  document.querySelectorAll('.dep-pills').forEach(el=>el.classList.toggle('show',showDeps));
+  document.getElementById('no-results').classList.toggle('show',vis===0);
+  const showDeps = !!(S.fromDate || S.toDate);
+  const isUpcoming = document.getElementById('sort-sel').value === 'upcoming';
+  document.querySelectorAll('.tcard').forEach(card => {
+    const dp = card.querySelector('.dep-pills');
+    if (!dp) return;
+    const hidden = card.classList.contains('hidden');
+    dp.classList.toggle('show', !hidden && (showDeps || isUpcoming));
+  });
   sortCards();
   renderPills();
 }
 
-// ── ACTIVE PILLS ───────────────────────────────────────────────────
-function renderPills() {
-  const wrap = document.getElementById('active-pills');
-  const pills = [];
-  if (S.sale) pills.push(['🔥 on sale',()=>{S.sale=false;document.getElementById('sale-card').classList.remove('on');applyFilters();}]);
-  if (S.region!=='all') { const l=document.querySelector('.rchip[data-r="'+S.region+'"]')?.textContent?.trim()||S.region; pills.push([l,()=>{S.region='all';clearRegion();}]); }
-  if (S.vibe) { const vl={beach:'Beach',city:'City',adventure:'Adventure',culture:'Culture',wellness:'Wellness',ski:'Ski'}; pills.push([vl[S.vibe]||S.vibe,()=>{S.vibe=null;clearVibe();}]); }
-  if (S.maxDays<15) pills.push(['≤'+S.maxDays+' days',()=>{S.maxDays=15;resetDur();}]);
-  if (S.price!=='all') { const l=document.querySelector('.popt input[value="'+S.price+'"]')?.closest('label')?.textContent?.trim()||S.price; pills.push([l,()=>{S.price='all';clearPrice();}]); }
-  if (S.fromDate) pills.push(['from '+S.fromDate.toLocaleDateString('en-GB',{day:'numeric',month:'short'}),()=>{S.fromDate=null;document.getElementById('sb-from').value='';applyFilters();}]);
-  if (S.toDate)   pills.push(['to '+S.toDate.toLocaleDateString('en-GB',{day:'numeric',month:'short'}),()=>{S.toDate=null;document.getElementById('sb-to').value='';applyFilters();}]);
-  wrap.innerHTML = pills.map(([l],i)=>'<div class="apill">'+l+'<button onclick="pfn('+i+')">&#x2715;</button></div>').join('');
-  wrap._cbs = pills.map(p=>p[1]);
+// ACTIVE PILLS
+function renderPills(){
+  const wrap=document.getElementById('active-pills');
+  const pills=[];
+  if(S.sale) pills.push(['on sale',()=>{S.sale=false;document.getElementById('sale-card').classList.remove('on');applyFilters();}]);
+  S.regions.forEach(r=>{
+    const lbl=document.querySelector('.rchip[data-r="'+r+'"]')?.textContent?.trim()||r;
+    pills.push([lbl,()=>{S.regions.delete(r);document.querySelector('.rchip[data-r="'+r+'"]')?.classList.remove('on');if(!S.regions.size)document.querySelector('.rchip[data-r="all"]').classList.add('on');applyFilters();}]);
+  });
+  S.vibes.forEach(v=>{
+    const lbl={beach:'Beach',city:'City',adventure:'Adventure',culture:'Culture',wellness:'Wellness',ski:'Ski'}[v]||v;
+    pills.push([lbl,()=>{S.vibes.delete(v);document.querySelector('.vtile[data-v="'+v+'"]')?.classList.remove('on');applyFilters();}]);
+  });
+  if(S.minDays>1||S.maxDays<15){
+    const lbl=(S.minDays===S.maxDays)?S.minDays+' days':S.minDays+'-'+S.maxDays+' days';
+    pills.push([lbl,()=>{S.minDays=1;S.maxDays=15;resetDur();}]);
+  }
+  const pL={u1000:'Under 1k','1k2k':'1k-2k','2k3k':'2k-3k',o3k:'Over 3k'};
+  S.prices.forEach(p=>{
+    pills.push([pL[p]||p,()=>{
+      S.prices.delete(p);
+      const i=document.querySelector('.popt input[value="'+p+'"]');
+      if(i){i.checked=false;i.closest('label').classList.remove('on');}
+      if(!S.prices.size){document.getElementById('popt-all').classList.add('on');document.getElementById('price-all').checked=true;}
+      applyFilters();
+    }]);
+  });
+  if(S.fromDate) pills.push(['from '+S.fromDate.toLocaleDateString('en-GB',{day:'numeric',month:'short'}),()=>{S.fromDate=null;document.getElementById('sb-from').value='';applyFilters();}]);
+  if(S.toDate)   pills.push(['to '+S.toDate.toLocaleDateString('en-GB',{day:'numeric',month:'short'}),()=>{S.toDate=null;document.getElementById('sb-to').value='';applyFilters();}]);
+  wrap.innerHTML=pills.map(([l],i)=>'<div class="apill">'+l+'<button onclick="pfn('+i+')">&#x2715;</button></div>').join('');
+  wrap._cbs=pills.map(p=>p[1]);
 }
 function pfn(i){const w=document.getElementById('active-pills');if(w._cbs&&w._cbs[i])w._cbs[i]();}
 
-// ── CONTROLS ───────────────────────────────────────────────────────
+// CONTROLS
 function toggleSale(){S.sale=!S.sale;document.getElementById('sale-card').classList.toggle('on',S.sale);applyFilters();}
-function clearRegion(){S.region='all';document.querySelectorAll('.rchip').forEach(c=>c.classList.remove('on'));document.querySelector('.rchip[data-r="all"]').classList.add('on');applyFilters();}
-function clearVibe(){S.vibe=null;document.querySelectorAll('.vtile').forEach(t=>t.classList.remove('on'));applyFilters();}
-function onDurChange(el){const v=+el.value;S.maxDays=v;document.getElementById('dur-val').textContent=v>=15?'any':'up to '+v+' days';el.style.setProperty('--pct',((v-1)/14*100).toFixed(1)+'%');applyFilters();}
-function resetDur(){S.maxDays=15;const r=document.getElementById('dur-range');r.value=15;r.style.setProperty('--pct','100%');document.getElementById('dur-val').textContent='any';applyFilters();}
-function clearPrice(){S.price='all';document.querySelectorAll('.popt').forEach(o=>o.classList.remove('on'));document.querySelector('.popt:first-child').classList.add('on');document.querySelector('.popt input[value="all"]').checked=true;applyFilters();}
-function clearDates(){S.fromDate=null;S.toDate=null;document.getElementById('sb-from').value='';document.getElementById('sb-to').value='';applyFilters();}
-function onDateChange(){
-  const fv=document.getElementById('sb-from').value;
-  const tv=document.getElementById('sb-to').value;
-  S.fromDate=fv?new Date(fv+'T12:00:00'):null;
-  S.toDate  =tv?new Date(tv+'T12:00:00'):null;
-  applyFilters();
-}
 
 document.getElementById('region-list').addEventListener('click',e=>{
-  const c=e.target.closest('.rchip');if(!c)return;
-  S.region=c.dataset.r;document.querySelectorAll('.rchip').forEach(x=>x.classList.remove('on'));c.classList.add('on');applyFilters();
+  const chip=e.target.closest('.rchip');if(!chip)return;
+  const r=chip.dataset.r;
+  if(r==='all'){S.regions.clear();document.querySelectorAll('.rchip').forEach(x=>x.classList.remove('on'));chip.classList.add('on');}
+  else{
+    document.querySelector('.rchip[data-r="all"]').classList.remove('on');
+    if(S.regions.has(r)){S.regions.delete(r);chip.classList.remove('on');}
+    else{S.regions.add(r);chip.classList.add('on');}
+    if(!S.regions.size)document.querySelector('.rchip[data-r="all"]').classList.add('on');
+  }
+  applyFilters();
 });
+function clearRegion(){S.regions.clear();document.querySelectorAll('.rchip').forEach(c=>c.classList.remove('on'));document.querySelector('.rchip[data-r="all"]').classList.add('on');applyFilters();}
+
 document.getElementById('vibe-grid').addEventListener('click',e=>{
   const t=e.target.closest('.vtile');if(!t)return;
   const v=t.dataset.v;
-  if(S.vibe===v){S.vibe=null;t.classList.remove('on');}
-  else{S.vibe=v;document.querySelectorAll('.vtile').forEach(x=>x.classList.remove('on'));t.classList.add('on');}
+  if(S.vibes.has(v)){S.vibes.delete(v);t.classList.remove('on');}
+  else{S.vibes.add(v);t.classList.add('on');}
   applyFilters();
 });
-document.getElementById('price-opts').addEventListener('change',e=>{
-  if(e.target.name==='price'){S.price=e.target.value;document.querySelectorAll('.popt').forEach(o=>o.classList.remove('on'));e.target.closest('.popt').classList.add('on');applyFilters();}
-});
-document.getElementById('sort-sel').addEventListener('change',()=>{sortCards();applyFilters();});
+function clearVibe(){S.vibes.clear();document.querySelectorAll('.vtile').forEach(t=>t.classList.remove('on'));applyFilters();}
 
-// ── UI TOGGLES ──────────────────────────────────────────────────────
+document.getElementById('price-opts').addEventListener('change',e=>{
+  const inp=e.target;if(inp.tagName!=='INPUT')return;
+  const val=inp.value;
+  if(val==='all'){
+    S.prices.clear();
+    document.querySelectorAll('.popt').forEach(o=>o.classList.remove('on'));
+    document.getElementById('popt-all').classList.add('on');
+    inp.checked=true;
+    document.querySelectorAll('#price-opts input:not(#price-all)').forEach(i=>i.checked=false);
+  }else{
+    document.getElementById('popt-all').classList.remove('on');
+    document.getElementById('price-all').checked=false;
+    if(inp.checked){S.prices.add(val);inp.closest('label').classList.add('on');}
+    else{S.prices.delete(val);inp.closest('label').classList.remove('on');}
+    if(!S.prices.size){document.getElementById('popt-all').classList.add('on');document.getElementById('price-all').checked=true;}
+  }
+  applyFilters();
+});
+function clearPrice(){S.prices.clear();document.querySelectorAll('.popt').forEach(o=>o.classList.remove('on'));document.querySelectorAll('#price-opts input').forEach(i=>i.checked=false);document.getElementById('popt-all').classList.add('on');document.getElementById('price-all').checked=true;applyFilters();}
+
+function onDurChange(){
+  let minV=+document.getElementById('dur-min').value;
+  let maxV=+document.getElementById('dur-max').value;
+  if(minV>maxV){document.getElementById('dur-min').value=maxV;minV=maxV;}
+  S.minDays=minV;S.maxDays=maxV;
+  document.getElementById('dur-val').textContent=(minV===1&&maxV>=15)?'any':minV+'-'+maxV+' days';
+  const pMin=((minV-1)/14*100).toFixed(1);
+  const pMax=((maxV-1)/14*100).toFixed(1);
+  document.getElementById('dur-fill').style.left=pMin+'%';
+  document.getElementById('dur-fill').style.width=(pMax-pMin).toFixed(1)+'%';
+  applyFilters();
+}
+function resetDur(){S.minDays=1;S.maxDays=15;document.getElementById('dur-min').value=1;document.getElementById('dur-max').value=15;document.getElementById('dur-val').textContent='any';document.getElementById('dur-fill').style.left='0%';document.getElementById('dur-fill').style.width='100%';applyFilters();}
+function clearDates(){S.fromDate=null;S.toDate=null;document.getElementById('sb-from').value='';document.getElementById('sb-to').value='';applyFilters();}
+function onDateChange(){const fv=document.getElementById('sb-from').value;const tv=document.getElementById('sb-to').value;S.fromDate=fv?new Date(fv+'T12:00:00'):null;S.toDate=tv?new Date(tv+'T12:00:00'):null;applyFilters();}
+document.getElementById('sort-sel').addEventListener('change',()=>{applyFilters();});
 function toggleSb(){const p=document.getElementById('sb-panels');const b=document.getElementById('sb-toggle');p.classList.toggle('open');b.classList.toggle('open');}
 function toggleSbCard(head){head.closest('.sb-card').classList.toggle('col');}
 function toggleMdd(btn){const m=btn.closest('.mdd');const o=m.classList.contains('open');document.querySelectorAll('.mdd.open').forEach(x=>x.classList.remove('open'));if(!o)m.classList.add('open');}
-window.addEventListener('scroll',()=>{const n=document.getElementById('main-nav');if(n)n.style.boxShadow=window.scrollY>8?'0 4px 22px rgba(10,2,2,.08)':'none';},{passive:true});
+window.addEventListener('scroll',()=>{const n=document.getElementById('main-nav');if(n)n.style.boxShadow=window.scrollY>8?'0 4px 22px rgba(10,2,2,.08)':'';},{passive:true});
 
-// Initial render
+// Init
+document.getElementById('dur-fill').style.left='0%';
+document.getElementById('dur-fill').style.width='100%';
+document.querySelector('.rchip[data-r="all"]').classList.add('on');
 sortCards();
 renderPills();
 </script>
