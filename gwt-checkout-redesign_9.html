@@ -52,8 +52,8 @@ input,select,textarea{font-family:'DM Sans',sans-serif}
 /* ── LAYOUT ── */
 .ck-body{max-width:1200px;margin:0 auto;padding:32px 24px 80px;display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:start}
 @media(max-width:900px){
-  .ck-body{grid-template-columns:1fr;padding:20px 16px 160px}
-  .ck-sidebar{order:-1;position:static;top:auto}
+  .ck-body{grid-template-columns:1fr;padding:20px 16px 32px}
+  .ck-sidebar{display:none}
 }
 
 /* ── SIDEBAR ── */
@@ -188,13 +188,13 @@ input,select,textarea{font-family:'DM Sans',sans-serif}
 .ts-ico{font-size:14px}
 
 /* ── STICKY MOBILE BAR ── */
-.mobile-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--bdr);padding:12px 20px;z-index:200;box-shadow:0 -4px 20px rgba(11,33,62,.1)}
+.mobile-bar{display:none;background:var(--white);border-top:1px solid var(--bdr);padding:12px 20px}
 .mobile-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:480px;margin:0 auto}
 .mb-price{display:flex;flex-direction:column}
 .mb-dep{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--mut)}
 .mb-amt{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink)}
 .mb-amt span{font-size:12px;font-weight:400;color:var(--mut);font-family:'DM Sans',sans-serif}
-@media(max-width:900px){.mobile-bar{display:flex}}
+@media(max-width:900px){.mobile-bar{display:flex;grid-column:1/-1;margin:8px -16px -32px;border-radius:0}}
 
 /* ── COLLAPSIBLE MOBILE SUMMARY ── */
 .mob-summary{display:none;background:var(--white);border-radius:20px;padding:0;margin-bottom:16px;border:1px solid var(--bdr);overflow:hidden}
@@ -851,16 +851,10 @@ input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus
       <a href="tel:+442035422463" style="display:block;background:var(--sand);color:var(--ink);border-radius:20px;padding:10px;font-size:13px;font-weight:600;border:1px solid var(--bdr)">+44 203 542 2463</a>
     </div>
 
-    <!-- Legal note -->
-    <p style="font-size:11px;color:var(--mut);text-align:center;margin-top:14px;line-height:1.6;padding:0 8px">
-      operated by trutravels limited · 6 fife road, kingston upon thames, surrey, kt1 1sz · reg. no. 08094426<br>
-      <a href="/package-travel-info" style="color:var(--red)">package travel information</a> · <a href="/terms" style="color:var(--red)">booking terms</a>
-    </p>
   </aside>
 
-</div><!-- /.ck-body -->
 
-<!-- ── STICKY MOBILE BAR ── -->
+<!-- ── MOBILE CTA BAR ── -->
 <div class="mobile-bar" id="mobileBar">
   <div class="mobile-bar-inner">
     <div class="mb-price">
@@ -872,6 +866,13 @@ input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus
     </button>
   </div>
 </div>
+
+</div><!-- /.ck-body -->
+
+<p style="font-size:11px;color:var(--mut);text-align:center;margin:16px auto;line-height:1.6;padding:0 16px;max-width:600px">
+  operated by trutravels limited · 6 fife road, kingston upon thames, surrey, kt1 1sz · reg. no. 08094426<br>
+  <a href="/package-travel-info" style="color:var(--red)">package travel information</a> · <a href="/terms" style="color:var(--red)">booking terms</a>
+</p>
 
 <script>
 let currentStep = 0;
@@ -908,7 +909,7 @@ function goStep(n) {
   document.getElementById('step-' + currentStep).classList.add('active');
 
   // 6. Hide mobile bar on confirmation
-  document.getElementById('mobileBar').style.display = n === 3 ? 'none' : '';
+  document.getElementById('mobileBar').style.display = n === 3 ? 'none' : 'flex';
 }
 
 function nextFromMobile() { goStep(currentStep + 1); }
