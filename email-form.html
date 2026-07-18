@@ -255,6 +255,22 @@ body{font-family:var(--fb);background:var(--sand);color:var(--navy);}
         <span class="form__error" id="e-email" role="alert">please enter a valid email</span>
       </div>
       <div class="form__field">
+        <label class="form__label" for="f-phone">phone number</label>
+        <input class="form__input" type="tel" id="f-phone" name="phone" placeholder="+44 7700 900000" autocomplete="tel">
+      </div>
+      <div class="form__row">
+        <div class="form__field">
+          <label class="form__label" for="f-dob">date of birth<span class="form__req">*</span></label>
+          <input class="form__input" type="date" id="f-dob" name="dob" required aria-required="true" aria-describedby="e-dob">
+          <span class="form__error" id="e-dob" role="alert">please enter your date of birth</span>
+        </div>
+        <div class="form__field">
+          <label class="form__label" for="f-nat">nationality<span class="form__req">*</span></label>
+          <input class="form__input" type="text" id="f-nat" name="nationality" placeholder="e.g. British" required aria-required="true" aria-describedby="e-nat">
+          <span class="form__error" id="e-nat" role="alert">please enter your nationality</span>
+        </div>
+      </div>
+      <div class="form__field">
         <label class="form__label" for="f-msg">message<span class="form__req">*</span></label>
         <textarea class="form__textarea" id="f-msg" name="message"
           placeholder="tell us what's on your mind..."
@@ -308,7 +324,7 @@ body{font-family:var(--fb);background:var(--sand);color:var(--navy);}
   });
   document.getElementById('contact-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    var fields = ['f-name','f-last','f-email','f-msg'].map(function(id){ return document.getElementById(id); });
+    var fields = ['f-name','f-last','f-email','f-dob','f-nat','f-msg'].map(function(id){ return document.getElementById(id); });
     if (!fields.every(validate)) {
       var first = fields.find(function(f){ return f.classList.contains('is-error'); });
       if (first) first.focus();
