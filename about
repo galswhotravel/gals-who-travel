@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>our story — gals who travel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ===== gals who travel design tokens =====
+       reverted back to the red/pink editorial palette. navy (#0B213E)
+       is used in exactly one place — main h1/h2 headline colour — per
+       request. general body copy is plain black; red stays everywhere
+       else (kickers, ems, buttons, dark blocks, footer, nav). */
+    --cream:        #FFF5F6;
+    --cream-deep:   #FFE3E6;
+    --coral:        #FF1717;
+    --coral-deep:   #FF1717;
+    --coral-soft:   #FFF0EF;
+    --blush:        #FFC5CB;
+    --charcoal:     #0F0505;
+    --navy:         #0B213E;
+    --red-accent:   #FF1717;
+    --mut:          rgba(15,5,5,0.62);
+    --charcoal-70:  rgba(15,5,5,0.62);
+    --charcoal-45:  rgba(0,0,0,0.45);
+    --bdr:          #EDE0E0;
+    --sand:         #FAF6F1;
+    --white:        #FFFFFF;
+
+    --font-display: 'Playfair Display', serif;
+    --font-accent:  'Instrument Serif', serif;
+    --font-body: 'DM Sans', sans-serif;
+
+    --space-xs: 0.4rem;
+    --space-sm: 0.85rem;
+    --space-md: 1.4rem;
+    --space-lg: 1.8rem;
+    --space-xl: 2.4rem;
+    --space-2xl: 3rem;
+
+    --radius-sm: 14px;
+    --radius-md: 28px;
+    --radius-lg: 48px;
+
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
+
+  body{
+    background:var(--cream);
+    color:var(--charcoal);
+    font-family:var(--font-body);
+    font-weight:500;
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    text-rendering:optimizeLegibility;
+  }
+
+  img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .em{ font-family:var(--font-display); font-style:italic; font-weight:500; color:var(--coral-deep); }
+
+  .kicker{
+    display:inline-flex; align-items:center; gap:0.5em;
+    font-size:0.8rem; letter-spacing:0.08em; text-transform:lowercase;
+    font-weight:400; color:var(--coral-deep);
+    margin-bottom:var(--space-sm);
+  }
+  .kicker::before{ content:''; width:22px; height:1.5px; background:var(--coral); display:inline-block; }
+
+  /* uppercase "H1" tag style — mirrors the "ALL YOU NEED TO KNOW" treatment,
+     used above the three key storytelling headlines only */
+  .tag-caps{
+    display:block; font-family:var(--font-body); font-weight:800;
+    text-transform:uppercase; font-size:0.8rem; letter-spacing:0.08em;
+    color:var(--red-accent); margin-bottom:0.7rem;
+  }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 6vw; }
+
+  section{ position:relative; }
+
+  /* reveal-on-scroll */
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-delay-1.in{ transition-delay:0.1s; }
+  .reveal-delay-2.in{ transition-delay:0.22s; }
+  .reveal-delay-3.in{ transition-delay:0.34s; }
+
+  /* ============ ANNOUNCEMENT BAR (from index file) ============ */
+  .ann{ background:var(--charcoal); color:#fff; text-align:center; padding:10px 16px; font-size:13px; font-weight:500; display:flex; align-items:center; justify-content:center; gap:8px; }
+  .ann a{ color:var(--blush); font-weight:400; text-decoration:underline; }
+
+  /* ============ NAV (from index file, adapted to the editorial palette) ============ */
+  .nav{
+    background:var(--white); border-bottom:1px solid var(--bdr);
+    position:sticky; top:0; z-index:500; height:72px;
+    display:flex; align-items:center; padding:0 6vw;
+    transition:box-shadow .3s var(--ease);
+  }
+  .nav.scrolled{ box-shadow:0 2px 20px rgba(15,5,5,0.08); }
+  .nav-inner{ width:100%; max-width:1400px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; position:relative; }
+  .nav-logo{ display:flex; align-items:center; flex-shrink:0; }
+  .nav-logo img{ height:36px; width:auto; display:block; }
+  .nav-centre{ display:flex; align-items:center; gap:2px; position:absolute; left:50%; transform:translateX(-50%); }
+  .nav-centre a{ font-size:13px; font-weight:400; color:var(--mut); padding:8px 14px; border-radius:8px; transition:all .15s var(--ease); white-space:nowrap; display:flex; align-items:center; gap:5px; font-family:var(--font-body); }
+  .nav-centre a:hover{ color:var(--charcoal); background:var(--sand); }
+  .nav-centre a.hot{ color:var(--coral); }
+  .nav-centre a .nc-arr{ font-size:9px; opacity:.5; transition:transform .2s; }
+  .nav-centre a:hover .nc-arr{ transform:rotate(180deg); opacity:.8; }
+  .nav-right{ display:flex; align-items:center; gap:6px; flex-shrink:0; }
+  .nav-icon-btn{ width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:none; border:none; cursor:pointer; transition:background .15s; color:var(--charcoal); font-size:17px; text-decoration:none; }
+  .nav-icon-btn:hover{ background:var(--sand); }
+  .nav-cta{
+    background:var(--coral); color:var(--white);
+    padding:0.6rem 1.3rem; border-radius:100px;
+    font-size:0.85rem; font-weight:400; letter-spacing:0.01em;
+    transition:all .3s var(--ease);
+  }
+  .nav-cta:hover{ background:var(--coral-deep); color:var(--white); transform:translateY(-1px); }
+  .nav-ham{ width:40px; height:40px; border-radius:10px; display:none; flex-direction:column; align-items:center; justify-content:center; gap:5px; background:none; border:none; cursor:pointer; transition:background .15s; }
+  .nav-ham:hover{ background:var(--sand); }
+  .nav-ham span{ width:20px; height:1.5px; background:var(--charcoal); border-radius:2px; display:block; transition:all .3s; }
+  .nav-ham.open span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+  .nav-ham.open span:nth-child(2){ opacity:0; transform:scaleX(0); }
+  .nav-ham.open span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+
+  /* ── MEGA MENU (from index file) ── */
+  .mega-menu{ position:fixed; top:72px; left:0; right:0; bottom:0; z-index:490; display:none; flex-direction:row; }
+  .mega-menu.open{ display:flex; }
+  .mm-overlay{ position:absolute; inset:0; background:rgba(15,5,5,0.5); backdrop-filter:blur(2px); }
+  .mm-panel{ position:relative; z-index:2; width:min(420px,90vw); background:var(--white); height:100%; overflow-y:auto; display:flex; flex-direction:column; animation:slideIn .28s var(--ease); }
+  @keyframes slideIn{ from{ transform:translateX(-100%); } to{ transform:translateX(0); } }
+  .mm-head{ padding:1.6rem 1.8rem 1.1rem; border-bottom:1px solid var(--bdr); flex-shrink:0; }
+  .mm-head-logo{ font-family:var(--font-display); font-size:1.2rem; font-style:italic; color:var(--coral); }
+  .mm-body{ flex:1; overflow-y:auto; padding:0.7rem 0; }
+  .mm-link{ display:flex; align-items:center; justify-content:space-between; padding:11px 1.8rem; font-size:14px; font-weight:500; color:var(--charcoal); transition:all .15s; border:none; background:none; width:100%; text-align:left; cursor:pointer; }
+  .mm-link:hover{ background:var(--sand); color:var(--coral); }
+  .mm-link .mm-arr{ font-size:12px; color:var(--mut); }
+  .mm-link.hot{ color:var(--coral); font-weight:400; }
+  .mm-link.hot .mm-arr{ color:var(--coral); }
+  .mm-foot{ padding:1.3rem 1.8rem; border-top:1px solid var(--bdr); display:flex; flex-direction:column; gap:10px; flex-shrink:0; background:var(--sand); }
+  .mm-foot-btn{ display:block; text-align:center; padding:13px; border-radius:14px; font-size:14px; font-weight:400; cursor:pointer; text-decoration:none; transition:all .2s; }
+  .mm-trust{ display:flex; align-items:center; justify-content:center; gap:1.2rem; padding-top:4px; flex-wrap:wrap; }
+  .mm-trust span{ font-size:11px; color:var(--mut); display:flex; align-items:center; gap:4px; }
+
+  /* ============ HERO (compact banner) ============ */
+  .hero{
+    height:52vh; min-height:400px; max-height:560px; position:relative;
+    display:flex; flex-direction:column; justify-content:center;
+    color:var(--white); overflow:hidden;
+  }
+  .hero-media{ position:absolute; inset:0; z-index:0; }
+  .hero-media video, .hero-media img{ width:100%; height:100%; object-fit:cover; }
+  .hero-media::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(15,5,5,0.16) 0%, rgba(15,5,5,0.1) 35%, rgba(15,5,5,0.72) 100%);
+  }
+  .hero-inner{ position:relative; z-index:2; padding:2.2rem 6vw; max-width:820px; margin:0 auto; text-align:center; }
+  .hero-badge{
+    display:inline-flex; align-items:center; gap:0.7rem;
+    background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.35);
+    backdrop-filter:blur(6px);
+    padding:0.45rem 1rem; border-radius:100px;
+    font-size:0.78rem; font-weight:400; margin-top:1.1rem;
+  }
+  .hero h1{
+    font-family:var(--font-display); font-weight:400;
+    font-size:clamp(2rem, 4.4vw, 3.5rem);
+    line-height:1.06; letter-spacing:-0.01em; text-transform:lowercase;
+    max-width:12ch; margin:0 auto;
+  }
+  .hero h1 em{ font-family:var(--font-display); font-style:italic; font-weight:400; color:var(--blush); }
+  .hero p{
+    font-size:clamp(0.98rem, 1.3vw, 1.1rem); font-weight:500;
+    max-width:52ch; margin:0.9rem auto 0; color:rgba(255,255,255,0.92);
+  }
+  .hero-trust{
+    display:flex; align-items:center; justify-content:center; gap:1.2rem;
+    flex-wrap:wrap; margin-top:1.1rem;
+  }
+  .hero-trust span{
+    font-size:0.78rem; color:rgba(255,255,255,0.85);
+    display:flex; align-items:center; gap:5px;
+  }
+
+  /* ============ MISSION STATEMENT ============ */
+  .mission{ padding:var(--space-2xl) 0 var(--space-xl); text-align:center; }
+  .mission h2{
+    font-family:var(--font-display); font-weight:400; text-transform:lowercase;
+    font-size:clamp(1.4rem, 3.08vw, 2.38rem); line-height:1.18; letter-spacing:-0.01em;
+    color:var(--navy);
+  }
+  .mission h2 em{ font-family:var(--font-display); font-style:italic; color:var(--red-accent); }
+  .mission p{
+    margin-top:1.2rem; font-size:1.15rem; color:var(--mut);
+    max-width:58ch; margin-left:auto; margin-right:auto;
+  }
+  /* video sits to the right of the mission text on desktop; on mobile it drops
+     between the heading and the body copy — grid-template-areas controls the
+     order at each breakpoint independent of source order */
+  .mission .mission-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:5vw; align-items:center;
+    grid-template-areas: "head video" "body video";
+    text-align:left; max-width:1180px;
+  }
+  .mission-grid .mission-head{ grid-area:head; }
+  .mission-grid .mission-body{ grid-area:body; }
+  .mission-grid .mission-body p{ margin-left:0; margin-right:0; }
+  .mission-grid .story-media{ grid-area:video; aspect-ratio:4/5; }
+
+  /* ============ PULL QUOTE ============ */
+  .pullquote{ padding:var(--space-xl) 0; }
+  .pullquote .wrap{ max-width:920px; text-align:center; position:relative; }
+  .pullquote blockquote{
+    font-family:var(--font-display); font-style:italic; font-weight:500;
+    font-size:clamp(1.5rem, 3vw, 2.35rem); line-height:1.4; color:var(--charcoal);
+  }
+  .pullquote cite{
+    display:block; margin-top:0.5rem; font-family:var(--font-body); font-style:normal;
+    font-weight:400; font-size:0.9rem; letter-spacing:0.03em; text-transform:lowercase;
+    color:var(--coral-deep);
+  }
+
+  /* ============ COMPACT REVIEWS (4-up, small cards) ============ */
+  .reviews-sec{ padding:var(--space-lg) 0 var(--space-xl); }
+  .reviews-head{ text-align:center; max-width:520px; margin:0 auto var(--space-lg); }
+  .reviews-head h2{
+    font-family:var(--font-display); font-weight:400; text-transform:lowercase;
+    font-size:clamp(1.5rem, 2.6vw, 2.1rem); line-height:1.2;
+    color:var(--navy);
+  }
+  .reviews-head h2 em{ font-family:var(--font-display); color:var(--coral-deep); }
+  .review-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
+  .r-card{
+    background:var(--white); border:1px solid var(--bdr); border-radius:16px;
+    padding:1.2rem; transition:transform .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  .r-card:hover{ transform:translateY(-3px); box-shadow:0 14px 28px -18px rgba(15,5,5,0.2); }
+  .r-card .r-stars{ color:var(--coral); font-size:0.72rem; letter-spacing:0.15em; margin-bottom:0.6rem; }
+  .r-card .r-txt{ font-size:0.8rem; color:var(--charcoal); line-height:1.55; font-style:italic; margin-bottom:0.9rem; }
+  .r-card .r-who{ display:flex; align-items:center; gap:0.55rem; }
+  .r-card .r-av{
+    width:28px; height:28px; border-radius:50%; background:var(--blush); color:var(--coral-deep);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-accent);
+    font-style:italic; font-size:0.85rem; flex-shrink:0;
+  }
+  .r-card .r-name{ font-size:0.76rem; font-weight:400; color:var(--charcoal); }
+  .r-card .r-trip{ font-size:0.68rem; color:var(--mut); }
+
+  /* ============ ALTERNATING SECTIONS ============ */
+  .story-row{
+    display:grid; grid-template-columns:1fr 1fr; align-items:center;
+    gap:5vw; padding:var(--space-xl) 0;
+  }
+  .story-row.reverse .story-media{ order:2; }
+  .story-row.reverse .story-copy{ order:1; }
+  .story-media{
+    position:relative; width:100%; border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:4/5;
+    box-shadow:0 30px 60px -20px rgba(15,5,5,0.2);
+  }
+  .story-copy h3{
+    font-family:var(--font-body); font-weight:400; text-transform:lowercase;
+    font-size:clamp(1.7rem, 3vw, 2.5rem); line-height:1.18; letter-spacing:-0.01em;
+    color:var(--navy);
+  }
+  .story-copy h3 em{ font-family:var(--font-display); font-style:italic; color:var(--red-accent); }
+  .story-copy p{ margin-top:1rem; font-size:1.06rem; color:var(--mut); max-width:46ch; }
+  .story-copy p + p{ margin-top:0.8rem; }
+  .story-signature{
+    margin-top:1.2rem;
+  }
+  .story-signature .sig-mark{
+    display:block; width:150px; height:auto;
+  }
+  .story-signature .sig-role{ margin-top:0.3rem; font-size:0.8rem; color:var(--charcoal-45); text-transform:lowercase; }
+
+  /* ============ STATS ============ */
+  .stats{
+    background:var(--coral); color:var(--white);
+    border-radius:var(--radius-lg); margin:var(--space-lg) 6vw;
+    padding:var(--space-lg) 5vw; overflow:hidden; position:relative;
+  }
+  .stats-head{ text-align:center; max-width:640px; margin:0 auto var(--space-md); position:relative; }
+  .stats-head .kicker{ color:rgba(255,255,255,0.85); }
+  .stats-head .kicker::before{ background:rgba(255,255,255,0.7); }
+  .stats-head h2{
+    font-family:var(--font-display); font-weight:400; text-transform:lowercase;
+    font-size:clamp(1.7rem, 3.2vw, 2.5rem); line-height:1.2;
+  }
+  .stats-head h2 em{ font-family:var(--font-display); color:var(--cream); }
+  .stats-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1.6rem;
+    position:relative;
+  }
+  .stat{ text-align:center; }
+  .stat .num{
+    font-family:var(--font-accent); font-style:italic; font-weight:400;
+    font-size:clamp(2.6rem, 4.2vw, 3.6rem); line-height:1; color:var(--blush);
+  }
+  .stat .label{ margin-top:0.7rem; font-size:0.92rem; color:rgba(255,255,255,0.88); max-width:20ch; margin-left:auto; margin-right:auto; }
+
+  /* ============ FEATURE GRID (photo-topped USP cards) ============ */
+  .features{ padding:var(--space-xl) 0; }
+  .features-head{ max-width:640px; margin-bottom:var(--space-lg); }
+  .features-head h2{
+    font-family:var(--font-display); font-weight:400; text-transform:lowercase;
+    font-size:clamp(1.9rem, 3.4vw, 2.8rem); line-height:1.2;
+    color:var(--navy);
+  }
+  .features-head h2 em{ font-family:var(--font-display); color:var(--coral-deep); }
+  .feature-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--bdr); border:1px solid var(--bdr); border-radius:var(--radius-md); overflow:hidden;
+  }
+  .feature-card{
+    background:var(--white); padding:2rem;
+    transition:background .2s var(--ease);
+  }
+  .feature-card:first-child{ background:var(--cream); }
+  .feature-card:hover{ background:var(--coral-soft); }
+  .feature-card .card-media{ position:relative; height:170px; border-radius:12px; overflow:hidden; margin-bottom:1.1rem; }
+  .feature-card .card-media img{ transition:transform .5s var(--ease); }
+  .feature-card:hover .card-media img{ transform:scale(1.05); }
+  .feature-card .card-body{ padding:0; }
+  .feature-card h4{
+    font-family:var(--font-accent); font-weight:400; text-transform:lowercase;
+    font-size:1.25rem; color:var(--charcoal);
+  }
+  .feature-card p{ margin-top:0.5rem; font-size:0.88rem; color:var(--mut); line-height:1.65; }
+
+  /* ============ GALLERY ============ */
+  .gallery{ padding:var(--space-xl) 0 var(--space-lg); }
+  .gallery-head{ text-align:center; max-width:640px; margin:0 auto var(--space-lg); }
+  .gallery-head h2{
+    font-family:var(--font-display); font-weight:400; text-transform:lowercase;
+    font-size:clamp(1.9rem, 3.4vw, 2.8rem); line-height:1.2;
+    color:var(--navy);
+  }
+  .gallery-head h2 em{ font-family:var(--font-display); color:var(--coral-deep); }
+  .gallery-head p{ margin-top:1rem; color:var(--mut); }
+  .gallery-grid{
+    display:grid; grid-template-columns:repeat(6, 1fr); grid-auto-rows:120px;
+    gap:0.9rem;
+  }
+  .g-item{ border-radius:var(--radius-sm); overflow:hidden; position:relative; }
+  .g-item img{ transition:transform 0.7s var(--ease); }
+  .g-item:hover img{ transform:scale(1.08); }
+  .g-item .tag{
+    position:absolute; left:0.7rem; bottom:0.7rem; z-index:2;
+    background:rgba(15,5,5,0.65); backdrop-filter:blur(4px);
+    color:var(--white); font-size:0.72rem; font-weight:400; text-transform:lowercase;
+    padding:0.32rem 0.7rem; border-radius:100px;
+  }
+  .g1{ grid-column:span 2; grid-row:span 3; }
+  .g2{ grid-column:span 2; grid-row:span 2; }
+  .g3{ grid-column:span 2; grid-row:span 2; }
+  .g4{ grid-column:span 2; grid-row:span 2; }
+  .g5{ grid-column:span 2; grid-row:span 3; }
+  .g6{ grid-column:span 2; grid-row:span 2; }
+
+  /* ============ CLOSING / FINAL CTA ============ */
+  .final-cta{
+    height:52vh; min-height:420px; max-height:560px; position:relative;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    color:var(--white); overflow:hidden; margin-top:var(--space-lg);
+  }
+  .final-media{ position:absolute; inset:0; z-index:0; }
+  .final-media::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(15,5,5,0.28) 0%, rgba(15,5,5,0.62) 100%);
+  }
+  .final-inner{ position:relative; z-index:2; max-width:760px; padding:0 6vw; }
+  .final-inner .kicker{ color:rgba(255,255,255,0.85); justify-content:center; }
+  .final-inner .kicker::before{ background:rgba(255,255,255,0.7); }
+  .final-inner h2{
+    font-family:var(--font-display); font-weight:400; text-transform:lowercase;
+    font-size:clamp(2.2rem, 5.4vw, 4rem); line-height:1.1; letter-spacing:-0.01em;
+  }
+  .final-inner h2 em{ font-family:var(--font-display); font-style:italic; color:var(--blush); }
+  .final-inner p{ margin-top:1rem; font-size:1.1rem; color:rgba(255,255,255,0.9); }
+  .cta-row{ margin-top:1.6rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+  .btn-primary{
+    background:var(--coral); color:var(--white); font-weight:700;
+    padding:1rem 2.1rem; border-radius:100px; font-size:0.98rem;
+    box-shadow:0 16px 30px -10px rgba(232,24,10,0.45);
+    transition:transform .3s var(--ease), background .3s var(--ease);
+    display:inline-flex; align-items:center; gap:0.5rem;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); background:var(--coral-deep); }
+  .btn-ghost{
+    border:1.5px solid rgba(255,255,255,0.6); color:var(--white); font-weight:400;
+    padding:1rem 2.1rem; border-radius:100px; font-size:0.98rem;
+    transition:all .3s var(--ease);
+  }
+  .btn-ghost:hover{ background:rgba(255,255,255,0.14); }
+
+  /* ============ FOOTER (from index file, recoloured light/cream to match the page) ============ */
+  footer{ background:var(--cream); padding:3.6rem 6vw 1.8rem; }
+  .f-grid{ max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2.8rem; padding-bottom:2.6rem; border-bottom:1px solid var(--bdr); }
+  .f-logo{ font-family:var(--font-display); font-size:1.5rem; color:var(--charcoal); font-weight:400; margin-bottom:0.8rem; }
+  .f-logo em{ font-style:italic; color:var(--coral-deep); }
+  .f-brand p{ font-size:13px; color:var(--mut); line-height:1.8; max-width:270px; margin-bottom:1.2rem; }
+  .f-social{ display:flex; gap:8px; }
+  .fsoc{ width:34px; height:34px; border-radius:50%; border:1px solid var(--bdr); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:400; color:var(--charcoal-45); transition:all .15s; }
+  .fsoc:hover{ background:var(--coral); border-color:var(--coral); color:#fff; }
+  .f-col h5{ font-size:10px; font-weight:400; text-transform:uppercase; letter-spacing:0.12em; color:var(--charcoal-45); margin-bottom:0.9rem; }
+  .f-col a{ display:block; font-size:13px; color:var(--mut); margin-bottom:0.5rem; transition:color .15s; }
+  .f-col a:hover{ color:var(--coral-deep); }
+  .f-nl{ display:flex; gap:7px; margin-top:0.4rem; }
+  .f-nl input{ flex:1; background:var(--white); border:1px solid var(--bdr); border-radius:11px; padding:10px 14px; color:var(--charcoal); font-size:13px; font-family:var(--font-body); outline:none; }
+  .f-nl input::placeholder{ color:var(--charcoal-45); }
+  .f-nl button{ background:var(--coral); color:#fff; border-radius:11px; padding:10px 14px; font-size:13px; font-weight:400; transition:background .15s; white-space:nowrap; }
+  .f-nl button:hover{ background:var(--coral-deep); }
+  .f-bot{ max-width:1200px; margin:0 auto; padding-top:1.4rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem; font-size:12px; color:var(--charcoal-45); }
+  .fbadge{ border:1px solid var(--bdr); border-radius:7px; padding:3px 9px; font-size:10px; color:var(--mut); }
+
+  /* ============ responsive ============ */
+  @media (max-width:960px){
+    .nav-centre{ display:none; }
+    .nav-ham{ display:flex; }
+  }
+  @media (max-width:900px){
+    .story-row{ grid-template-columns:1fr; gap:2.2rem; padding:var(--space-lg) 0; }
+    .story-row.reverse .story-media{ order:1; }
+    .story-row.reverse .story-copy{ order:2; }
+    .stats-grid{ grid-template-columns:repeat(2,1fr); row-gap:2.2rem; }
+    .feature-grid{ grid-template-columns:1fr; }
+    .gallery-grid{ grid-template-columns:repeat(3,1fr); grid-auto-rows:110px; }
+    .g1,.g5{ grid-row:span 2; }
+    .stats{ margin:var(--space-lg) 4vw; }
+    .review-row{ grid-template-columns:repeat(2,1fr); }
+    /* mission: video drops between the heading and the body copy on mobile */
+    .mission .mission-grid{
+      grid-template-columns:1fr; gap:1.6rem; text-align:center;
+      grid-template-areas: "head" "video" "body";
+    }
+    .mission-grid .mission-body p{ margin-left:auto; margin-right:auto; }
+    /* mission video, founder video and founder image all match width/height on mobile */
+    .story-media{ max-width:320px; margin:0 auto; }
+  }
+  @media (max-width:1100px){
+    .f-grid{ grid-template-columns:1fr 1fr; gap:1.8rem; }
+  }
+  @media (max-width:768px){
+    .nav{ padding:0 1rem; }
+    .f-grid{ grid-template-columns:1fr; }
+    footer{ padding:2.4rem 1.2rem 1.4rem; }
+  }
+  @media (max-width:560px){
+    .hero h1{ max-width:9ch; }
+    .gallery-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- MEGA MENU -->
+<div class="mega-menu" id="mega-menu">
+  <div class="mm-overlay" onclick="closeMegaMenu()"></div>
+  <div class="mm-panel">
+    <div class="mm-head">
+      <div class="mm-head-logo">gals who travel</div>
+    </div>
+    <div class="mm-body">
+      <a class="mm-link hot" href="#top" onclick="closeMegaMenu()"><span>✨ Our story</span><span class="mm-arr">→</span></a>
+      <a class="mm-link" href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" onclick="closeMegaMenu()"><span>🗓 Upcoming departures</span><span class="mm-arr">→</span></a>
+      <a class="mm-link" href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" onclick="closeMegaMenu()"><span>🔥 Offers &amp; flash sales</span><span class="mm-arr">→</span></a>
+      <a class="mm-link" href="https://galswho.travel/blogs" target="_blank" onclick="closeMegaMenu()"><span>📖 Blog &amp; travel guides</span><span class="mm-arr">→</span></a>
+      <a class="mm-link" href="https://galswho.travel/blogs/205/frequently-asked-questions" target="_blank" onclick="closeMegaMenu()"><span>💬 FAQs</span><span class="mm-arr">→</span></a>
+      <a class="mm-link" href="https://galswho.travel/reviews" target="_blank" onclick="closeMegaMenu()"><span>🐚 Reviews</span><span class="mm-arr">→</span></a>
+    </div>
+    <div class="mm-foot">
+      <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank" class="mm-foot-btn" style="background:var(--coral);color:#fff" onclick="closeMegaMenu()">Find your trip →</a>
+      <a href="https://galswhotravel.trutravels.com/account/login" target="_blank" class="mm-foot-btn" style="background:var(--sand);color:var(--charcoal);border:1.5px solid var(--bdr)" onclick="closeMegaMenu()">Login</a>
+      <div class="mm-trust">
+        <span>✓ Women-only trips</span>
+        <span>✓ ATOL protected</span>
+        <span>✓ 5★ Google reviews</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#top"><img src="https://cdn.trutravels.com/images/gals-who-logo-cropped.png" alt="gals who travel"></a>
+    <div class="nav-centre">
+      <a href="https://galswho.travel/filter" target="_blank">destinations <span class="nc-arr">▾</span></a>
+      <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank">trip styles <span class="nc-arr">▾</span></a>
+      <a href="#top" class="hot">our story</a>
+      <a href="https://galswho.travel/blogs" target="_blank">blog &amp; news</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://galswhotravel.trutravels.com/account/login" target="_blank" class="nav-icon-btn" title="login">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a href="#final-cta" class="nav-cta">find your trip</a>
+      <button class="nav-ham" id="nav-ham" onclick="toggleMegaMenu()" aria-label="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-media">
+    <img src="images/hero-bali-mountain.jpg" alt="gals who travel group celebrating at the summit of mount batur, bali">
+  </div>
+  <div class="hero-inner">
+    <h1>our <em>story</em></h1>
+    <p>1 group trip turned into a global community of gals wanting to see the world together!!!</p>
+    <div class="hero-badge">★★★★★ &nbsp;·&nbsp; 3,500+ gals and counting</div>
+  </div>
+</section>
+
+<!-- ============ MISSION STATEMENT ============ -->
+<section class="mission">
+  <div class="wrap mission-grid">
+    <div class="mission-head reveal">
+      <div class="tag-caps">about us ✨</div>
+      <h2><em>a solo trip</em> &amp; <em>a dream</em> of creating a space for gals to find friends to travel with</h2>
+    </div>
+    <div class="mission-body reveal reveal-delay-2">
+      <p>our gals who travel story starts in 2022 with our founder and solo traveller brontë king, a trip to bali and a dream of connecting gals around the world. after travelling solo, staying in hostels and meeting other girls travelling, the same conversations always came up: "i wish i could meet other girls to travel with." "i'd love to visit there but i wouldn't feel safe going solo." brontë wanted to create a safe space for women to travel together, make lasting friendships and support local communities through travel whilst doing it. to give gals the confidence and experience of travelling to new destinations without the worry and stress of finding friendships or routes by themselves.</p>
+    </div>
+    <div class="story-media reveal reveal-delay-1">
+      <video autoplay muted loop playsinline poster="videos/gwt-video-1-poster.jpg" style="width:100%; height:100%; object-fit:cover; display:block;">
+        <source src="videos/gwt-video-1.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOUNDER STORY ============ -->
+<section class="features">
+  <div class="wrap">
+    <div class="story-row">
+      <div class="story-media reveal">
+        <img src="https://galswho.travel/images/solo-travel-first-trip-bronte-gals-who-travel-blog.png" alt="bronte, founder of gals who travel, on her first solo trip to bali">
+      </div>
+      <div class="story-copy reveal reveal-delay-1">
+        <div class="tag-caps">our founder</div>
+        <h3 style="font-family:var(--font-display); font-weight:400;">for the gals, by the <em>gals</em></h3>
+        <p>what started as 1 group trip announcement, 8,000 followers on our @galswhotravel instagram and 1 gal hoping some gals would book on to join her girls trip to bali has grown into thousands of women trusting us and travelling with us every year.</p>
+        <p>partnering with operator trutravels in 2022, we had a shared ethos and dream of changing the world together. since then, gals who travel has grown into a global community of gals meeting irl, connecting and seeing the world safely and affordably with local guides in each destination. now operating 16 different trips across asia, latin america, europe, oceania and africa!!!</p>
+        <div class="story-signature">
+          <img class="sig-mark" src="images/bronte-signature.png" alt="brontë's signature">
+          <span class="sig-role">founder</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PULL QUOTE 1 ============ -->
+<section class="pullquote">
+  <div class="wrap reveal">
+    <blockquote>for the gals, by the gals.</blockquote>
+    <cite>brontë king · founder</cite>
+  </div>
+</section>
+
+<!-- ============ "AND IT'S STILL GROWING" ============ -->
+<section class="features">
+  <div class="wrap">
+    <div class="story-row reverse">
+      <div class="story-media reveal">
+        <video autoplay muted loop playsinline poster="videos/gwt-video-2-poster.jpg" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <source src="videos/gwt-video-2.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="story-copy reveal reveal-delay-1">
+        <div class="tag-caps">and honestly</div>
+        <h3 style="font-family:var(--font-display); font-weight:400;">for all our gals, globally that have a <em>dream</em>.</h3>
+        <p>we wanted to create adventures that give you the opportunity and confidence to come alone. nearly 90% of gals come solo and 100% leave with a new group of friends!!!</p>
+        <p>travel is more than just the girls who book on our trips, it's the women around the world too. where we can, we hire local female guides, visit women's cooperatives and support women-owned businesses!!!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS (4 real reviews from galswho.travel, compact cards) ============ -->
+<section class="reviews-sec">
+  <div class="wrap">
+    <div class="reviews-head reveal">
+      <div class="tag-caps">what gals say</div>
+      <h2>real experiences. <em>real memories.</em></h2>
+    </div>
+    <div class="review-row reveal">
+      <div class="r-card">
+        <div class="r-stars">★★★★★</div>
+        <p class="r-txt">"i joined this trip really nervous to travel alone and i'm leaving with so much confidence. i'd recommend it in a heartbeat if you're looking to take your first solo trip."</p>
+        <div class="r-who"><div class="r-av">G</div><div><div class="r-name">gemma</div><div class="r-trip">bali paradise</div></div></div>
+      </div>
+      <div class="r-card">
+        <div class="r-stars">★★★★★</div>
+        <p class="r-txt">"we hit the jackpot with this group. it feels like a group of best friends — the kind you can't imagine the trip without."</p>
+        <div class="r-who"><div class="r-av">I</div><div><div class="r-name">irene</div><div class="r-trip">vietnam explorer</div></div></div>
+      </div>
+      <div class="r-card">
+        <div class="r-stars">★★★★★</div>
+        <p class="r-txt">"the activities were amazing and our guide went above and beyond. i felt truly immersed in moroccan culture. would recommend this trip to anyone!"</p>
+        <div class="r-who"><div class="r-av">L</div><div><div class="r-name">lauren</div><div class="r-trip">morocco uncovered</div></div></div>
+      </div>
+      <div class="r-card">
+        <div class="r-stars">★★★★★</div>
+        <p class="r-txt">"the group dynamic was fantastic, everyone clicked so easily. i'd highly recommend gals who travel to any woman who wants to explore the world."</p>
+        <div class="r-who"><div class="r-av">A</div><div><div class="r-name">amber m</div><div class="r-trip">greece island hopping</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMUNITY STATS ============ -->
+<section>
+  <div class="stats reveal">
+    <div class="stats-head">
+      <div class="kicker">what our dream has currently grown into...</div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat"><div class="num">3,500+</div><div class="label">gals who have travelled with us</div></div>
+      <div class="stat"><div class="num">90%</div><div class="label">of gals booked solo</div></div>
+      <div class="stat"><div class="num">15-20</div><div class="label">our average group size</div></div>
+      <div class="stat"><div class="num">16</div><div class="label">destinations</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE GRID (real USPs, real photo pairing) ============ -->
+<section class="features">
+  <div class="wrap">
+    <div class="features-head reveal">
+      <div class="kicker">our priorities</div>
+      <h2>what we're <em>passionate</em> about</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="card-media">
+          <img src="https://galswho.travel/images/gals-who-travel-italy-rome-group-photo.jpg" alt="gals who travel group in rome, italy">
+        </div>
+        <div class="card-body">
+          <h4>community first</h4>
+          <p>our gals who community are the forefront of everything we do. every destination, every style of travel comes from you. we're here to connect women around the world and help you form lifelong friendships whilst seeing the world!</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="card-media">
+          <img src="https://galswho.travel/images/gals-who-travel-bronte-new-zealand.jpg" alt="brontë, founder of gals who travel, in new zealand">
+        </div>
+        <div class="card-body">
+          <h4>founded by the gals, for the gals</h4>
+          <p>founded by brontë king, gals who travel is a community built around female friendships, world adventures and providing a safe and empowering space for women to connect and travel the world together. small group adventures, max group size 20.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="card-media">
+          <img src="https://galswho.travel/images/el-nido-group-photo-gals-who-travel-philippines.png" alt="solo gals group photo in el nido, philippines">
+        </div>
+        <div class="card-body">
+          <h4>safe, social travel for solo gals!!</h4>
+          <p>for the gals who can't get the trip out the group chat, that have no one to travel with, or just the girls who want to experience more safely and socially! around 90% of our travellers come solo and almost all of them leave with best friends for life!!!</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="card-media">
+          <img src="https://galswho.travel/images/morocco-gals-who-travel-sahara-desert-gals-sandboarding.png" alt="gals sandboarding in the sahara desert, morocco">
+        </div>
+        <div class="card-body">
+          <h4>bucket list activities</h4>
+          <p>sunrise yoga, local family cooking classes, castaway island experiences — every single one of our tours features incredible moments you'll remember forever.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="card-media">
+          <img src="https://galswho.travel/images/920ef987-1f45-4b26-bae1-31376aab6a77.jpg" alt="gals who travel group enjoying a fully covered group trip">
+        </div>
+        <div class="card-body">
+          <h4>safe &amp; fully covered</h4>
+          <p>atol &amp; abta protected. £200 deposit to secure your place. flexible payment plans included.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="card-media">
+          <img src="https://galswho.travel/images/sri-lanka-cooking-class-local-family.jpeg" alt="local family cooking class, sri lanka">
+        </div>
+        <div class="card-body">
+          <h4>local guides</h4>
+          <p>we think the best way to travel is through the eyes of the locals that live there. by using local guides in nearly all our destinations, they'll show you all the hotspots and hidden gems. immerse yourself in local culture and support local communities!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery">
+  <div class="wrap">
+    <div class="gallery-head reveal">
+      <div class="kicker">pics from our trips</div>
+      <h2>real trips, real gals, <em>real experiences.</em></h2>
+      <p>showing you how beautiful the world is once you take the trip</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="g-item g1"><img src="https://galswho.travel/images/gals-who-travel-milos-greece-water-jumping-3.jpg" alt="gals cliff jumping in milos, greece"><span class="tag">greece 🇬🇷</span></div>
+      <div class="g-item g2"><img src="https://galswho.travel/images/bali-mount-batur-hiking-gals-who-travel-trip.png" alt="sunrise hike up mount batur, bali"><span class="tag">bali 🌺</span></div>
+      <div class="g-item g3"><img src="https://galswho.travel/images/gals-who-travel-albania-hiking-blue-eye-2.jpg" alt="hiking to the blue eye, albania"><span class="tag">albania 🥾</span></div>
+      <div class="g-item g4"><img src="https://galswho.travel/images/morocco-sahara-desert-glamping-gals-who-travel-trip-blog.png" alt="desert glamping under the stars, morocco"><span class="tag">morocco 🏜️</span></div>
+      <div class="g-item g5"><img src="https://galswho.travel/images/gals-who-travel-japan-girls-trip-torri-gate.jpg" alt="walking through torii gates in japan"><span class="tag">japan ⛩️</span></div>
+      <div class="g-item g6"><img src="https://galswho.travel/images/el-nido-group-photo-gals-who-travel-philippines.png" alt="island hopping group photo, philippines"><span class="tag">philippines 🐚</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta" id="final-cta">
+  <div class="final-media">
+    <img src="images/final-sand-shadows.jpg" alt="the shadows of two gals throwing shaka signs on the sand">
+  </div>
+  <div class="final-inner reveal">
+    <div class="kicker">ready when you are</div>
+    <h2>we can't wait to have <em>you</em> join us</h2>
+    <p>where is your dream trip?</p>
+    <div class="cta-row">
+      <a class="btn-primary" href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank">find your trip</a>
+      <a class="btn-ghost" href="https://galswho.travel/blogs/205/frequently-asked-questions" target="_blank">read the faqs</a>
+    </div>
+    <div class="hero-trust">
+      <span>✓ women-only trips</span>
+      <span>✓ ATOL protected</span>
+      <span>✓ 5★ google reviews</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-grid">
+    <div class="f-brand">
+      <div class="f-logo">gals who <em>travel</em></div>
+      <p>a community giving women the confidence to explore the world — safely, joyfully, together. operated by trutravels ltd since 2022.</p>
+      <div class="f-social">
+        <a class="fsoc" href="https://www.tiktok.com/@galswhotravel" target="_blank">TT</a>
+        <a class="fsoc" href="https://www.instagram.com/galswhotravel" target="_blank">IG</a>
+        <a class="fsoc" href="https://www.facebook.com/galswhotravel" target="_blank">FB</a>
+      </div>
+    </div>
+    <div class="f-col">
+      <h5>destinations</h5>
+      <a href="https://galswhotravel.trutravels.com/thailand-paradise/girls-trip" target="_blank">thailand paradise</a>
+      <a href="https://galswhotravel.trutravels.com/bali-paradise/girls-trip" target="_blank">bali paradise</a>
+      <a href="https://galswhotravel.trutravels.com/girls-trip/japan-tour" target="_blank">legend of japan</a>
+      <a href="https://galswhotravel.trutravels.com/morocco-uncovered-girls-trip" target="_blank">morocco uncovered</a>
+      <a href="https://galswhotravel.trutravels.com/greece-island-hopper/girls-trip" target="_blank">greece island hopper</a>
+      <a href="https://galswhotravel.trutravels.com/italy-girls-trip" target="_blank">italy girls trip</a>
+      <a href="https://galswhotravel.trutravels.com/vietnam-explorer/girls-trip" target="_blank">vietnam explorer</a>
+      <a href="https://galswhotravel.trutravels.com" target="_blank" style="color:var(--blush)">view all →</a>
+    </div>
+    <div class="f-col">
+      <h5>info</h5>
+      <a href="https://galswhotravel.trutravels.com/blog/frequently-asked-questions" target="_blank">FAQs</a>
+      <a href="https://galswhotravel.trutravels.com/contact-us" target="_blank">contact us</a>
+      <a href="https://galswhotravel.trutravels.com/gals-who-travel-blogs" target="_blank">blog &amp; stories</a>
+      <a href="https://galswhotravel.trutravels.com/terms-and-conditions-gals-who-travel" target="_blank">t&amp;cs</a>
+      <a href="https://galswhotravel.trutravels.com/upcoming-trips" target="_blank">upcoming trips</a>
+      <a href="mailto:info@trutravels.com">info@trutravels.com</a>
+    </div>
+    <div class="f-col">
+      <h5>newsletter</h5>
+      <p style="font-size:13px;color:var(--charcoal-45);margin-bottom:0.8rem;line-height:1.65">get trip news, early-bird offers and travel inspo.</p>
+      <form class="f-nl" onsubmit="event.preventDefault();this.innerHTML='<p style=color:var(--blush);font-size:13px>✓ you\'re in!</p>'">
+        <input type="email" placeholder="your@email.com" required>
+        <button type="submit">join →</button>
+      </form>
+    </div>
+  </div>
+  <div class="f-bot">
+    <span>© 2026 gals who travel · operated by trutravels ltd · registered in england #08094426 · +44 203 542 2463</span>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <div class="fbadge">🛡 ATOL protected</div>
+      <div class="fbadge">🛡 ABTA protected</div>
+      <div class="fbadge">★ 5.0 google reviews</div>
+      <div class="fbadge">visa · mastercard · apple pay</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // nav background on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // mega menu (hamburger) toggle
+  function toggleMegaMenu(){
+    document.getElementById('mega-menu').classList.toggle('open');
+    document.getElementById('nav-ham').classList.toggle('open');
+  }
+  function closeMegaMenu(){
+    document.getElementById('mega-menu').classList.remove('open');
+    document.getElementById('nav-ham').classList.remove('open');
+  }
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // animated stat counters
+  const stats = document.querySelectorAll('.stat .num');
+  const animateNum = (el) => {
+    const raw = el.textContent.trim();
+    const match = raw.match(/[\d,]+/);
+    if (!match) return;
+    const target = parseInt(match[0].replace(/,/g, ''), 10);
+    const suffix = raw.replace(match[0], '');
+    let current = 0;
+    const duration = 1400;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      current = Math.floor(eased * target);
+      el.textContent = current.toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = raw;
+    };
+    requestAnimationFrame(step);
+  };
+  const statIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateNum(entry.target);
+        statIo.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  stats.forEach(el => statIo.observe(el));
+</script>
+
+</body>
+</html>
