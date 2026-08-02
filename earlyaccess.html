@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gals Who Travel — Early Access (Password Protected)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap');
+
+  :root {
+    --pink: #FFEAEB;
+    --navy: #0B213E;
+    --red: #A60F29;
+    --white: #FFFFFF;
+    --grey: #5B6472;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Arial Nova', Arial, 'Helvetica Neue', sans-serif;
+    background: var(--pink);
+    color: var(--navy);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .hero-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: url('https://cdn.galswhotravel.com/images/greece-island-hopping-sunset-boat-cruise-santorini-gals-who-travel-trip-banner.png?w1920') center/cover;
+  }
+
+  .scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(255,234,235,0.3) 0%, rgba(255,234,235,0.82) 48%, rgba(255,234,235,0.97) 82%);
+  }
+
+  .demo-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    background: var(--navy);
+    color: var(--white);
+    font-size: 12.5px;
+    padding: 9px 16px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  .demo-bar b { color: #FF8FA3; letter-spacing: 0.04em; }
+
+  header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    padding: 62px 24px 0;
+  }
+  header img { height: 30px; }
+
+  main {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(11,33,62,0.12);
+    color: var(--red);
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 999px;
+    margin-bottom: 26px;
+  }
+  .badge .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--red);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 1.16;
+    margin: 0 0 18px;
+  }
+  h1 em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--red);
+  }
+
+  p.sub {
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--grey);
+    max-width: 460px;
+    margin: 0 auto 32px;
+  }
+
+  form {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .field-wrap { position: relative; margin-bottom: 6px; }
+  input[type="email"], input[type="password"], input[type="text"].pw-field {
+    width: 100%;
+    height: 56px;
+    border-radius: 14px;
+    border: 1.5px solid rgba(11,33,62,0.15);
+    background: rgba(255,255,255,0.9);
+    padding: 0 18px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    color: var(--navy);
+    outline: none;
+    text-align: center;
+    letter-spacing: 0.03em;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  input::placeholder { color: #9AA1AB; letter-spacing: 0; }
+  input:focus { border-color: var(--red); background: var(--white); }
+  input:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+  .pw-wrap { position: relative; }
+  .toggle-pw {
+    position: absolute;
+    right: 16px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer;
+    color: var(--red); font-size: 12.5px; font-weight: 700;
+    font-family: Arial, sans-serif;
+  }
+
+  .error-msg {
+    display: none;
+    color: var(--red);
+    font-size: 12.5px;
+    margin: 10px 0 4px;
+    text-align: left;
+  }
+  .error-msg.visible { display: block; }
+
+  button.cta {
+    width: 100%;
+    height: 58px;
+    border: none;
+    border-radius: 14px;
+    background: var(--red);
+    color: var(--white);
+    font-family: Arial, sans-serif;
+    font-size: 16.5px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 14px;
+    box-shadow: 0 12px 28px rgba(166,15,41,0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  button.cta:hover { background: #8F0C24; transform: translateY(-2px); box-shadow: 0 16px 34px rgba(166,15,41,0.48); }
+  button.cta:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+
+  .hint {
+    font-size: 12.5px;
+    color: var(--grey);
+    margin-top: 18px;
+  }
+
+  .trust-line {
+    margin-top: 26px;
+    font-size: 12.5px;
+    color: var(--grey);
+  }
+
+  #gate {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  #gate.fading { opacity: 0; }
+
+  .redirecting {
+    display: none;
+    font-size: 13.5px;
+    color: var(--grey);
+    margin-top: 16px;
+  }
+  .redirecting.visible { display: block; }
+
+  @media (max-width: 560px) {
+    h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero-bg" aria-hidden="true"></div>
+<div class="scrim"></div>
+
+<div class="demo-bar">demo password: <b>GALSWHO2027</b> &nbsp;&mdash;&nbsp; this bar is not part of the live page</div>
+
+<header>
+  <img src="https://galswhotravel.com/images/logo_landscape_red_960x240.png" alt="Gals Who Travel">
+</header>
+
+<main>
+
+  <div id="gate">
+    <div class="badge"><span class="dot"></span> early access &middot; password protected</div>
+
+    <h1>you've got <em>early access</em>!!👀</h1>
+
+    <p class="sub">enter the password from your email to see our next destination and grab your spot before anyone else!!</p>
+
+    <form id="pw-form" onsubmit="return false;">
+      <div class="field-wrap pw-wrap">
+        <input type="password" id="pw-input" class="pw-field" placeholder="password" aria-label="password" autocomplete="off">
+        <button type="button" class="toggle-pw" id="toggle-pw" aria-label="show password">show</button>
+      </div>
+
+      <p class="error-msg" id="pw-error">hmm, that's not quite it &mdash; check your email and try again.</p>
+
+      <button type="submit" class="cta" id="unlock-btn">unlock the reveal →</button>
+    </form>
+
+    <p class="redirecting" id="redirecting">taking you there now...</p>
+  </div>
+
+</main>
+
+<script>
+  var PASSWORD = 'GALSWHO2027';
+  var DESTINATION_URL = 'https://galswhotravel.com/trips/thailand';
+  var pwInput = document.getElementById('pw-input');
+  var toggleBtn = document.getElementById('toggle-pw');
+  var errorMsg = document.getElementById('pw-error');
+  var gate = document.getElementById('gate');
+  var redirecting = document.getElementById('redirecting');
+  var form = document.getElementById('pw-form');
+
+  toggleBtn.addEventListener('click', function () {
+    var showing = pwInput.type === 'text';
+    pwInput.type = showing ? 'password' : 'text';
+    toggleBtn.textContent = showing ? 'show' : 'hide';
+  });
+
+  function attemptUnlock() {
+    var val = pwInput.value.trim().toUpperCase();
+    if (val === PASSWORD) {
+      errorMsg.classList.remove('visible');
+      document.getElementById('unlock-btn').disabled = true;
+      redirecting.classList.add('visible');
+      window.setTimeout(function () {
+        window.location.href = DESTINATION_URL;
+      }, 700);
+    } else {
+      errorMsg.classList.add('visible');
+    }
+  }
+
+  form.addEventListener('submit', attemptUnlock);
+  pwInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') attemptUnlock();
+  });
+</script>
+
+</body>
+</html>
