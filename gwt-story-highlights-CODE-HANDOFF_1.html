@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Story Highlights — Developer Handoff</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* ═════════════════════════════════════════════════════════════════════════
+   HOW TO READ THIS FILE
+   ═════════════════════════════════════════════════════════════════════════
+   This is the Story Highlights feature (the circular avatar row + the
+   full-screen Instagram-style story viewer it opens), pulled out of the
+   main homepage file as its own piece so it's easy to hand to a developer.
+
+   It is a complete, self-contained, working page on its own — open it in
+   a browser and the feature runs exactly as it does on the homepage. But
+   it is meant to be MERGED into the existing homepage, not shipped as a
+   separate page. Three sections below are marked "STUB FOR THIS DEMO
+   ONLY" — skip those when integrating, because the real homepage already
+   has the real versions of that data/those styles.
+
+   INTEGRATION STEPS
+   1. CSS: copy the block marked "STORY HIGHLIGHTS CSS — copy this" into
+      the homepage's <style>. It depends on 4 existing design-token
+      variables already defined on the homepage's :root — --red, --red-d,
+      --ink-2, --bdr — so no new tokens need to be added.
+   2. HTML: copy the two blocks marked "STORY HIGHLIGHTS HTML — copy this"
+      into the homepage body — the viewer <div class="shv"> can live
+      anywhere in the body (it's a fixed-position overlay), and the
+      <section class="sh-sec"> row goes wherever the highlight row should
+      appear on the page (currently: right after the hero, before the
+      About section).
+   3. JS: copy the block marked "STORY HIGHLIGHTS JS — copy this" into the
+      homepage's <script>, placed AFTER the real STORY_HIGHLIGHTS,
+      TRIPS, REVIEWS and VIDEO_CARDS arrays are defined (it reads from
+      all four). Then make sure something calls renderStoryHighlights()
+      once on page load — on the homepage this already happens in the
+      block of render calls at the bottom of the script.
+   4. Data shape: STORY_HIGHLIGHTS is real content, not boilerplate — see
+      the comments directly above the array for exactly which fields
+      each entry needs and what they do (avatar, expImg, optional video/
+      videoWebm, optional customSlides, optional placeholder).
+
+   Nothing in the CSS/HTML/JS blocks below has been altered from the live
+   homepage file — this is a direct extraction, not a rewrite.
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── STUB FOR THIS DEMO ONLY ──────────────────────────────────────────────
+   The real homepage already defines these design tokens globally. Only
+   the 4 this feature actually uses are listed here so this file renders
+   on its own; don't copy this block into the homepage, it already has a
+   full :root with many more tokens. */
+:root{
+  --red:#E8180A;
+  --red-d:#C01008;
+  --ink-2:#3A2A2A;
+  --bdr:#EDE0E0;
+}
+body{margin:0;font-family:'DM Sans',Arial,sans-serif;background:#fff}
+/* ── END STUB ── */
+
+
+/* ═══ STORY HIGHLIGHTS CSS — copy this ═══════════════════════════════ */
+.sh-sec{padding:26px 24px 6px;max-width:1200px;margin:0 auto}
+.sh-eye{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--red);display:block;margin-bottom:14px}
+.sh-row{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;padding:2px 2px 22px;margin-top:-4px}
+.sh-row::-webkit-scrollbar{display:none}
+.sh-item{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:8px;width:76px;cursor:pointer}
+.sh-ring{width:72px;height:72px;border-radius:50%;padding:3px;background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);display:flex;align-items:center;justify-content:center;transition:transform .2s,background .3s}
+.sh-item:hover .sh-ring{transform:scale(1.06)}
+.sh-ring.sh-seen{background:var(--bdr)}
+.sh-ring-in{width:100%;height:100%;border-radius:50%;padding:3px;background:#fff}
+.sh-ring-in img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.sh-name{font-size:12px;font-weight:600;color:var(--ink-2);text-align:center;line-height:1.2;white-space:nowrap}
+@media(max-width:480px){.sh-ring{width:64px;height:64px}.sh-item{width:68px}}
+
+/* STORY VIEWER (Instagram-style) */
+.shv{display:none;position:fixed;inset:0;background:rgba(10,2,2,.94);z-index:999;align-items:center;justify-content:center}
+.shv.open{display:flex}
+.shv-box{width:min(420px,100vw);height:100vh;background:#0B213E;position:relative;overflow:hidden;touch-action:pan-y}
+@media(min-width:640px){.shv-box{height:min(92vh,860px);border-radius:24px;box-shadow:0 24px 80px rgba(0,0,0,.6)}}
+.shv-slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .15s}
+.shv-slide.active{opacity:1;pointer-events:auto}
+.shv-slide img,.shv-slide video{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;background:#000}
+.shv-bars{position:absolute;top:14px;left:14px;right:14px;display:flex;gap:5px;z-index:5}
+.shv-bar{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.3);overflow:hidden}
+.shv-bar-fill{width:0%;height:100%;background:#fff;border-radius:3px}
+.shv-tt{position:absolute;top:66px;left:14px;z-index:5;display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:20px;padding:7px 14px;font-size:12px;font-weight:700;text-decoration:none;backdrop-filter:blur(4px)}
+.shv-hdr{position:absolute;top:26px;left:14px;right:14px;display:flex;align-items:center;justify-content:space-between;z-index:5}
+.shv-who{display:flex;align-items:center;gap:8px;color:#fff;font-size:13px;font-weight:700;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.shv-who img{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,255,255,.6)}
+.shv-cl{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.25);color:#fff;width:32px;height:32px;border-radius:50%;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.shv-tap{position:absolute;inset:0;top:60px;display:flex;z-index:3}
+.shv-tap span{flex:1}
+.shv-nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.22);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;z-index:6}
+.shv-nav.l{left:10px}
+.shv-nav.r{right:10px}
+.shv-cnt{position:absolute;left:0;right:0;bottom:0;padding:0 22px 30px;z-index:4;color:#fff;display:flex;justify-content:center}
+.shv-btn{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;border-radius:24px;padding:14px 26px;font-size:14px;font-weight:700;transition:background .15s,transform .15s}
+.shv-btn:hover{background:var(--red-d);transform:translateY(-1px)}
+/* ═══ END STORY HIGHLIGHTS CSS ═══════════════════════════════════════ */
+</style>
+</head>
+<body>
+
+<!-- ═══ STORY HIGHLIGHTS HTML — copy this (viewer overlay) ═══════════ -->
+<!-- STORY HIGHLIGHTS VIEWER -->
+<div class="shv" id="shv" onclick="if(event.target===this)closeStory()">
+  <div class="shv-box" id="shv-box" role="dialog" aria-modal="true" aria-label="Destination story">
+    <div class="shv-bars" id="shv-bars"></div>
+    <div class="shv-hdr">
+      <div class="shv-who"><img id="shv-who-img" src="" alt=""><span id="shv-who-name"></span></div>
+      <button class="shv-cl" onclick="event.stopPropagation();closeStory()" aria-label="Close">✕</button>
+    </div>
+    <div id="shv-slides"></div>
+    <button class="shv-nav l" onclick="event.stopPropagation();prevSlide()" aria-label="Previous">‹</button>
+    <button class="shv-nav r" onclick="event.stopPropagation();nextSlide()" aria-label="Next">›</button>
+    <div class="shv-tap" id="shv-tap"><span></span><span></span></div>
+  </div>
+</div>
+<!-- ═══ END (viewer overlay) ═══════════════════════════════════════════ -->
+
+<!-- ═══ STORY HIGHLIGHTS HTML — copy this (avatar row) ════════════════ -->
+<!-- STORY HIGHLIGHTS ROW -->
+<section class="sh-sec">
+  <span class="sh-eye">Where to next?</span>
+  <div class="sh-row" id="sh-row" role="list" aria-label="Destination story highlights"></div>
+</section>
+<!-- ═══ END (avatar row) ═══════════════════════════════════════════════ -->
+
+
+<script>
+/* ── STUB FOR THIS DEMO ONLY ──────────────────────────────────────────────
+   These three arrays already exist, fully populated with real data, in
+   the main homepage file. Don't copy this stub block in — it exists here
+   only so STORY_HIGHLIGHTS below has something real to look up (a
+   booking URL, a review, a video) when this file is opened standalone. */
+const TRIPS = [
+  { dest:'thailand', bookingUrl:'https://galswhotravel.trutravels.com/thailand-paradise/girls-trip' },
+  { dest:'bali',      bookingUrl:'https://galswhotravel.trutravels.com/bali-paradise/girls-trip' },
+  { dest:'greece',    bookingUrl:'https://galswhotravel.trutravels.com/greece-island-hopper/girls-trip' },
+  { dest:'morocco',   bookingUrl:'https://galswhotravel.trutravels.com/morocco-uncovered-girls-trip' },
+  { dest:'japan',     bookingUrl:'https://galswhotravel.trutravels.com/girls-trip/japan-tour' },
+  { dest:'vietnam',   bookingUrl:'https://galswhotravel.trutravels.com/vietnam-explorer/girls-trip' },
+  { dest:'italy',     bookingUrl:'https://galswhotravel.trutravels.com/italy-girls-trip' },
+];
+const REVIEWS = [];
+const VIDEO_CARDS = [];
+/* ── END STUB ── */
+
+
+// ═══ STORY HIGHLIGHTS JS — copy this ════════════════════════════════════
+// Real content — edit these to add/change/remove a highlight. Each entry:
+//   dest      matches a TRIPS[].dest, used to find the booking link + any
+//             matching video card / review
+//   name      shown under the avatar and as the in-viewer label
+//   avatar    the row's circle thumbnail + the viewer's opening/closing slide
+//   expImg    the "what a trip feels like" slide image
+//   video /
+//   videoWebm optional — a real uploaded clip for this destination. When
+//             present it's interleaved between photo slides. Provide both
+//             an MP4 (H.264, plays everywhere incl. Safari) and a WebM
+//             fallback for the rare browser that can't play the MP4.
+//   customSlides  optional — bypasses all the above entirely and uses this
+//             exact, pre-built slide array instead (e.g. a full real story
+//             export already in the right order). See buildStorySlides().
+//   placeholder   optional — true shows a plain "content coming soon" slide
+//             instead of building real content, for a destination that
+//             doesn't have real assets yet (used for design-preview rows
+//             only — don't ship a placeholder highlight to real visitors).
+const STORY_HIGHLIGHTS = [
+  { dest:'thailand', name:'Thailand', flag:'🌴',
+    avatar:'https://galswhotravel.trutravels.com/thailand/khao-sok-national-park-floating-bungalows.jpg',
+    expImg:'https://galswhotravel.trutravels.com/thailand/thailand-escape-railay-beach-kayak.jpg',
+    hookLine:'your solo trip, but make it a girls trip',
+    expLine:'THIS IS YOUR SIGN TO BOOK THE GIRLS TRIP' },
+  { dest:'bali', name:'Bali', flag:'🌺',
+    avatar:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/sea-swings-gili-t-sunset.jpg',
+    expImg:'https://galswhotravel.trutravels.com/indonesia-images-itinerary/snorkellling-with-turtels-indonesia.jpg',
+    hookLine:"bali on the bucket list? let's tick it off together",
+    expLine:'turtles, temples, sunset boat days' },
+  { dest:'greece', name:'Greece', flag:'⛵',
+    avatar:'https://galswhotravel.trutravels.com/europe/greece-island-sunset-santorini.jpg',
+    expImg:'https://galswhotravel.trutravels.com/images/gwt-milos-day-3.jpg',
+    hookLine:'santorini sunsets hit different with 14 new best friends',
+    expLine:'island hopping, wine, golden hour on repeat' },
+  { dest:'morocco', name:'Morocco', flag:'🏜',
+    avatar:'https://galswhotravel.trutravels.com/images/merzouga-image-2024-3.jpg',
+    expImg:'https://galswhotravel.trutravels.com/images/marrakech-accomodation.jpg',
+    hookLine:'sahara nights + zero stress planning',
+    expLine:'camel treks, souks, camping under a million stars' },
+  { dest:'japan', name:'Japan', flag:'🌸',
+    avatar:'https://galswhotravel.trutravels.com/thailand/girl-phiphi-thailand-viewpoint.jpg',
+    expImg:'https://galswhotravel.trutravels.com/thailand/thailand-escape-23.jpeg',
+    hookLine:'tokyo neon to kyoto temples, with your built-in girl gang',
+    expLine:'temples by day, izakaya nights' },
+  { dest:'vietnam', name:'Vietnam', flag:'🛵',
+    avatar:'https://galswhotravel.trutravels.com/images/lanterns-1.jpg',
+    expImg:'https://galswhotravel.trutravels.com/images/lanterns-1.jpg',
+    hookLine:'lantern-lit nights, ride-or-die new friends',
+    expLine:'halong bay boats & lantern-lit old towns' },
+  { dest:'italy', name:'Italy', flag:'🍕',
+    avatar:'https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg',
+    expImg:'https://galswhotravel.trutravels.com/images/gals-who-italy-rome.jpg',
+    hookLine:"rome, wine & the girls trip you won't shut up about",
+    expLine:'pasta, aperol, coastal drives with the girls' },
+];
+
+function renderStoryHighlights(){
+  const row=document.getElementById('sh-row');
+  if(!row)return;
+  row.innerHTML=STORY_HIGHLIGHTS.map((h,i)=>{
+    const trip=TRIPS.find(t=>t.dest===h.dest)||{};
+    return `<a class="sh-item" href="${trip.bookingUrl||'#'}" onclick="event.preventDefault();openStory(${i})">
+      <span class="sh-ring"><span class="sh-ring-in"><img src="${h.avatar}" alt="${h.name} girls trip highlights" loading="lazy"></span></span>
+      <span class="sh-name">${h.name}</span>
+    </a>`;
+  }).join('');
+}
+
+function buildStorySlides(h){
+  // A highlight can supply its own exact slide sequence (e.g. a real,
+  // already-ordered set of story exports) instead of being auto-built from
+  // TRIPS/REVIEWS — used as-is, no reordering or invented captions.
+  if(h.customSlides)return h.customSlides;
+  if(h.placeholder){
+    // Design-preview-only bubble: no real content exists yet for this
+    // destination, so show a plain, honest placeholder instead of
+    // inventing photos or copy.
+    return [{img:h.avatar,alt:`${h.name} — content coming soon`,html:'<div class="shv-btn" style="opacity:.85;cursor:default">Content coming soon</div>'}];
+  }
+  const trip=TRIPS.find(t=>t.dest===h.dest)||{};
+  const proof=REVIEWS.find(r=>r.trip.toLowerCase().includes(h.name.toLowerCase()));
+  const vid=VIDEO_CARDS.find(v=>v.dest===h.dest && v.videoUrl);
+  // Every slide is just the real photo (or, where a native video asset
+  // exists, the real clip) plus one bottom button — no text overlay,
+  // mirroring how an Instagram Story link sticker sits on the media with
+  // nothing else on top of it.
+  const btn=`<a class="shv-btn" href="${trip.bookingUrl||'https://galswhotravel.trutravels.com'}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${trip.bookingUrl?`View ${h.name} Trip →`:'Explore Trips →'}</a>`;
+  const slides=[];
+  slides.push({img:h.avatar,alt:`${h.name} — Gals Who Travel`,html:btn});
+  if(h.video){
+    // Destinations with a real uploaded video clip interleave it between
+    // photo slides, same as a creator mixing photos and video in one story.
+    slides.push({video:h.video,videoWebm:h.videoWebm,alt:`${h.name} in motion`,html:btn});
+    slides.push({img:h.expImg,alt:`What a ${h.name} trip feels like`,tiktok:vid?vid.videoUrl:null,html:btn});
+    slides.push({video:h.video,videoWebm:h.videoWebm,alt:`${h.name} in motion`,html:btn});
+    slides.push({img:proof?h.expImg:h.avatar,alt:proof?`Real gals on a ${h.name} trip`:'Gals Who Travel community',html:btn});
+    slides.push({video:h.video,videoWebm:h.videoWebm,alt:`${h.name} in motion`,html:btn});
+  }else{
+    slides.push({img:h.expImg,alt:`What a ${h.name} trip feels like`,tiktok:vid?vid.videoUrl:null,html:btn});
+    slides.push({img:proof?h.expImg:h.avatar,alt:proof?`Real gals on a ${h.name} trip`:'Gals Who Travel community',html:btn});
+  }
+  slides.push({img:h.avatar,alt:`Book the ${h.name} trip`,html:btn});
+  return slides;
+}
+
+// Instagram-style timing: each slide auto-advances after SLIDE_MS, the
+// progress bar animates in step, and holding a finger/mouse down pauses
+// it — exactly like a real IG story.
+const SH_SLIDE_MS=4500;
+let shCurrentDest=0,shCurrentSlide=0,shSlides=[];
+let shTimer=null,shPaused=false,shSlideStart=0,shRemainingMs=SH_SLIDE_MS;
+let shSeenDests=new Set();
+
+function shClearTimer(){ if(shTimer){clearTimeout(shTimer);shTimer=null;} }
+
+function openStory(destIdx){
+  shCurrentDest=destIdx;
+  document.body.style.overflow='hidden';
+  document.getElementById('shv').classList.add('open');
+  renderStorySlides(false);
+}
+
+function renderStorySlides(atEnd){
+  const h=STORY_HIGHLIGHTS[shCurrentDest];
+  shSlides=buildStorySlides(h);
+  document.getElementById('shv-who-img').src=h.avatar;
+  document.getElementById('shv-who-name').textContent=h.name;
+  document.getElementById('shv-bars').innerHTML=shSlides.map((_,i)=>`<div class="shv-bar"><div class="shv-bar-fill" id="shv-fill-${i}"></div></div>`).join('');
+  document.getElementById('shv-slides').innerHTML=shSlides.map((s,i)=>`
+    <div class="shv-slide" data-i="${i}">
+      ${s.video?`<video class="shv-media" muted playsinline preload="auto"><source src="${s.video}" type="video/mp4">${s.videoWebm?`<source src="${s.videoWebm}" type="video/webm">`:''}</video>`:`<img class="shv-media" src="${s.img}" alt="${s.alt}" loading="${i===0?'eager':'lazy'}">`}
+${s.tiktok?`<a class="shv-tt" href="${s.tiktok}" target="_blank" rel="noopener" onclick="event.stopPropagation()">▶ Watch on TikTok</a>`:''}
+      <div class="shv-cnt">${s.html}</div>
+    </div>`).join('');
+
+  // "Seen" ring — same visual language IG uses for a highlight you've opened.
+  shSeenDests.add(shCurrentDest);
+  const ring=document.querySelectorAll('#sh-row .sh-ring')[shCurrentDest];
+  if(ring) ring.classList.add('sh-seen');
+
+  showSlide(atEnd?shSlides.length-1:0);
+}
+
+function showSlide(i){
+  shClearTimer();
+  // Stop any video left playing from a slide we're navigating away from.
+  document.querySelectorAll('#shv-slides video').forEach(v=>{v.pause();v.currentTime=0;});
+  shCurrentSlide=i;
+  shPaused=false;
+  document.querySelectorAll('#shv-slides .shv-slide').forEach(el=>el.classList.toggle('active',+el.dataset.i===i));
+  shSlides.forEach((_,idx)=>{
+    const f=document.getElementById('shv-fill-'+idx);
+    if(!f)return;
+    f.style.transition='none';
+    f.style.width=idx<i?'100%':'0%';
+  });
+  // Video slides run for the clip's real length instead of the fixed
+  // SH_SLIDE_MS, same as Instagram timing a story to the clip itself.
+  const cur=shSlides[i];
+  if(cur&&cur.video){
+    const v=document.querySelector(`#shv-slides .shv-slide[data-i="${i}"] video`);
+    if(v){
+      const start=()=>{
+        v.play().catch(()=>{});
+        shRunBar((v.duration&&isFinite(v.duration))?v.duration*1000:SH_SLIDE_MS);
+      };
+      if(v.readyState>=1)start();
+      else v.addEventListener('loadedmetadata',start,{once:true});
+      return;
+    }
+  }
+  shRunBar(SH_SLIDE_MS);
+}
+
+function shRunBar(ms){
+  const f=document.getElementById('shv-fill-'+shCurrentSlide);
+  if(f){
+    requestAnimationFrame(()=>{
+      f.style.transition=`width ${ms}ms linear`;
+      f.style.width='100%';
+    });
+  }
+  shSlideStart=Date.now();
+  shRemainingMs=ms;
+  shTimer=setTimeout(nextSlide,ms);
+}
+
+function pauseStory(){
+  if(shPaused)return;
+  shPaused=true;
+  shClearTimer();
+  const f=document.getElementById('shv-fill-'+shCurrentSlide);
+  if(f){
+    f.style.width=getComputedStyle(f).width;
+    f.style.transition='none';
+  }
+  shRemainingMs=Math.max(shRemainingMs-(Date.now()-shSlideStart),300);
+  const v=document.querySelector(`#shv-slides .shv-slide[data-i="${shCurrentSlide}"] video`);
+  if(v)v.pause();
+}
+
+function resumeStory(){
+  if(!shPaused)return;
+  shPaused=false;
+  const v=document.querySelector(`#shv-slides .shv-slide[data-i="${shCurrentSlide}"] video`);
+  if(v)v.play().catch(()=>{});
+  shRunBar(shRemainingMs);
+}
+
+function nextSlide(){
+  if(shCurrentSlide<shSlides.length-1){showSlide(shCurrentSlide+1);}
+  else if(shCurrentDest<STORY_HIGHLIGHTS.length-1){shCurrentDest++;renderStorySlides(false);}
+  else{closeStory();}
+}
+
+function prevSlide(){
+  if(shCurrentSlide>0){showSlide(shCurrentSlide-1);}
+  else if(shCurrentDest>0){shCurrentDest--;renderStorySlides(true);}
+}
+
+function closeStory(){
+  shClearTimer();
+  document.querySelectorAll('#shv-slides video').forEach(v=>v.pause());
+  document.getElementById('shv').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',function(e){
+  const shv=document.getElementById('shv');
+  if(!shv||!shv.classList.contains('open'))return;
+  if(e.key==='Escape')closeStory();
+  else if(e.key==='ArrowRight')nextSlide();
+  else if(e.key==='ArrowLeft')prevSlide();
+});
+
+// Tap left/right half to go back/forward, press-and-hold to pause (like
+// IG), swipe left/right to navigate — all from one pointer-event handler
+// so mouse, touch and pen all behave the same way.
+(function(){
+  const box=document.getElementById('shv-box');
+  if(!box)return;
+  let active=false,startX=0,startY=0;
+  const isControl=t=>t.closest('.shv-nav,.shv-cl,.shv-cnt');
+
+  box.addEventListener('pointerdown',function(e){
+    if(isControl(e.target))return;
+    active=true;startX=e.clientX;startY=e.clientY;
+    pauseStory();
+  });
+  box.addEventListener('pointerup',function(e){
+    if(!active)return;
+    active=false;
+    const dx=e.clientX-startX,dy=e.clientY-startY;
+    if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)){
+      dx<0?nextSlide():prevSlide();
+    }else if(Math.abs(dx)<10 && Math.abs(dy)<10){
+      const rect=box.getBoundingClientRect();
+      (e.clientX-rect.left>rect.width/2)?nextSlide():prevSlide();
+    }else{
+      resumeStory();
+    }
+  });
+  box.addEventListener('pointercancel',function(){active=false;resumeStory();});
+  box.addEventListener('pointerleave',function(){if(active){active=false;resumeStory();}});
+})();
+// ═══ END STORY HIGHLIGHTS JS ═════════════════════════════════════════════
+
+renderStoryHighlights();
+</script>
+</body>
+</html>
