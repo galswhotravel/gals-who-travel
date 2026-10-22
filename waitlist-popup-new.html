@@ -33,7 +33,16 @@
       data-departure-id  TruTravels departure id
       data-date          ISO date, e.g. 2027-04-05
       data-date-label    display date, e.g. "05 apr 2027"
-      data-spaces-left   (optional) live count, only when <= 4
+      data-spaces-left   (optional) live TruTravels count; label only shows at 4 or fewer
+      data-was-price     (optional) full price, only while a discount is live on this date
+                         (the price cell then shows the discounted price)
+    Labels are drawn by renderLabels() from these attributes, so the same markup
+    covers every case. It can equally be rendered server-side using the same rules:
+      WAIT_LIST                 -> "fully booked" + Join Waitlist button
+      spaces-left 2 to 4        -> "n spaces left" (deep red) + pink row
+      spaces-left 1             -> "last space!"
+      spaces-left 5+ or missing -> no scarcity label
+      data-was-price present    -> struck full price, sale price, navy "10% off" label
  3. Keep the existing TruTravels "Book →" <form> in each open row and give its
     submit button the class .js-book. The "can't wait?" button clicks it, so
     booking still goes through TruTravels exactly as today.
@@ -80,6 +89,15 @@ body{margin:0;background:#FAF6F1;color:#0B213E;font-family:'DM Sans',system-ui,-
 .gwt-btn--wait[aria-expanded="true"],.gwt-btn--wait.is-joined{background:var(--gwt-ink);color:#fff;border-color:var(--gwt-ink)}
 .gwt-btn--wait.is-joined{cursor:default}
 .gwt-row form{margin:0}
+.gwt-price s{color:var(--gwt-grey);font-weight:500;margin-right:6px}
+.gwt-price .gwt-now{color:var(--gwt-red-deep)}
+.gwt-chip--off{background:var(--gwt-ink);color:var(--gwt-pink);margin-left:8px;vertical-align:middle}
+.gwt-row[data-status="WAIT_LIST"] .gwt-price s{display:none}
+/* demo-only key + sticky bar */
+.demo-key{display:flex;flex-wrap:wrap;gap:8px 10px;margin:0 0 18px;padding:14px 16px;background:#fff;border-radius:14px;font:500 12px 'DM Sans',system-ui,sans-serif;color:#3a3f4a}
+.demo-key b{font-weight:700;color:#0B213E;margin-right:4px}
+.demo-key span{display:inline-flex;align-items:center;gap:6px;background:#FAF6F1;border-radius:50px;padding:5px 10px}
+.gwt-sticky{display:none}
 .gwt-dates :focus-visible,.gwt-wl :focus-visible{outline:3px solid #FFD84D;outline-offset:2px}
 
 /* ---------- waitlist container (inline panel on desktop, sheet on mobile) ---------- */
@@ -127,7 +145,9 @@ body{margin:0;background:#FAF6F1;color:#0B213E;font-family:'DM Sans',system-ui,-
 .gwt-done__title i{color:var(--gwt-red)}
 .gwt-done__copy{margin:0;font:400 13px/1.55 'DM Sans',system-ui,sans-serif;color:#3a3f4a}
 .gwt-done__next{display:inline-block;align-self:flex-start;background:var(--gwt-red);color:#fff;border:0;border-radius:50px;padding:12px 20px;font:700 13px 'DM Sans',system-ui,sans-serif;cursor:pointer;white-space:nowrap}
-.gwt-done__next[hidden]{display:none}
+.gwt-done__next[hidden],.gwt-done__note[hidden]{display:none}
+.gwt-done__note{font:700 12px 'DM Sans',system-ui,sans-serif;color:var(--gwt-red-deep);display:inline-flex;align-items:center;gap:6px}
+.gwt-done__note::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gwt-red-deep)}
 
 /* backdrop + toast */
 .gwt-backdrop{position:fixed;inset:0;background:rgba(11,33,62,.5);z-index:999;opacity:0;transition:opacity .2s}
@@ -142,7 +162,15 @@ body{margin:0;background:#FAF6F1;color:#0B213E;font-family:'DM Sans',system-ui,-
   .demo{padding:36px 12px 120px}
   .demo h2{font-size:30px}
   .gwt-head{display:none}
-  .gwt-row{grid-template-columns:minmax(0,1fr) 64px 112px;column-gap:8px;padding:12px}
+  .gwt-row{grid-template-columns:minmax(0,1fr) 84px 104px;column-gap:8px;padding:12px}
+  .gwt-price s{display:block;margin:0;font-size:11px}
+  .gwt-price .gwt-now{display:block}
+  .gwt-chip--off{display:table;margin:4px 0 0 auto;font-size:9px;padding:4px 8px}
+  .gwt-sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;align-items:center;justify-content:space-between;gap:10px;background:#fff;padding:12px 14px calc(12px + env(safe-area-inset-bottom));border-top:1px solid #eee;box-shadow:0 -6px 20px rgba(11,33,62,.1)}
+  .gwt-sticky__price{font:700 18px 'DM Sans',system-ui,sans-serif;color:#0B213E}
+  .gwt-sticky__price s{font:500 11px 'DM Sans',system-ui,sans-serif;color:#8b7f84;margin-left:4px}
+  .gwt-sticky__note{font:700 10.5px 'DM Sans',system-ui,sans-serif;color:#A60F29}
+  .gwt-sticky__btn{background:#E8180A;color:#fff;border-radius:50px;padding:12px 18px;font:700 14px 'DM Sans',system-ui,sans-serif;white-space:nowrap;text-decoration:none}
   .gwt-row .gwt-return{display:none}
   .gwt-row .gwt-date{flex-direction:column;align-items:flex-start;gap:5px;font-size:14px}
   .gwt-row .gwt-price{text-align:right;font-size:14px}
@@ -188,7 +216,13 @@ body{margin:0;background:#FAF6F1;color:#0B213E;font-family:'DM Sans',system-ui,-
   <h2>Pick your <i>adventure</i></h2>
   <p class="intro">Secure your spot with just a deposit and the remaining balance is due 60 days before your trip starts!</p>
 
-  <div class="gwt-dates"
+  <div class="demo-key" aria-label="states shown in this demo">
+    <b>every state in this table:</b>
+    <span>11 jan · sale</span><span>08 feb · sale + 3 spaces left</span><span>08 mar · 3 spaces left, no sale</span>
+    <span>05 apr · fully booked, join waitlist</span><span>03 may · sale + last space</span><span>07 jun · plain</span>
+  </div>
+
+  <div class="gwt-dates" id="dates"
        data-trip-slug="morocco"
        data-trip-title="uncover"
        data-trip-title-em="morocco"
@@ -196,28 +230,50 @@ body{margin:0;background:#FAF6F1;color:#0B213E;font-family:'DM Sans',system-ui,-
 
     <div class="gwt-head" aria-hidden="true"><span>departure</span><span class="gwt-return">return</span><span>price</span><span></span></div>
 
-    <div class="gwt-row" data-status="OPEN" data-departure-id="1574048" data-date="2027-01-11" data-date-label="11 jan 2027">
-      <span class="gwt-date">11 Jan 2027</span><span class="gwt-return">19 Jan 2027</span><span class="gwt-price">£850</span>
+    <!-- sale, plenty of spaces: 10% off only -->
+    <div class="gwt-row" data-status="OPEN" data-departure-id="1574048" data-date="2027-01-11" data-date-label="11 jan 2027" data-was-price="£850">
+      <span class="gwt-date">11 Jan 2027</span><span class="gwt-return">19 Jan 2027</span><span class="gwt-price">£765</span>
       <span><form action="#" method="POST" onsubmit="event.preventDefault();alert('demo: posts to TruTravels booking')"><button class="gwt-btn gwt-btn--book js-book" type="submit">Book →</button></form></span>
     </div>
 
-    <div class="gwt-row" data-status="WAIT_LIST" data-departure-id="0000000" data-date="2027-04-05" data-date-label="05 apr 2027">
-      <span class="gwt-date">05 Apr 2027 <span class="gwt-chip gwt-chip--full">fully booked</span></span><span class="gwt-return">13 Apr 2027</span><span class="gwt-price">£850</span>
+    <!-- sale + 3 spaces left -->
+    <div class="gwt-row" data-status="OPEN" data-departure-id="1574049" data-date="2027-02-08" data-date-label="08 feb 2027" data-was-price="£850" data-spaces-left="3">
+      <span class="gwt-date">08 Feb 2027</span><span class="gwt-return">16 Feb 2027</span><span class="gwt-price">£765</span>
+      <span><form action="#" method="POST" onsubmit="event.preventDefault();alert('demo: posts to TruTravels booking')"><button class="gwt-btn gwt-btn--book js-book" type="submit">Book →</button></form></span>
+    </div>
+
+    <!-- no sale + 3 spaces left (how it looks all year round) -->
+    <div class="gwt-row" data-status="OPEN" data-departure-id="1574050" data-date="2027-03-08" data-date-label="08 mar 2027" data-spaces-left="3">
+      <span class="gwt-date">08 Mar 2027</span><span class="gwt-return">16 Mar 2027</span><span class="gwt-price">£850</span>
+      <span><form action="#" method="POST" onsubmit="event.preventDefault();alert('demo: posts to TruTravels booking')"><button class="gwt-btn gwt-btn--book js-book" type="submit">Book →</button></form></span>
+    </div>
+
+    <!-- fully booked: join waitlist -->
+    <div class="gwt-row" data-status="WAIT_LIST" data-departure-id="1574051" data-date="2027-04-05" data-date-label="05 apr 2027">
+      <span class="gwt-date">05 Apr 2027</span><span class="gwt-return">13 Apr 2027</span><span class="gwt-price">£850</span>
       <span><button class="gwt-btn gwt-btn--wait js-waitlist" type="button" aria-expanded="false">Join Waitlist</button></span>
     </div>
 
-    <div class="gwt-row is-low" data-status="OPEN" data-departure-id="1574052" data-date="2027-05-03" data-date-label="03 may 2027" data-spaces-left="3">
-      <span class="gwt-date">03 May 2027 <span class="gwt-chip gwt-chip--left">3 spaces left</span></span><span class="gwt-return">11 May 2027</span><span class="gwt-price">£850</span>
+    <!-- sale + last space -->
+    <div class="gwt-row" data-status="OPEN" data-departure-id="1574052" data-date="2027-05-03" data-date-label="03 may 2027" data-was-price="£850" data-spaces-left="1">
+      <span class="gwt-date">03 May 2027</span><span class="gwt-return">11 May 2027</span><span class="gwt-price">£765</span>
       <span><form action="#" method="POST" onsubmit="event.preventDefault();alert('demo: posts to TruTravels booking')"><button class="gwt-btn gwt-btn--book js-book" type="submit">Book →</button></form></span>
     </div>
 
-    <div class="gwt-row" data-status="OPEN" data-departure-id="1574053" data-date="2027-06-07" data-date-label="07 jun 2027">
+    <!-- no sale, plenty of spaces: no labels -->
+    <div class="gwt-row" data-status="OPEN" data-departure-id="1574053" data-date="2027-06-07" data-date-label="07 jun 2027" data-spaces-left="11">
       <span class="gwt-date">07 Jun 2027</span><span class="gwt-return">15 Jun 2027</span><span class="gwt-price">£850</span>
       <span><form action="#" method="POST" onsubmit="event.preventDefault();alert('demo: posts to TruTravels booking')"><button class="gwt-btn gwt-btn--book js-book" type="submit">Book →</button></form></span>
     </div>
   </div>
-  <p style="font:400 11px 'DM Sans',system-ui,sans-serif;color:#8b7f84;margin-top:10px">demo only: the fully booked date, ids and space count are illustrative.</p>
+  <p style="font:400 11px 'DM Sans',system-ui,sans-serif;color:#8b7f84;margin-top:10px">demo only: dates, ids, sale prices and space counts are illustrative so every state shows in one table.</p>
 </main>
+
+<!-- mobile sticky booking bar (demo of how it reacts to the labels; the live site already has one) -->
+<div class="gwt-sticky" aria-label="book this trip">
+  <div><div class="gwt-sticky__price"></div><div class="gwt-sticky__note"></div></div>
+  <a class="gwt-sticky__btn" href="#dates">Book now →</a>
+</div>
 
 <!-- ================= WAITLIST TEMPLATE (include once per page) ================= -->
 <template id="gwt-wl-template">
@@ -249,6 +305,7 @@ body{margin:0;background:#FAF6F1;color:#0B213E;font-family:'DM Sans',system-ui,-
         <span class="gwt-done__eyebrow"><span data-slot="date"></span> · <span data-slot="trip-name"></span></span>
         <h3 class="gwt-done__title">wahoo! you're on the list <i>gal!!</i></h3>
         <p class="gwt-done__copy">we'll email <b data-slot="email"></b> the moment a space opens on <span data-slot="date-short"></span>.</p>
+        <span class="gwt-done__note" data-slot="next-note" hidden></span>
         <button class="gwt-done__next" type="button" data-slot="next">can't wait? book <span data-slot="next-date"></span> →</button>
       </div>
     </div>
@@ -321,6 +378,11 @@ body{margin:0;background:#FAF6F1;color:#0B213E;font-family:'DM Sans',system-ui,-
     var nextBtn = panel.querySelector('[data-slot="next"]');
     if (next) {
       fill(panel, 'next-date', shortDate(next.dataset.dateLabel));
+      var n = parseInt(next.dataset.spacesLeft, 10), note = panel.querySelector('[data-slot="next-note"]');
+      if (n >= 1 && n <= 4) {
+        note.textContent = n === 1 ? 'last space on ' + shortDate(next.dataset.dateLabel) + '!' : 'only ' + n + ' spaces left on ' + shortDate(next.dataset.dateLabel);
+        note.hidden = false;
+      }
       nextBtn.addEventListener('click', function () { next.querySelector('.js-book').click(); });
     } else {
       nextBtn.hidden = true;
@@ -444,6 +506,50 @@ body{margin:0;background:#FAF6F1;color:#0B213E;font-family:'DM Sans',system-ui,-
       startY = null;
     });
   }
+
+  /* ---------- labels: fully booked / spaces left / 10% off ---------- */
+  var LOW = 4;
+  function chip(cls, text) { var c = document.createElement('span'); c.className = 'gwt-chip ' + cls; c.textContent = text; return c; }
+  function renderLabels(scope) {
+    scope.querySelectorAll('.gwt-row').forEach(function (row) {
+      var dateCell = row.querySelector('.gwt-date'), priceCell = row.querySelector('.gwt-price');
+      dateCell.querySelectorAll('.gwt-chip').forEach(function (c) { c.remove(); });
+      priceCell.querySelectorAll('.gwt-chip, s').forEach(function (c) { c.remove(); });
+      row.classList.remove('is-low');
+      var n = parseInt(row.dataset.spacesLeft, 10);
+
+      if (row.dataset.status === 'WAIT_LIST' || n === 0) {
+        dateCell.appendChild(chip('gwt-chip--full', 'fully booked'));
+      } else if (n >= 1 && n <= LOW) {
+        dateCell.appendChild(chip('gwt-chip--left', n === 1 ? 'last space!' : n + ' spaces left'));
+        row.classList.add('is-low');
+      }
+      if (row.dataset.wasPrice && row.dataset.status !== 'WAIT_LIST') {
+        var now = priceCell.querySelector('.gwt-now');
+        if (!now) { now = document.createElement('span'); now.className = 'gwt-now'; now.textContent = priceCell.textContent.trim(); priceCell.textContent = ''; priceCell.appendChild(now); }
+        var was = document.createElement('s'); was.textContent = row.dataset.wasPrice; priceCell.insertBefore(was, now);
+        priceCell.appendChild(chip('gwt-chip--off', '10% off'));
+      }
+    });
+  }
+
+  /* ---------- demo sticky bar: cheapest price + soonest low date ---------- */
+  function renderSticky(table) {
+    var bar = document.querySelector('.gwt-sticky'); if (!bar) return;
+    var rows = [].slice.call(table.querySelectorAll('.gwt-row')).filter(function (r) { return r.dataset.status !== 'WAIT_LIST'; });
+    if (!rows.length) { bar.hidden = true; return; }
+    var num = function (t) { return parseFloat(String(t).replace(/[^0-9.]/g, '')); };
+    var priceOf = function (r) { return (r.querySelector('.gwt-now') || r.querySelector('.gwt-price')).textContent.trim(); };
+    var cheapest = rows.reduce(function (a, r) { return num(priceOf(r)) < num(priceOf(a)) ? r : a; });
+    var nowTxt = priceOf(cheapest);
+    bar.querySelector('.gwt-sticky__price').innerHTML = 'From ' + nowTxt + (cheapest.dataset.wasPrice ? ' <s>' + cheapest.dataset.wasPrice + '</s>' : '');
+    var low = rows.filter(function (r) { var n = parseInt(r.dataset.spacesLeft, 10); return n >= 1 && n <= LOW; })[0];
+    var n = low ? parseInt(low.dataset.spacesLeft, 10) : 0;
+    bar.querySelector('.gwt-sticky__note').textContent = low
+      ? shortDate(low.dataset.dateLabel) + (n === 1 ? ': last space!' : ': only ' + n + ' spaces left')
+      : (cheapest.dataset.wasPrice ? '10% off · ends 2 dec' : '£200 deposit');
+  }
+  document.querySelectorAll('.gwt-dates').forEach(function (t) { renderLabels(t); renderSticky(t); });
 
   /* ---------- global wiring ---------- */
   var joinedIds = readJoined();
